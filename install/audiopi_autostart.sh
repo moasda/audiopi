@@ -3,7 +3,7 @@
 # Provides: AudioPI (by CSC)
 # Required-Start: $syslog
 # Required-Stop: $syslog
-# Description: This script starts/stops all necessary programs to launch AudioPI
+# Description: This script starts/stops all necessary programs to launch AudioPI.
 ##################################################################################
  
 case "$1" in
@@ -18,7 +18,7 @@ case "$1" in
         mocp -x
         ;;
     *)
-        echo "Use: /etc/init.d/noip {start|stop}"
+        echo "Use: /etc/init.d/audiopi {start|stop}"
         exit 1
         ;;
 esac
