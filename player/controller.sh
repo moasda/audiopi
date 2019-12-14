@@ -1,35 +1,39 @@
 #!/bin/bash
+##################################################################################
+# Provides: AudioPI (by CSC)
+# Required-Start: $syslog
+# Required-Stop: $syslog
+# Description: This script controlls all features. Scanned features will
+#              be executed in scan-script (e.g. qr_controller.sh).
+##################################################################################
 AUDIODEV=hw:0
-arg="$1"
-case $arg in
-  "qr")
-    zbarcam --nodisplay -Sdisable -Sqrcode.enable --prescale=320x240 /dev/video0 | /home/pi/player/rbar.sh
-    ;;
-  "qr2")
-    zbarcam --nodisplay -Sdisable -Sqrcode.enable --prescale=320x240 /dev/video0 | /home/pi/player/csc.sh
+
+case $1 in
+  "scan")
+    zbarcam --nodisplay -Sdisable -Sqrcode.enable --prescale=320x240 /dev/video0 | /home/pi/audiopi/player/qr_controller.sh
     ;;
   "next")
     echo "Next Song"
-    xmms2 next
+    mscp -f
     ;;
  "prev")
     echo "Previous Song"
-    xmms2 prev
+    mscp -r
     ;;
   "volup")
     echo "volume 5 up"
-    xmms2 server volume +5
+    mocp -v +5
     ;;
   "voldown")
     echo "volume 5 down"
-    xmms2 server volume -5
+    mocp -v -5
     ;;
   "play")
-    echo "toggle playback"
-    xmms2 toggle
-    status=$(xmms2 current)
-    if [[ "$status" =~ ^Paused ]]; then
-      play -q /home/pi/no.wav
-    fi
+    echo "toggle play/pause"
+    mocp -G
+    #status=$(xmms2 current)
+    #if [[ "$status" =~ ^Paused ]]; then
+    #  play -q /home/pi/no.wav
+    #fi
     ;;
 esac
