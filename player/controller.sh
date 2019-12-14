@@ -10,7 +10,7 @@ AUDIODEV=hw:0
 
 case $1 in
   "scan")
-    zbarcam --nodisplay -Sdisable -Sqrcode.enable --prescale=320x240 /dev/video0 | /home/pi/audiopi/player/qr_controller.sh
+    zbarcam --nodisplay -Sdisable -Sqrcode.enable --prescale=320x240 /dev/video0 | ./qr_controller.sh
     ;;
   "next")
     echo "Next Song"
