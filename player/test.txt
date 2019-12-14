@@ -1,0 +1,42 @@
+Found QR code: QR:Conni - und das ganz spezielle Weihnachtsfest
+'/home/pi/music/Conni - und das ganz spezielle Weihnachtsfest'
+Found QR code: QR:Conni - und das ganz spezielle Weihnachtsfest/
+'/home/pi/music/Conni - und das ganz spezielle Weihnachtsfest/'
+Found QR code: QR:Conni - und das ganz spezielle Weihnachtsfest
+'/home/pi/music/Conni - und das ganz spezielle Weihnachtsfest'/
+Found QR code: QR:Conni - und das ganz spezielle Weihnachtsfest
+'/home/pi/music/Conni - und das ganz spezielle Weihnachtsfest'/
+Found QR code: QR:'Conni - und das ganz spezielle Weihnachtsfest'
+'/home/pi/music/'Conni - und das ganz spezielle Weihnachtsfest''
+Found QR code: QR:Conni - und das ganz spezielle Weihnachtsfest
+'/home/pi/music/Conni - und das ganz spezielle Weihnachtsfest'
+Found QR code: QR:"Conni - und das ganz spezielle Weihnachtsfest"
+'/home/pi/music/"Conni - und das ganz spezielle Weihnachtsfest"'
+Found QR code: QR:"Conni - und das ganz spezielle Weihnachtsfest"
+/home/pi/music/"Conni - und das ganz spezielle Weihnachtsfest"
+Found QR code: QR:'Conni - und das ganz spezielle Weihnachtsfest'
+/home/pi/music/'Conni - und das ganz spezielle Weihnachtsfest'
+Found QR code: QR:'Conni - und das ganz spezielle Weihnachtsfest'
+/home/pi/music/'Conni - und das ganz spezielle Weihnachtsfest'
+Found QR code: QR:Conni - und das ganz spezielle Weihnachtsfest
+/home/pi/music/Conni - und das ganz spezielle Weihnachtsfest
+Found QR code: QR:'Conni - und das ganz spezielle Weihnachtsfest'
+/home/pi/music/'Conni - und das ganz spezielle Weihnachtsfest'
+Found QR code: QR:'Conni - und das ganz spezielle Weihnachtsfest'
+/home/pi/music/'Conni - und das ganz spezielle Weihnachtsfest'
+Found QR code: QR:'Conni - und das ganz spezielle Weihnachtsfest'
+'/home/pi/music/'Conni - und das ganz spezielle Weihnachtsfest''
+Found QR code: QR:Conni - und das ganz spezielle Weihnachtsfest
+'/home/pi/music/Conni - und das ganz spezielle Weihnachtsfest'
+Found QR code: QR:"Conni - und das ganz spezielle Weihnachtsfest"
+'/home/pi/music/"Conni - und das ganz spezielle Weihnachtsfest"'
+Found QR code: QR-Code:https://standorte.deutschepost.de/LocationDetail?template=locationdetail&objecttype=branch&standorttyp=filialen_verkaufspunkte&objectid=00016945&id=XXFE8PRC19120202059980392&branchrating_source=QR_KB#section_filialebewerten
+'/home/pi/music/https'
+Found QR code: QR-Code:Kokusnus
+'/home/pi/music/Kokusnus'
+Found QR code: QR-Code:Kokusnuss
+'/home/pi/music/Kokusnuss'
+Found QR code: QR-Code:Kokusnuss
+/home/pi/music/Kokusnuss
+Found QR code: QR-Code:Kokusnuss
+/home/pi/music/Kokusnuss
