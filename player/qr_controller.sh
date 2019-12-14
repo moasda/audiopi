@@ -1,19 +1,38 @@
 #!/bin/bash
+##################################################################################
+# Provides: AudioPI (by CSC)
+# Description: This read the qr code and executes a command or plays the music.
+##################################################################################
 AUDIODEV=hw:0
+
 musicpath=/home/pi/music
 
 while true; do
   read qr
   if [[ "$qr" =~ ^QR ]]; then
-    echo "Found QR code: $qr" >> test.txt
-    folder=$(echo $qr | cut -d':' -f 2)
-    playlist=$(echo "$musicpath/$folder")
-    echo $playlist >> test.txt
-    mocp -c
-    mocp -a $playlist
-    mocp -p
-    exit
+    echo "Found QR code: $qr" >> log.txt
+
+    #Get qr code "QR-Code:***", we need the string after the ":", for example:
+    #music folder: QR-Code:Kokusnuss
+    #command:      QR-Code:cmd#sudo reboot
+    qrcode=$(echo $qr | cut -d':' -f 2)
+
+    if [[ "$qrcode" =~ ^cmd# ]]; then
+      command=$(echo $qrcode | cut -d':' -f 2)
+      echo "Execute command: $command" >> log.txt
+      exit
+    else
+      folder=$qrcode
+      #Create path to the playlist/music files
+      playlist=$(echo "$musicpath/$folder")
+      echo $playlist >> log.txt
+      #Clear current playlsit
+      mocp -c
+      #Create new playlist
+      mocp -a $playlist
+      #Start playing
+      mocp -p
+      exit
+    fi
   fi
-  #echo "QR-Code not found: $qr" >> test.txt
-  #sleep 1
 done

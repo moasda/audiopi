@@ -1,8 +1,6 @@
 #!/bin/bash
 ##################################################################################
 # Provides: AudioPI (by CSC)
-# Required-Start: $syslog
-# Required-Stop: $syslog
 # Description: This script controlls all features. Scanned features will
 #              be executed in scan-script (e.g. qr_controller.sh).
 ##################################################################################
