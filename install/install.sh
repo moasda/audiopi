@@ -5,7 +5,7 @@
 ##################################################################################
 
 #Place autostart script for running at RasbperryPI startup
-sudo cp ./audiopi.sh /etc/init.d/audiopi.sh
+sudo cp ./audiopi_autostart.sh /etc/init.d/audiopi.sh
 
 #Assign the required rights (Read & Write)
 sudo chmod 755 /etc/init.d/audiopi.sh
