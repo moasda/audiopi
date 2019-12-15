@@ -34,4 +34,9 @@ case $1 in
     #  play -q /home/pi/no.wav
     #fi
     ;;
+  "test")
+    test="Meine Freundin Conni in den Bergen"
+    test=${test//" "/"_"}
+    echo $test
+    ;;
 esac

@@ -5,7 +5,10 @@
 ##################################################################################
 
 #Take the program out of the Autostart
-sudo update-rc.d -f audiopi.sh remove
+#sudo update-rc.d -f audiopi.sh remove
 
 #Remove autostart script
-sudo rm /etc/init.d/audiopi.sh
+#sudo rm /etc/init.d/audiopi.sh
+
+sudo systemctl stop audiopi.service
+sudo rm /etc/systemd/system/audiopi.service

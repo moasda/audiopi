@@ -22,7 +22,8 @@ while true; do
       echo "Execute command: $command" >> log.txt
       exit
     else
-      folder=$qrcode
+      #replace blanks with underscore
+      folder=${qrcode//" "/"_"}
       #Create path to the playlist/music files
       playlist=$(echo "$musicpath/$folder")
       echo $playlist >> log.txt

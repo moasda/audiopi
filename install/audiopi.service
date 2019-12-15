@@ -1,0 +1,13 @@
+[Unit]
+Description=AutioPI
+
+[Service]
+Type=simple
+ExecStart=/home/pi/audiopi/install/audiopi_autostart start
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
