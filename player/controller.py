@@ -1,3 +1,4 @@
+import logging
 import time
 import subprocess
 import select  # for polling zbarcam, see http://stackoverflow.com/a/10759061/3761783
