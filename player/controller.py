@@ -30,7 +30,9 @@ try:
 # Exit when Ctrl-C is pressed
 except KeyboardInterrupt:
     logging.info('Shutdown')
+    print("Shutdown")
     
 finally:
     logging.info('Reset GPIO configuration and close')
-    GPIO.cleanup()            
+    print("Reset GPIO configuration and close")
+#    GPIO.cleanup()            
