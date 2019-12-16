@@ -11,4 +11,4 @@
 #sudo rm /etc/init.d/audiopi.sh
 
 sudo systemctl stop audiopi.service
-sudo rm /etc/systemd/system/audiopi.service
+sudo rm /lib/systemd/system/audiopi.service

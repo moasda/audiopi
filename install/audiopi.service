@@ -3,10 +3,7 @@ Description=AutioPI
 
 [Service]
 Type=simple
-ExecStart=/home/pi/audiopi/install/audiopi_autostart start
-StandardOutput=inherit
-StandardError=inherit
-Restart=always
+ExecStart=/bin/bash -c 'exec python3.6 /home/pi/audiopi/player/controller.py > /tmp/audiopi.log 2>&1'
 User=pi
 
 [Install]
