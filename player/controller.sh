@@ -38,5 +38,6 @@ case $1 in
     test="Meine Freundin Conni in den Bergen"
     test=${test//" "/"_"}
     echo $test
+    #find /home/pi/music -type d -execdir rename 's/ /_/g' '{}' \+
     ;;
 esac
