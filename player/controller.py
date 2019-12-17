@@ -54,9 +54,9 @@ def play(music_path):
 
 
 try:
-    listener_thread = Thread(target=events_thread)
-    listener_thread.daemon = True
-    listener_thread.start()
+    #listener_thread = Thread(target=events_thread)
+    #listener_thread.daemon = True
+    #listener_thread.start()
 
     while True:
         #scan QR code
