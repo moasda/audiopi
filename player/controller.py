@@ -74,12 +74,7 @@ def play(music_path):
 GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=400)
 #GPIO.add_event_detect(PIN_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=400)
 
-
 try:
-    listener_thread = Thread(target=events_thread)
-    listener_thread.daemon = True
-    listener_thread.start()
-
     while True:
 
         #turn LED on for photo
