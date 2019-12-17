@@ -47,7 +47,7 @@ def play(music_path):
     cmd = "mocp -c"
     os.system(cmd)
     #Create new playlist
-    cmd = "mocp -a" + music_path
+    cmd = "mocp -a " + music_path
     os.system(cmd)
     #Start playing
     cmd = "mocp -p"
