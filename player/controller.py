@@ -1,6 +1,7 @@
 #Soruce:
 #https://github.com/tliero/qudio/blob/master/code/qudio.py
 
+import os
 import logging
 import time
 import subprocess
@@ -42,17 +43,15 @@ def prev_callback(channel):
 
 #function for playing sounds
 def play(music_path):
-    #mocp -c
-    #mocp -a $playlist
-    #mocp -p
-    mocp_playlist_arg = "-a " + music_path
-
     #Clear current playlsit
-    subprocess.run(['mocp', '-c'])
+    cmdp = "mocp -c"
+    os.system(cmd)
     #Create new playlist
-    subprocess.run(['mocp', mocp_playlist_arg])
+    cmdp = "mocp -a" + music_path
+    os.system(cmd)
     #Start playing
-    subprocess.run(['mocp', '-p'])
+    cmdp = "mocp -p"
+    os.system(cmd)
     print("play now")
 
 try:
