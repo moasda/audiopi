@@ -44,13 +44,13 @@ def prev_callback(channel):
 #function for playing sounds
 def play(music_path):
     #Clear current playlsit
-    cmdp = "mocp -c"
+    cmd = "mocp -c"
     os.system(cmd)
     #Create new playlist
-    cmdp = "mocp -a" + music_path
+    cmd = "mocp -a" + music_path
     os.system(cmd)
     #Start playing
-    cmdp = "mocp -p"
+    cmd = "mocp -p"
     os.system(cmd)
     print("play now")
 
