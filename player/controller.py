@@ -89,7 +89,7 @@ try:
             
         else:
             logging.warning('Timeout on zbarcam')
-            play(SOUND_SCAN_FAIL)
+            #play(SOUND_SCAN_FAIL)
 
         zbarcam.terminate()
 
