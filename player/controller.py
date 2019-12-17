@@ -67,58 +67,63 @@ def play(music_path):
     #Start playing
     cmd = "mocp -p"
     os.system(cmd)
-    print("play now")
+    logging.info("Play: " + music_path)
 
 
 #GPIO.add_event_detect(PIN_PREV, GPIO.FALLING, callback=prev_callback, bouncetime=400)
-GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=400)
+#GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=400)
 #GPIO.add_event_detect(PIN_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=400)
+
+
+def play_scan(channel):
+    #turn LED on for photo
+    GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
+
+    #scan QR code
+    zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    
+    poll_obj = select.poll()
+    poll_obj.register(zbarcam.stdout, select.POLLIN)
+    
+    #wait for scan result (or timeout)
+    start_time = time.time()
+    poll_result = False
+    while ((time.time() - start_time) < QR_SCANNER_TIMEOUT and (not poll_result)):
+        poll_result = poll_obj.poll(100)
+
+    if (poll_result):
+        qr_code = zbarcam.stdout.readline().rstrip()
+        qr_code = qr_code.decode("utf-8") # python3
+        logging.info("QR Code: " + qr_code)
+
+        if qr_code.startswith("cmd://"):
+            play(qr_code)
+        elif qr_code != "":
+            #replace blanks with underscore
+            qr_code.replace(" ", "_")
+            #create full path
+            full_path = MUSIC_BASE_DIRECTORY + qr_code
+            logging.info("full_music_path: " + full_path)
+            #play
+            play(full_path)
+        
+        qr_code = ""
+
+    else:
+        logging.warning('Timeout on zbarcam')
+        #play(SOUND_SCAN_FAIL)
+
+    zbarcam.terminate()
+
+    #turn LED off for photo
+    GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
+
+
+GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_scan, bouncetime=400)
 
 try:
     while True:
-
-        #turn LED on for photo
-        GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
-
-        #scan QR code
-        zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        
-        poll_obj = select.poll()
-        poll_obj.register(zbarcam.stdout, select.POLLIN)
-        
-        #wait for scan result (or timeout)
-        start_time = time.time()
-        poll_result = False
-        while ((time.time() - start_time) < QR_SCANNER_TIMEOUT and (not poll_result)):
-            poll_result = poll_obj.poll(100)
-
-        if (poll_result):
-            qr_code = zbarcam.stdout.readline().rstrip()
-            qr_code = qr_code.decode("utf-8") # python3
-            logging.info("QR Code: " + qr_code)
-
-            if qr_code.startswith("cmd://"):
-                play(qr_code)
-            elif qr_code != "":
-                #replace blanks with underscore
-                qr_code.replace(" ", "_")
-                #create full path
-                full_path = MUSIC_BASE_DIRECTORY + qr_code
-                logging.info("full_music_path: " + full_path)
-                print(full_path)
-                #play
-                play(full_path)
-            
-            qr_code = ""
-
-        else:
-            logging.warning('Timeout on zbarcam')
-            #play(SOUND_SCAN_FAIL)
-
-        zbarcam.terminate()
-
-        #turn LED off for photo
-        GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
+        time.sleep(1)
 
 # Exit when Ctrl-C is pressed
 except KeyboardInterrupt:
