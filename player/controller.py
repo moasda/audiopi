@@ -46,12 +46,12 @@ def play(music_path):
     #mocp -a $playlist
     #mocp -p
     #Clear current playlsit
-    subprocess.Popen(['mocp', '-c'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    test1 = subprocess.Popen(['mocp', '-c'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     #Create new playlist
-    subprocess.Popen(['mocp', '-a '+ music_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    test2 = subprocess.Popen(['mocp', '-a '+ music_path])
     #Start playing
-    subprocess.Popen(['mocp', '-p'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
+    test3 = subprocess.Popen(['mocp', '-p'])
+    print("play now:" + test1 + ":" + test2 + ":" + test3)
 
 try:
     #listener_thread = Thread(target=events_thread)
