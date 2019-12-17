@@ -7,7 +7,7 @@ import logging
 import time
 import subprocess
 import select  # for polling zbarcam, see http://stackoverflow.com/a/10759061/3761783
-from threading import Thread
+#from threading import Thread
 
 #Configuration
 QR_SCANNER_TIMEOUT = 4
@@ -96,7 +96,6 @@ try:
             qr_code = zbarcam.stdout.readline().rstrip()
             qr_code = qr_code.decode("utf-8") # python3
             logging.info("QR Code: " + qr_code)
-            print(qr_code)
 
             if qr_code.startswith("cmd://"):
                 play(qr_code)
@@ -105,7 +104,7 @@ try:
                 qr_code.replace(" ", "_")
                 #create full path
                 full_path = MUSIC_BASE_DIRECTORY + qr_code
-                logging.debug("full_music_path: " + full_path)
+                logging.info("full_music_path: " + full_path)
                 print(full_path)
                 #play
                 play(full_path)
@@ -124,9 +123,7 @@ try:
 # Exit when Ctrl-C is pressed
 except KeyboardInterrupt:
     logging.info('Shutdown')
-    print("Shutdown")
     
 finally:
     logging.info('Reset GPIO configuration and close')
-    print("Reset GPIO configuration and close")
     GPIO.cleanup()            
