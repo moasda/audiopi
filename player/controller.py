@@ -129,4 +129,4 @@ except KeyboardInterrupt:
 finally:
     logging.info('Reset GPIO configuration and close')
     print("Reset GPIO configuration and close")
-#    GPIO.cleanup()            
+    GPIO.cleanup()            
