@@ -75,7 +75,7 @@ try:
             qr_code = zbarcam.stdout.readline().rstrip()
             qr_code = qr_code.decode("utf-8") # python3
             logging.info("QR Code: " + qr_code)
-            print("QR Code: " + qr_code)
+            print(qr_code)
 
             if qr_code.startswith("cmd://"):
                 play(qr_code)
@@ -85,6 +85,7 @@ try:
                 #create full path
                 full_path = MUSIC_BASE_DIRECTORY + qr_code
                 logging.debug("full_music_path: " + full_path)
+                print(full_path)
                 play(full_path)
             
         else:
