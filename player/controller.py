@@ -45,10 +45,12 @@ def play(music_path):
     #mocp -c
     #mocp -a $playlist
     #mocp -p
+    mocp_playlist_arg = "-a " + music_path
+
     #Clear current playlsit
     subprocess.run(['mocp', '-c'])
     #Create new playlist
-    subprocess.run(['mocp', '-a '+ music_path])
+    subprocess.run(['mocp', mocp_playlist_arg])
     #Start playing
     subprocess.run(['mocp', '-p'])
     print("play now")
