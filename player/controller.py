@@ -100,8 +100,7 @@ try:
 
             if qr_code.startswith("cmd://"):
                 play(qr_code)
-                break
-            else:
+            elif qr_code != "":
                 #replace blanks with underscore
                 qr_code.replace(" ", "_")
                 #create full path
@@ -110,8 +109,9 @@ try:
                 print(full_path)
                 #play
                 play(full_path)
-                break
             
+            qr_code = ""
+
         else:
             logging.warning('Timeout on zbarcam')
             #play(SOUND_SCAN_FAIL)
