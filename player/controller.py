@@ -9,7 +9,7 @@ from threading import Thread
 
 #Configuration
 QR_SCANNER_TIMEOUT = 4
-
+MUSIC_BASE_DIRECTORY = "/home/pi/music/"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
 logging.info('Initializing')
@@ -41,8 +41,16 @@ def prev_callback(channel):
     logging.info("VOLDOWN")
 
 #function for playing sounds
-def play(uri, service = 'mpd'):
-    #socketIO.emit('replaceAndPlay', {'service':service,'uri':uri})
+def play(music_path):
+    #mocp -c
+    #mocp -a $playlist
+    #mocp -p
+    #Clear current playlsit
+    subprocess.Popen(['mocp', '-c'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    #Create new playlist
+    subprocess.Popen(['mocp', '-a '+ music_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    #Start playing
+    subprocess.Popen(['mocp', '-p'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
 try:
@@ -69,16 +77,14 @@ try:
             logging.info("QR Code: " + qr_code)
             print("QR Code: " + qr_code)
 
-            if qr_code.startswith("http://") or qr_code.startswith("https://"):
-                play(qr_code, 'webradio')
-            elif qr_code.startswith("spotify:"):
-                play(qr_code, 'spop')
+            if qr_code.startswith("cmd://"):
+                play(qr_code)
             else:
-                # create full path
-                if (qr_code.startswith("/")):
-                    qr_code = qr_code[1:]
+                #replace blanks with underscore
+                qr_code.replace(" ", "_")
+                #create full path
                 full_path = MUSIC_BASE_DIRECTORY + qr_code
-                logging.debug("full_path: " + full_path)
+                logging.debug("full_music_path: " + full_path)
                 play(full_path)
             
         else:
