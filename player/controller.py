@@ -80,8 +80,9 @@ def scan_and_play_callback(channel):
         #turn LED on for photo
         GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
+        play_status = False
+
         #scan QR code
-        zbarcam = False
         zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         poll_obj = select.poll()
@@ -100,6 +101,7 @@ def scan_and_play_callback(channel):
 
             if qr_code.startswith("cmd://"):
                 play(qr_code)
+                play_status = True
             elif qr_code != "":
                 #replace blanks with underscore
                 qr_code.replace(" ", "_")
@@ -108,11 +110,7 @@ def scan_and_play_callback(channel):
                 logging.info("full_music_path: " + full_path)
                 #play
                 play(full_path)
-
-            #turn LED off for photo
-            GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
-            break
-
+                play_status = True
         else:
             logging.warning('Timeout on zbarcam')
             #play(SOUND_SCAN_FAIL)
@@ -121,6 +119,9 @@ def scan_and_play_callback(channel):
 
         #turn LED off for photo
         GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
+
+        if play_status = True:
+            break
 
 
 GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=400)
