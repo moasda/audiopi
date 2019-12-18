@@ -4,9 +4,6 @@
 # Description: Steps to unintall AudioPI from RaspberryPI
 ##################################################################################
 
-#Delete mocp configuration for USB soundcard
-sudo rm ~/.moc/config
-
 #Take the program out of the Autostart
 #sudo update-rc.d -f audiopi.sh remove
 

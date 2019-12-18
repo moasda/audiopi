@@ -3,8 +3,11 @@
 *This is important*
 
 1. Setup raspian environment (install basic software)
-2. Setup AudioPI (call ./install/install.sh)
+2. Setup audio device for mocp (music over console)
+3. Setup AudioPI
 
+
+### 1. Setup raspian environment
 
 ### Code Block
 #Systemupdate
@@ -35,6 +38,22 @@ git config --global core.editor *nano*
 sudo raspi-config
 
 Activate "Camera"
+
+
+### 2. Setup audio device for mocp
+
+### Code Block
+#Place mocp configuration for USB soundcard
+sudo cp ./install/config ~/.moc/config
+
+
+### 3. Setup AudioPI
+
+### Code Block
+#Run install script
+chmod 755 ./install/install.sh
+./install.sh
+
 
 
 ### Other useful commands

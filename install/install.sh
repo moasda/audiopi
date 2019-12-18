@@ -4,9 +4,6 @@
 # Description: Steps to intall AudioPI on RaspberryPI
 ##################################################################################
 
-#Place mocp configuration for USB soundcard
-sudo cp ./config ~/.moc/config
-
 #Place autostart script for running at RasbperryPI startup
 #sudo cp ./audiopi_autostart.sh /etc/init.d/audiopi.sh
 sudo cp ./audiopi.service /lib/systemd/system/audiopi.service
