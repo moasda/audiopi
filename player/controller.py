@@ -69,12 +69,7 @@ def play(music_path):
     os.system(cmd)
     logging.info("Play: " + music_path)
 
-
-#GPIO.add_event_detect(PIN_PREV, GPIO.FALLING, callback=prev_callback, bouncetime=400)
-#GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=400)
-#GPIO.add_event_detect(PIN_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=400)
-
-
+#function to scan and play
 def scan_and_play_callback(channel):
     while True:
         #turn LED on for photo
@@ -104,7 +99,7 @@ def scan_and_play_callback(channel):
                 play_status = True
             elif qr_code != "":
                 #replace blanks with underscore
-                qr_code.replace(" ", "_")
+                qr_code = qr_code.replace(" ", "_")
                 #create full path
                 full_path = MUSIC_BASE_DIRECTORY + qr_code
                 logging.info("full_music_path: " + full_path)
@@ -123,6 +118,10 @@ def scan_and_play_callback(channel):
         if play_status == True:
             break
 
+
+#GPIO.add_event_detect(PIN_PREV, GPIO.FALLING, callback=prev_callback, bouncetime=400)
+#GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=400)
+#GPIO.add_event_detect(PIN_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=400)
 
 GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=400)
 

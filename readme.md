@@ -62,3 +62,8 @@ chmod 755 ./install/install.sh
 sudo shutdown -h now
 sudo reboot
 sudo mount 192.168.178.250:/volumes2/daten /mnt/syno_daten
+
+### Code Block
+#Rename folders and replace space with underscore
+find ~/music -type d -name '* *' -execdir bash -c 'mv "$1" "${1// /_}"' bash {} \;
+
