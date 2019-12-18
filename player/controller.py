@@ -107,6 +107,9 @@ def scan_and_play_callback(channel):
                 logging.info("full_music_path: " + full_path)
                 #play
                 play(full_path)
+
+            #turn LED off for photo
+            GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
             break
 
         else:
@@ -121,10 +124,14 @@ def scan_and_play_callback(channel):
 
 GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=400)
 
+logging.info("Start mocp server")
+cmd = "mocp -S"
+os.system(cmd)
+
 try:
     while True:
         logging.info('Waiting for activity')
-        time.sleep(3)
+        time.sleep(1)
 
 # Exit when Ctrl-C is pressed
 except KeyboardInterrupt:
