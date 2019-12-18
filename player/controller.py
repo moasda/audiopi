@@ -81,6 +81,7 @@ def scan_and_play_callback(channel):
         GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
         #scan QR code
+        zbarcam = False
         zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         poll_obj = select.poll()
