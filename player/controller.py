@@ -12,6 +12,9 @@ import select  # for polling zbarcam, see http://stackoverflow.com/a/10759061/37
 QR_SCANNER_TIMEOUT = 4
 MUSIC_BASE_DIRECTORY = "/home/pi/music/"
 
+PIN_LED_PHOTO = 23
+PIN_PLAY = 24
+
 #function for button "play/pause"
 def play_callback(channel):
     logging.info("PLAY/PAUSE")
@@ -111,9 +114,6 @@ def scan_and_play_callback(channel):
 def main():
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
     logging.info('Initializing')
-
-    PIN_LED_PHOTO = 23
-    PIN_PLAY = 24
 
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.LOW)
