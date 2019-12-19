@@ -4,11 +4,8 @@
 # Description: Steps to unintall AudioPI from RaspberryPI
 ##################################################################################
 
-#Take the program out of the Autostart
-#sudo update-rc.d -f audiopi.sh remove
+#Stop service
+sudo systemctl stop audiopi.service
 
 #Remove autostart script
-#sudo rm /etc/init.d/audiopi.sh
-
-sudo systemctl stop audiopi.service
 sudo rm /lib/systemd/system/audiopi.service

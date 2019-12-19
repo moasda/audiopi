@@ -61,7 +61,6 @@ chmod 755 ./install/install.sh
 ### Code Block
 sudo shutdown -h now
 sudo reboot
-sudo mount 192.168.178.250:/volumes2/daten /mnt/syno_daten
 
 ### Code Block
 #Rename folders and replace space with underscore

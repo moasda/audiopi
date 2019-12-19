@@ -7,21 +7,10 @@ import logging
 import time
 import subprocess
 import select  # for polling zbarcam, see http://stackoverflow.com/a/10759061/3761783
-#from threading import Thread
 
 #Configuration
 QR_SCANNER_TIMEOUT = 4
 MUSIC_BASE_DIRECTORY = "/home/pi/music/"
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
-logging.info('Initializing')
-
-PIN_LED_PHOTO = 23
-PIN_PLAY = 24
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(PIN_LED_PHOTO, GPIO.OUT)
-GPIO.setup(PIN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 #function for button "play/pause"
 def play_callback(channel):
@@ -118,26 +107,41 @@ def scan_and_play_callback(channel):
         if play_status == True:
             break
 
+#Main function
+def scan_and_play_callback(channel):
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
+    logging.info('Initializing')
 
-#GPIO.add_event_detect(PIN_PREV, GPIO.FALLING, callback=prev_callback, bouncetime=400)
-#GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=400)
-#GPIO.add_event_detect(PIN_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=400)
+    PIN_LED_PHOTO = 23
+    PIN_PLAY = 24
 
-GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=400)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.LOW)
+    GPIO.setup(PIN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
 
-logging.info("Start mocp server")
-cmd = "mocp -S"
-os.system(cmd)
+    logging.info("Register events for buttons")
+    #GPIO.add_event_detect(PIN_PREV, GPIO.FALLING, callback=prev_callback, bouncetime=400)
+    #GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=400)
+    #GPIO.add_event_detect(PIN_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=400)
+    GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=400)
 
-try:
-    while True:
-        logging.info('Waiting for activity')
-        time.sleep(1)
+    logging.info("Start mocp server")
+    cmd = "mocp -S"
+    os.system(cmd)
 
-# Exit when Ctrl-C is pressed
-except KeyboardInterrupt:
-    logging.info('Shutdown')
-    
-finally:
-    logging.info('Reset GPIO configuration and close')
-    GPIO.cleanup()            
+    try:
+        while True:
+            logging.info('Waiting for activity')
+            time.sleep(1)
+
+    #Exit when Ctrl-C is pressed
+    except KeyboardInterrupt:
+        logging.info('Shutdown')
+        
+    finally:
+        logging.info('Reset GPIO configuration and close')
+        GPIO.cleanup()            
+
+#Driver Code 
+if __name__ == '__main__': 
+    main() 
