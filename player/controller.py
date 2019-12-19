@@ -132,7 +132,7 @@ def main():
     try:
         while True:
             logging.info('Waiting for activity')
-            time.sleep(1)
+            time.sleep(10)
 
     #Exit when Ctrl-C is pressed
     except KeyboardInterrupt:
