@@ -107,7 +107,7 @@ def scan_and_play_callback(channel):
     GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
 
     #if play_status == True:
-    break
+    #break
 
 #Main function
 def main():
