@@ -63,52 +63,51 @@ def play(music_path):
 
 #function to scan and play
 def scan_and_play_callback(channel):
-    while True:
-        #turn LED on for photo
-        GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
+    #while True:
+    #turn LED on for photo
+    GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
-        play_status = False
+    play_status = False
 
-        #scan QR code
-        zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        
-        poll_obj = select.poll()
-        poll_obj.register(zbarcam.stdout, select.POLLIN)
-        
-        #wait for scan result (or timeout)
-        start_time = time.time()
-        poll_result = False
-        while ((time.time() - start_time) < QR_SCANNER_TIMEOUT and (not poll_result)):
-            poll_result = poll_obj.poll(500)
+    #scan QR code
+    zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    
+    poll_obj = select.poll()
+    poll_obj.register(zbarcam.stdout, select.POLLIN)
+    
+    #wait for scan result (or timeout)
+    start_time = time.time()
+    poll_result = False
+    while ((time.time() - start_time) < QR_SCANNER_TIMEOUT and (not poll_result)):
+        poll_result = poll_obj.poll(500)
 
-            if (poll_result):
-                qr_code = zbarcam.stdout.readline().rstrip()
-                qr_code = qr_code.decode("utf-8") # python3
-                logging.info("QR Code: " + qr_code)
+        if (poll_result):
+            qr_code = zbarcam.stdout.readline().rstrip()
+            qr_code = qr_code.decode("utf-8") # python3
+            logging.info("QR Code: " + qr_code)
 
-                if qr_code.startswith("cmd://"):
-                    play(qr_code)
-                    play_status = True
-                elif qr_code != "":
-                    #replace blanks with underscore
-                    qr_code = qr_code.replace(" ", "_")
-                    #create full path
-                    full_path = MUSIC_BASE_DIRECTORY + qr_code
-                    logging.info("full_music_path: " + full_path)
-                    #play
-                    play(full_path)
-                    play_status = True
-            else:
-                logging.warning('Timeout on zbarcam')
-                #play(SOUND_SCAN_FAIL)
+            if qr_code.startswith("cmd://"):
+                play(qr_code)
+                play_status = True
+            elif qr_code != "":
+                #replace blanks with underscore
+                qr_code = qr_code.replace(" ", "_")
+                #create full path
+                full_path = MUSIC_BASE_DIRECTORY + qr_code
+                logging.info("full_music_path: " + full_path)
+                #play
+                play(full_path)
+                play_status = True
+        else:
+            logging.warning('Timeout on zbarcam')
+            #play(SOUND_SCAN_FAIL)
 
-        zbarcam.terminate()
+    zbarcam.terminate()
+    #turn LED off for photo
+    GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
 
-        #turn LED off for photo
-        GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
-
-        #if play_status == True:
-        break
+    #if play_status == True:
+    break
 
 #Main function
 def main():
