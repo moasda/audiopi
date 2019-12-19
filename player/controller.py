@@ -79,36 +79,36 @@ def scan_and_play_callback(channel):
         start_time = time.time()
         poll_result = False
         while ((time.time() - start_time) < QR_SCANNER_TIMEOUT and (not poll_result)):
-            poll_result = poll_obj.poll(0)
+            poll_result = poll_obj.poll(100)
 
-        if (poll_result):
-            qr_code = zbarcam.stdout.readline().rstrip()
-            qr_code = qr_code.decode("utf-8") # python3
-            logging.info("QR Code: " + qr_code)
+            if (poll_result):
+                qr_code = zbarcam.stdout.readline().rstrip()
+                qr_code = qr_code.decode("utf-8") # python3
+                logging.info("QR Code: " + qr_code)
 
-            if qr_code.startswith("cmd://"):
-                play(qr_code)
-                play_status = True
-            elif qr_code != "":
-                #replace blanks with underscore
-                qr_code = qr_code.replace(" ", "_")
-                #create full path
-                full_path = MUSIC_BASE_DIRECTORY + qr_code
-                logging.info("full_music_path: " + full_path)
-                #play
-                play(full_path)
-                play_status = True
-        else:
-            logging.warning('Timeout on zbarcam')
-            #play(SOUND_SCAN_FAIL)
+                if qr_code.startswith("cmd://"):
+                    play(qr_code)
+                    play_status = True
+                elif qr_code != "":
+                    #replace blanks with underscore
+                    qr_code = qr_code.replace(" ", "_")
+                    #create full path
+                    full_path = MUSIC_BASE_DIRECTORY + qr_code
+                    logging.info("full_music_path: " + full_path)
+                    #play
+                    play(full_path)
+                    play_status = True
+            else:
+                logging.warning('Timeout on zbarcam')
+                #play(SOUND_SCAN_FAIL)
 
         zbarcam.terminate()
 
         #turn LED off for photo
         GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
 
-        if play_status == True:
-            break
+        #if play_status == True:
+        break
 
 #Main function
 def main():
