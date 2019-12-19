@@ -79,7 +79,7 @@ def scan_and_play_callback(channel):
         start_time = time.time()
         poll_result = False
         while ((time.time() - start_time) < QR_SCANNER_TIMEOUT and (not poll_result)):
-            poll_result = poll_obj.poll(100)
+            poll_result = poll_obj.poll(200)
 
             if (poll_result):
                 qr_code = zbarcam.stdout.readline().rstrip()
