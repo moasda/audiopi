@@ -108,7 +108,7 @@ def scan_and_play_callback(channel):
             break
 
 #Main function
-def scan_and_play_callback(channel):
+def main():
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
     logging.info('Initializing')
 
