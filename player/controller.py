@@ -121,7 +121,7 @@ def main():
     GPIO.setup(PIN_RED_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
 
     logging.info("Register events for buttons")
-    GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=volup_callback, bouncetime=600)
+    GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=volup_callback, bouncetime=800)
     #GPIO.add_event_detect(PIN_PREV, GPIO.FALLING, callback=prev_callback, bouncetime=400)
     #GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=400)
     #GPIO.add_event_detect(PIN_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=400)
