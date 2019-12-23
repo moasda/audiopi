@@ -14,6 +14,7 @@ MUSIC_BASE_DIRECTORY = "/home/pi/music/"
 
 PIN_LED_PHOTO = 23
 PIN_PLAY = 24
+PIN_RED_BUTTON = 25
 
 #function for button "play/pause"
 def play_callback(channel):
@@ -117,8 +118,10 @@ def main():
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.LOW)
     GPIO.setup(PIN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+    GPIO.setup(PIN_RED_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
 
     logging.info("Register events for buttons")
+    GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=volup_callback, bouncetime=400)
     #GPIO.add_event_detect(PIN_PREV, GPIO.FALLING, callback=prev_callback, bouncetime=400)
     #GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=400)
     #GPIO.add_event_detect(PIN_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=400)
