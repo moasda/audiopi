@@ -27,8 +27,9 @@ def sync():
     dst_path = "/home/pi/music/"
     for filename in os.listdir(src_path): 
         #todo
-        destination = dst_path + filename.replace(" ", "_")
-        print(source + " --> " + destination)
+        source_folder =  src_path + filename
+        destination_folder = dst_path + filename.replace(" ", "_")
+        print(source_folder + " --> " + destination)
         #os.rename(source, destination) 
         #rsync -rtv source_folder/ destination_folder/
 
