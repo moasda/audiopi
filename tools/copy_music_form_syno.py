@@ -15,7 +15,7 @@ def mount():
 #Function to unmount sync directory
 def unmount():
     #unmount synology folder
-    cmd = "sudo umont /mnt/syno_music"
+    cmd = "sudo umount /mnt/syno_music"
     os.system(cmd)
     #remove mount point
     cmd = "sudo rmdir /mnt/syno_music"
