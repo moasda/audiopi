@@ -55,9 +55,8 @@ def voldown_callback(channel):
     os.system(cmd)
 
 #function for playing sounds
-def play_beep():
-    #Clear current playlsit
-    cmd = "mocp -l /home/pi/audiopi/sounds/beep.mp3"
+def play_fail():
+    cmd = "mocp -l /home/pi/audiopi/sounds/fail.mp3"
     os.system(cmd)
 
 #function for playing sounds
@@ -79,7 +78,6 @@ def scan_and_play_callback(channel):
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
     logging.info("Channel: " + channel)
-    play_beep()
     play_status = False
 
     #scan QR code
@@ -119,8 +117,9 @@ def scan_and_play_callback(channel):
     #turn LED off for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
 
-    #if play_status == True:
-    #break
+    if play_status == False:
+        play_fail()
+
 
 #Main function
 def main():
