@@ -9,7 +9,7 @@ def mount():
     cmd = "sudo chmod 755 /mnt/syno_music"
     os.system(cmd)
     #mount folder from synology to mout point (read only)
-    cmd = "sudo mount -r 192.168.178.29:/volume2/music /mnt/syno_music"
+    cmd = "sudo mount -r 192.168.178.29:/volume2/music/audio_box /mnt/syno_music"
     os.system(cmd)
 
 #Function to unmount sync directory
@@ -32,8 +32,6 @@ def sync():
         print(source_folder + " --> " + destination_folder)
         cmd = "sudo rsync -rv --delete --exclude '@*' --exclude '#recycle' --exclude '*.ini' '" + source_folder + "/' '" + destination_folder + "/'"
         os.system(cmd)
-    cmd = "sudo rm -r /home/pi/music/#recycle"
-    os.system(cmd)
 
 #Main function to sync music directory with synology
 def main():
