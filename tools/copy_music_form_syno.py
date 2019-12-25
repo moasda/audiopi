@@ -32,6 +32,8 @@ def sync():
         print(source_folder + " --> " + destination_folder)
         cmd = "sudo rsync -rv --delete '" + source_folder + "/' '" + destination_folder + "/'"
         os.system(cmd)
+        cmd = "sudo rmdir -r /home/pi/music/#recycle"
+        os.system(cmd)
 
 #Main function to sync music directory with synology
 def main():
