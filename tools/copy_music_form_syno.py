@@ -23,15 +23,15 @@ def unmount():
 
 #Function to sync directory
 def sync():
-    src_path = "/mnt/syno_music"
-    dst_path = "/home/pi/music1/"
+    src_path = "/mnt/syno_music/"
+    dst_path = "/home/pi/music/"
     for filename in os.listdir(src_path): 
         #todo
         source_folder =  src_path + filename
         destination_folder = dst_path + filename.replace(" ", "_")
         print(source_folder + " --> " + destination_folder)
-        #os.rename(source, destination) 
-        #rsync -rtv source_folder/ destination_folder/
+        cmd = "rsync -rtv source_folder/ destination_folder/"
+        os.system(cmd)
 
 #Main function to sync music directory with synology
 def main():
