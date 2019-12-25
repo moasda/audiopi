@@ -74,9 +74,9 @@ def play(music_path):
 
 #function to scan and play
 def scan_and_play_callback(channel):
-    if scan_running == True
+    if scan_running == True:
         return
-    else
+    else:
         scan_running = True
 
     #turn LED on for photo
