@@ -12,7 +12,7 @@ import select  # for polling zbarcam, see http://stackoverflow.com/a/10759061/37
 QR_SCANNER_TIMEOUT = 4
 MUSIC_BASE_DIRECTORY = "/home/pi/music/"
 
-BOUNCE_TIME = 800
+BOUNCE_TIME = 1000
 
 PIN_LED_PHOTO = 23
 PIN_PLAY = 24
