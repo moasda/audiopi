@@ -126,6 +126,7 @@ def scan_and_play_callback(channel):
         play_fail()
         #SCAN_RUNNING = False
 
+    GPIO.cleanup()
     logging.info("Scanning end")
 
 #Main function
@@ -161,7 +162,7 @@ def main():
         
     finally:
         logging.info('Reset GPIO configuration and close')
-        GPIO.cleanup()            
+        GPIO.cleanup()
 
 #Driver Code 
 if __name__ == '__main__': 
