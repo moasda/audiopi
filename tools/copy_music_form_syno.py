@@ -29,7 +29,7 @@ def sync():
         #todo
         source_folder =  src_path + filename
         destination_folder = dst_path + filename.replace(" ", "_")
-        print(source_folder + " --> " + destination)
+        print(source_folder + " --> " + destination_folder)
         #os.rename(source, destination) 
         #rsync -rtv source_folder/ destination_folder/
 
