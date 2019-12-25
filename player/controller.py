@@ -137,7 +137,7 @@ def main():
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=BOUNCE_TIME)
-    GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=1000)
+    GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=2000)
 
     logging.info("Start mocp server")
     cmd = "mocp -S"
