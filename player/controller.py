@@ -78,6 +78,7 @@ def scan_and_play_callback(channel):
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
+    logging.info("Channel: " + channel)
     play_beep()
     play_status = False
 
