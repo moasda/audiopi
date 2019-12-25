@@ -18,9 +18,6 @@ PIN_LED_PHOTO = 23
 PIN_PLAY = 24
 PIN_RED_BUTTON = 25
 
-#global vars
-SCAN_RUNNING = False
-
 #function for button "play/pause"
 def play_callback(channel):
     logging.info("PLAY/PAUSE")
@@ -74,11 +71,6 @@ def play(music_path):
 
 #function to scan and play
 def scan_and_play_callback(channel):
-    #if SCAN_RUNNING == True:
-    #    return
-    #else:
-    #    SCAN_RUNNING = True
-
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
     play_status = False
@@ -124,9 +116,8 @@ def scan_and_play_callback(channel):
 
     if play_status == False:
         play_fail()
-        #SCAN_RUNNING = False
 
-    GPIO.cleanup()
+    #GPIO.intput(PIN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
     logging.info("Scanning end")
 
 #Main function
@@ -145,7 +136,7 @@ def main():
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=BOUNCE_TIME)
-    GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME)
+    GPIO.add_event_detect(PIN_PLAY, GPIO.RAISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME)
 
     logging.info("Start mocp server")
     cmd = "mocp -S"
