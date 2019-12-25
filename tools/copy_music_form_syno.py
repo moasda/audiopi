@@ -30,7 +30,7 @@ def sync():
         source_folder =  src_path + filename
         destination_folder = dst_path + filename.replace(" ", "_")
         print(source_folder + " --> " + destination_folder)
-        cmd = "sudo rsync -rv --delete --exclude '@*' '" + source_folder + "/' '" + destination_folder + "/'"
+        cmd = "sudo rsync -rv --delete --exclude '@*|#*' '" + source_folder + "/' '" + destination_folder + "/'"
         os.system(cmd)
     cmd = "sudo rm -r /home/pi/music/#recycle"
     os.system(cmd)
