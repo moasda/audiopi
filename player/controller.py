@@ -19,7 +19,7 @@ PIN_PLAY = 24
 PIN_RED_BUTTON = 25
 
 #global vars
-
+scan_running = False
 
 #function for button "play/pause"
 def play_callback(channel):
@@ -74,6 +74,11 @@ def play(music_path):
 
 #function to scan and play
 def scan_and_play_callback(channel):
+    if scan_running == True
+        return
+    else
+        scan_running = True
+
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
     play_status = False
@@ -86,7 +91,7 @@ def scan_and_play_callback(channel):
     poll_obj = select.poll()
     poll_obj.register(zbarcam.stdout, select.POLLIN)
     
-    #wait for scan result (or timeout)
+    #wait for scan result or timeout
     start_time = time.time()
     poll_result = False
     while ((time.time() - start_time) < QR_SCANNER_TIMEOUT and (not poll_result)):
@@ -119,7 +124,7 @@ def scan_and_play_callback(channel):
 
     if play_status == False:
         play_fail()
-
+        scan_running = False
 
 #Main function
 def main():
@@ -137,7 +142,7 @@ def main():
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=BOUNCE_TIME)
-    GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=2000)
+    GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME)
 
     logging.info("Start mocp server")
     cmd = "mocp -S"
