@@ -24,7 +24,7 @@ def unmount():
 #Function to sync directory
 def sync():
     src_path = "/mnt/syno_music"
-    dst_path = "/home/pi/music/"
+    dst_path = "/home/pi/music1/"
     for filename in os.listdir(src_path): 
         #todo
         source_folder =  src_path + filename

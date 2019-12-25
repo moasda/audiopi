@@ -15,7 +15,7 @@ MUSIC_BASE_DIRECTORY = "/home/pi/music/"
 BOUNCE_TIME = 800
 
 PIN_LED_PHOTO = 23
-PIN_PLAY = 24
+PIN_BUTTON_PLAY = 24
 PIN_RED_BUTTON = 25
 
 #function for button "play/pause"
@@ -73,9 +73,8 @@ def play(music_path):
 def scan_and_play_callback(channel):
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
-    play_status = False
 
-    logging.info("Scanning start: " + str(channel))
+    play_status = False
 
     #scan QR code
     zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -108,7 +107,6 @@ def scan_and_play_callback(channel):
                 play_status = True
         else:
             logging.warning('Timeout on zbarcam')
-            #play(SOUND_SCAN_FAIL)
 
     zbarcam.terminate()
     #turn LED off for photo
@@ -117,8 +115,6 @@ def scan_and_play_callback(channel):
     if play_status == False:
         play_fail()
 
-    #GPIO.intput(PIN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-    logging.info("Scanning end")
 
 #Main function
 def main():
@@ -127,7 +123,7 @@ def main():
 
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.LOW)
-    GPIO.setup(PIN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+    GPIO.setup(PIN_BUTTON_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
     GPIO.setup(PIN_RED_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
 
     logging.info("Register events for buttons")
@@ -135,9 +131,9 @@ def main():
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=voldown_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
-    #GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=BOUNCE_TIME)
+    #GPIO.add_event_detect(PIN_BUTTON_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=BOUNCE_TIME)
     BOUNCE_TIME_SCAN = (QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME
-    GPIO.add_event_detect(PIN_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
+    GPIO.add_event_detect(PIN_BUTTON_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
 
     logging.info("Start mocp server")
     cmd = "mocp -S"
