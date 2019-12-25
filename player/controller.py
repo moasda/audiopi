@@ -12,7 +12,7 @@ import select  # for polling zbarcam, see http://stackoverflow.com/a/10759061/37
 QR_SCANNER_TIMEOUT = 4
 MUSIC_BASE_DIRECTORY = "/home/pi/music/"
 
-BOUNCE_TIME = 1000
+BOUNCE_TIME = 800
 
 PIN_LED_PHOTO = 23
 PIN_PLAY = 24
@@ -77,6 +77,8 @@ def scan_and_play_callback(channel):
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
     play_status = False
+
+    logging.info("Scanning: " + str(channel))
 
     #scan QR code
     zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
