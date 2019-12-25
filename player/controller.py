@@ -74,16 +74,16 @@ def play(music_path):
 
 #function to scan and play
 def scan_and_play_callback(channel):
-    if SCAN_RUNNING == True:
-        return
-    else:
-        SCAN_RUNNING = True
+    #if SCAN_RUNNING == True:
+    #    return
+    #else:
+    #    SCAN_RUNNING = True
 
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
     play_status = False
 
-    logging.info("Scanning: " + str(channel))
+    logging.info("Scanning start: " + str(channel))
 
     #scan QR code
     zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -124,7 +124,9 @@ def scan_and_play_callback(channel):
 
     if play_status == False:
         play_fail()
-        SCAN_RUNNING = False
+        #SCAN_RUNNING = False
+
+    logging.info("Scanning end")
 
 #Main function
 def main():
