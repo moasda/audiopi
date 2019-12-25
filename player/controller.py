@@ -19,7 +19,7 @@ PIN_PLAY = 24
 PIN_RED_BUTTON = 25
 
 #global vars
-scan_running = False
+SCAN_RUNNING = False
 
 #function for button "play/pause"
 def play_callback(channel):
@@ -74,10 +74,10 @@ def play(music_path):
 
 #function to scan and play
 def scan_and_play_callback(channel):
-    if scan_running == True:
+    if SCAN_RUNNING == True:
         return
     else:
-        scan_running = True
+        SCAN_RUNNING = True
 
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
@@ -124,7 +124,7 @@ def scan_and_play_callback(channel):
 
     if play_status == False:
         play_fail()
-        scan_running = False
+        SCAN_RUNNING = False
 
 #Main function
 def main():
