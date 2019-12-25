@@ -30,7 +30,7 @@ def sync():
         source_folder =  src_path + filename
         destination_folder = dst_path + filename.replace(" ", "_")
         print(source_folder + " --> " + destination_folder)
-        cmd = "rsync -rtv '" + source_folder + "/' '" + destination_folder + "/'"
+        cmd = "rsync -rv '" + source_folder + "/' '" + destination_folder + "/'"
         os.system(cmd)
 
 #Main function to sync music directory with synology
