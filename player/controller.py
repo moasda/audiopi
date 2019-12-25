@@ -18,6 +18,9 @@ PIN_LED_PHOTO = 23
 PIN_PLAY = 24
 PIN_RED_BUTTON = 25
 
+#global vars
+
+
 #function for button "play/pause"
 def play_callback(channel):
     logging.info("PLAY/PAUSE")
@@ -123,13 +126,11 @@ def main():
     GPIO.setup(PIN_RED_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
 
     logging.info("Register events for buttons")
-    #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=volup_callback, bouncetime=BOUNCE_TIME)
+    GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=volup_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=voldown_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
-    GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
-    #GPIO.add_event_detect(PIN_PREV, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
+    #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
     #GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=BOUNCE_TIME)
-    #GPIO.add_event_detect(PIN_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_PLAY, GPIO.FALLING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME)
 
     logging.info("Start mocp server")
