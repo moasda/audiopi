@@ -9,7 +9,7 @@ def mount():
     cmd = "sudo chmod 755 /mnt/syno_music"
     os.system(cmd)
     #mount folder from synology to mout point (read only)
-    cmd = "sudo mount -r 192.168.178.29:/volume2/music/audio_box /mnt/syno_music"
+    cmd = "sudo mount -r 192.168.178.29:/volume2/music/audiobox_laura /mnt/syno_music"
     os.system(cmd)
 
 #Function to unmount sync directory
