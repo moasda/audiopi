@@ -15,11 +15,23 @@ MUSIC_BASE_DIRECTORY = "/home/pi/music/"
 BOUNCE_TIME = 800
 
 PIN_LED_PHOTO = 23
-PIN_BUTTON_PLAY = 24
-PIN_RED_BUTTON = 25
+
+#PIN_BUTTON_SCAN_PLAY = 24
+#PIN_BUTTON_TOGGLE_PLAY = 25
+#PIN_BUTTON_VOLUP = ?
+#PIN_BUTTON_VOLDOWN = ?
+#PIN_BUTTON_NEXT = ?
+#PIN_BUTTON_PREVIOUS = ?
+
+PIN_BUTTON_SCAN_PLAY = 25
+PIN_BUTTON_TOGGLE_PLAY = 24
+PIN_BUTTON_VOLUP = 24
+PIN_BUTTON_VOLDOWN = 24
+PIN_BUTTON_NEXT = 24
+PIN_BUTTON_PREVIOUS = 24
 
 #function for button "play/pause"
-def play_callback(channel):
+def play_pause_callback(channel):
     logging.info("PLAY/PAUSE")
     cmd = "mocp -G"
     os.system(cmd)
@@ -127,13 +139,14 @@ def main():
     GPIO.setup(PIN_RED_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
 
     logging.info("Register events for buttons")
-    GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=volup_callback, bouncetime=BOUNCE_TIME)
-    #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=voldown_callback, bouncetime=BOUNCE_TIME)
-    #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
-    #GPIO.add_event_detect(PIN_RED_BUTTON, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
-    #GPIO.add_event_detect(PIN_BUTTON_PLAY, GPIO.FALLING, callback=play_callback, bouncetime=BOUNCE_TIME)
+    #GPIO.add_event_detect(PIN_BUTTON_TOGGLE_PLAY, GPIO.FALLING, callback=play_pause_callback, bouncetime=BOUNCE_TIME)
+    GPIO.add_event_detect(PIN_BUTTON_VOLUP, GPIO.FALLING, callback=volup_callback, bouncetime=BOUNCE_TIME)
+    #GPIO.add_event_detect(PIN_BUTTON_VOLDOWN, GPIO.FALLING, callback=voldown_callback, bouncetime=BOUNCE_TIME)
+    #GPIO.add_event_detect(PIN_BUTTON_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
+    #GPIO.add_event_detect(PIN_BUTTON_PREVIOUS, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
+
     BOUNCE_TIME_SCAN = (QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME
-    GPIO.add_event_detect(PIN_BUTTON_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
+    GPIO.add_event_detect(PIN_BUTTON_SCAN_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
 
     logging.info("Start mocp server")
     cmd = "mocp -S"
