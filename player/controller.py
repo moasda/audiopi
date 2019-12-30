@@ -135,8 +135,12 @@ def main():
 
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.LOW)
-    GPIO.setup(PIN_BUTTON_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-    GPIO.setup(PIN_RED_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+#    GPIO.setup(PIN_BUTTON_TOGGLE_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+    GPIO.setup(PIN_BUTTON_VOLUP, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+#    GPIO.setup(PIN_BUTTON_VOLDOWN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+#    GPIO.setup(PIN_BUTTON_NEXT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+#    GPIO.setup(PIN_BUTTON_PREVIOUS, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+#    GPIO.setup(PIN_BUTTON_SCAN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
 
     logging.info("Register events for buttons")
     #GPIO.add_event_detect(PIN_BUTTON_TOGGLE_PLAY, GPIO.FALLING, callback=play_pause_callback, bouncetime=BOUNCE_TIME)
