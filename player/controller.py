@@ -15,6 +15,12 @@ MUSIC_BASE_DIRECTORY = "/home/pi/music/"
 BOUNCE_TIME = 800
 
 PIN_LED_PHOTO = 23
+PIN_BUTTON_SCAN_PLAY = 25
+PIN_BUTTON_TOGGLE_PLAY = 24
+PIN_BUTTON_VOLUP = 24
+PIN_BUTTON_VOLDOWN = 24
+PIN_BUTTON_NEXT = 24
+PIN_BUTTON_PREVIOUS = 24
 
 #PIN_BUTTON_SCAN_PLAY = 24
 #PIN_BUTTON_TOGGLE_PLAY = 25
@@ -23,12 +29,6 @@ PIN_LED_PHOTO = 23
 #PIN_BUTTON_NEXT = ?
 #PIN_BUTTON_PREVIOUS = ?
 
-PIN_BUTTON_SCAN_PLAY = 25
-PIN_BUTTON_TOGGLE_PLAY = 24
-PIN_BUTTON_VOLUP = 24
-PIN_BUTTON_VOLDOWN = 24
-PIN_BUTTON_NEXT = 24
-PIN_BUTTON_PREVIOUS = 24
 
 #function for button "play/pause"
 def play_pause_callback(channel):
@@ -135,12 +135,12 @@ def main():
 
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.LOW)
-#    GPIO.setup(PIN_BUTTON_TOGGLE_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+    #GPIO.setup(PIN_BUTTON_TOGGLE_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
     GPIO.setup(PIN_BUTTON_VOLUP, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-#    GPIO.setup(PIN_BUTTON_VOLDOWN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-#    GPIO.setup(PIN_BUTTON_NEXT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-#    GPIO.setup(PIN_BUTTON_PREVIOUS, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-#    GPIO.setup(PIN_BUTTON_SCAN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+    #GPIO.setup(PIN_BUTTON_VOLDOWN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+    #GPIO.setup(PIN_BUTTON_NEXT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+    #GPIO.setup(PIN_BUTTON_PREVIOUS, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
+    GPIO.setup(PIN_BUTTON_SCAN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
 
     logging.info("Register events for buttons")
     #GPIO.add_event_detect(PIN_BUTTON_TOGGLE_PLAY, GPIO.FALLING, callback=play_pause_callback, bouncetime=BOUNCE_TIME)
