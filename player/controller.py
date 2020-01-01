@@ -123,8 +123,7 @@ def scan_and_play_callback(channel):
 #function to shutdown the pi
 def shutdown_callback(channel):
     logging.info('Shutdown the pi by the right way :)')
-    #subprocess.call(['shutdown', '-h', 'now'], shell=False)
-
+    subprocess.call(['shutdown', '-h', 'now'], shell=False)
 
 #Main function
 def main():
@@ -143,7 +142,6 @@ def main():
     GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     #GPIO.wait_for_edge(3, GPIO.FALLING)
     GPIO.add_event_detect(3, GPIO.FALLING, callback=shutdown_callback, bouncetime=BOUNCE_TIME)
-
 
     logging.info("Register events for buttons")
     GPIO.add_event_detect(PIN_BUTTON_TOGGLE_PLAY, GPIO.FALLING, callback=play_pause_callback, bouncetime=BOUNCE_TIME)
