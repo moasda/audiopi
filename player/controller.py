@@ -158,6 +158,10 @@ def main():
     cmd = "mocp -S"
     os.system(cmd)
 
+    #Play "bootup sound" to show that the pi is ready to use
+    cmd = "mocp -l /home/pi/audiopi/sounds/boot_1.wav"
+    os.system(cmd)
+
     try:
         while True:
             logging.info('Waiting for activity')
