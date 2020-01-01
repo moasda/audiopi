@@ -22,13 +22,6 @@ PIN_BUTTON_VOLDOWN = 22
 PIN_BUTTON_NEXT = 5
 PIN_BUTTON_PREVIOUS = 6
 
-#PIN_BUTTON_SCAN_PLAY = 24
-#PIN_BUTTON_TOGGLE_PLAY = 25
-#PIN_BUTTON_VOLUP = ?
-#PIN_BUTTON_VOLDOWN = ?
-#PIN_BUTTON_NEXT = ?
-#PIN_BUTTON_PREVIOUS = ?
-
 
 #function for button "play/pause"
 def play_pause_callback(channel):
