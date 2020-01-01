@@ -123,7 +123,7 @@ def scan_and_play_callback(channel):
 #function to shutdown the pi
 def shutdown_callback(channel):
     logging.info('Shutdown the pi by the right way :)')
-    subprocess.call(['sudo shutdown', '-h', 'now'], shell=False)
+    subprocess.call(['sudo', 'shutdown', '-h', 'now'], shell=False)
 
 #Main function
 def main():
