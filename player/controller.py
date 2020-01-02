@@ -96,8 +96,11 @@ def scan_and_play_callback(channel):
         if (poll_result):
             qr_code = zbarcam.stdout.readline().rstrip()
             qr_code = qr_code.decode("utf-8") # python3
-            logging.info("QR Code: " + qr_code)
+            
+            qr_code = qr_code.replace("羹", "ü")
 
+            logging.info("QR Code: " + qr_code)
+            
             if qr_code.startswith("cmd://"):
                 play(qr_code)
                 play_status = True
