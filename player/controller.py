@@ -95,7 +95,7 @@ def scan_and_play_callback(channel):
 
         if (poll_result):
             qr_code = zbarcam.stdout.readline().rstrip()
-            logging.info("QR Code (ascii): " + qr_code.decode("ascii"))
+            logging.info("QR Code (cp273): " + qr_code.decode("cp273"))
             qr_code = qr_code.decode("utf-8") # python3
             logging.info("QR Code: " + qr_code)
 
