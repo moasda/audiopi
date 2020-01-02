@@ -95,10 +95,10 @@ def scan_and_play_callback(channel):
 
         if (poll_result):
             qr_code = zbarcam.stdout.readline().rstrip()
-            qr_code = qr_code.decode("utf_8") # python3
+            logging.info(qr_code)
+
+            qr_code = qr_code.decode("utf-8") # python3
             logging.info("QR Code: " + qr_code)
-            logging.info("QR Code (utf_8): ")
-            logging.info(qr_code.encode())
 
             if qr_code.startswith("cmd://"):
                 play(qr_code)
