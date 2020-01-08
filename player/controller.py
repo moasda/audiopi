@@ -2,7 +2,7 @@
 #https://github.com/tliero/qudio/blob/master/code/qudio.py
 
 import RPi.GPIO as GPIO
-import os
+#import os
 import logging
 import time
 import subprocess
