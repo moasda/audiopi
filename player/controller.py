@@ -21,57 +21,68 @@ PIN_BUTTON_VOLUP = 27
 PIN_BUTTON_VOLDOWN = 22
 PIN_BUTTON_NEXT = 5
 PIN_BUTTON_PREVIOUS = 6
-
+PIN_BUTTON_SHUTDOWN = 3
 
 #function for button "play/pause"
 def play_pause_callback(channel):
     logging.info("PLAY/PAUSE")
-    cmd = "mocp -G"
-    os.system(cmd)
+    #cmd = "mocp -G"
+    #os.system(cmd)
+    subprocess.call(['mocp', '-G'], shell=False)
 
 #function for button "next song"
 def next_callback(channel):
     logging.info("NEXT")
-    cmd = "mocp -f"
-    os.system(cmd)
+    #cmd = "mocp -f"
+    #os.system(cmd)
+    subprocess.call(['mocp', '-f'], shell=False)
     ## TODO implement seek
 
 #function for button "previous song"
 def prev_callback(channel):
     logging.info("PREV")
-    cmd = "mocp -r"
-    os.system(cmd)
+    #cmd = "mocp -r"
+    #os.system(cmd)
+    subprocess.call(['mocp', '-r'], shell=False)
     ## TODO implement jump to beginning for first x seconds (or if first track)
     ## TODO implement seek
 
 #function for button "volume up"
 def volup_callback(channel):
     logging.info("VOLUP")
-    cmd = "mocp -v +5"
-    os.system(cmd)
+    #cmd = "mocp -v +5"
+    #os.system(cmd)
+    subprocess.call(['mocp', '-v', '+5'], shell=False)
 
 #function for button "volume down"
 def voldown_callback(channel):
     logging.info("VOLDOWN")
-    cmd = "mocp -v -5"
-    os.system(cmd)
+    #cmd = "mocp -v -5"
+    #os.system(cmd)
+    subprocess.call(['mocp', '-v', '-5'], shell=False)
 
 #function for playing sounds
 def play_fail():
-    cmd = "mocp -l /home/pi/audiopi/sounds/fail.mp3"
-    os.system(cmd)
+    #cmd = "mocp -l /home/pi/audiopi/sounds/fail.mp3"
+    #os.system(cmd)
+    subprocess.call(['mocp', '-G'], shell=False)
+    subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/fail.mp3'], shell=False)
+    subprocess.call(['mocp', '-G'], shell=False)
 
 #function for playing sounds
 def play(music_path):
     #Clear current playlsit
-    cmd = "mocp -c"
-    os.system(cmd)
+    #cmd = "mocp -c"
+    #os.system(cmd)
+    subprocess.call(['mocp', '-c'], shell=False)
     #Create new playlist
-    cmd = "mocp -a " + music_path
-    os.system(cmd)
+    #cmd = "mocp -a " + music_path
+    #os.system(cmd)
+    subprocess.call(['mocp', '-a', music_path], shell=False)
     #Start playing
-    cmd = "mocp -p"
-    os.system(cmd)
+    #cmd = "mocp -p"
+    #os.system(cmd)
+    subprocess.call(['mocp', '-p'], shell=False)
     logging.info("Play: " + music_path)
 
 #function to scan and play
@@ -135,24 +146,22 @@ def main():
 
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.LOW)
-    GPIO.setup(PIN_BUTTON_TOGGLE_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-    GPIO.setup(PIN_BUTTON_VOLUP, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-    GPIO.setup(PIN_BUTTON_VOLDOWN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-    GPIO.setup(PIN_BUTTON_NEXT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-    GPIO.setup(PIN_BUTTON_PREVIOUS, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-    GPIO.setup(PIN_BUTTON_SCAN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #initial value down
-
-    GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    #GPIO.wait_for_edge(3, GPIO.FALLING)
-    GPIO.add_event_detect(3, GPIO.FALLING, callback=shutdown_callback, bouncetime=BOUNCE_TIME)
+    GPIO.setup(PIN_BUTTON_SHUTDOWN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(PIN_BUTTON_TOGGLE_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(PIN_BUTTON_VOLUP, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(PIN_BUTTON_VOLDOWN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(PIN_BUTTON_NEXT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(PIN_BUTTON_PREVIOUS, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(PIN_BUTTON_SCAN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     logging.info("Register events for buttons")
+    GPIO.add_event_detect(PIN_BUTTON_SHUTDOWN, GPIO.FALLING, callback=shutdown_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_TOGGLE_PLAY, GPIO.FALLING, callback=play_pause_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_VOLUP, GPIO.FALLING, callback=volup_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_VOLDOWN, GPIO.FALLING, callback=voldown_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_PREVIOUS, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
-    BOUNCE_TIME_SCAN = (QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME
+    BOUNCE_TIME_SCAN = (QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME #Timeouts addieren und in ms umrechnen
     GPIO.add_event_detect(PIN_BUTTON_SCAN_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
 
     logging.info("Start mocp server")
