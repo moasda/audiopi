@@ -97,7 +97,7 @@ def scan_and_play_callback(channel):
             qr_code = zbarcam.stdout.readline().rstrip()
             qr_code = qr_code.decode("utf-8") # python3
             
-            qr_code = qr_code.replace("羹", "ü")
+            #qr_code = qr_code.replace("羹", "ü")
 
             logging.info("QR Code: " + qr_code)
             
@@ -156,12 +156,14 @@ def main():
     GPIO.add_event_detect(PIN_BUTTON_SCAN_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
 
     logging.info("Start mocp server")
-    cmd = "mocp -S"
-    os.system(cmd)
+    subprocess.call(['mocp', '-S'], shell=False)
+    #cmd = "mocp -S"
+    #os.system(cmd)
 
     #Play "bootup sound" to show that the pi is ready to use
-    cmd = "mocp -l /home/pi/audiopi/sounds/boot_1.wav"
-    os.system(cmd)
+    subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/boot_1.wav'], shell=False)
+    #cmd = "mocp -l /home/pi/audiopi/sounds/boot_1.wav"
+    #os.system(cmd)
 
     try:
         while True:
