@@ -53,9 +53,9 @@ def voldown_callback(channel):
 
 #function for playing sounds
 def play_fail():
-    subprocess.call(['mocp', '-G'], shell=False)
+    subprocess.call(['mocp', '-P'], shell=False)
     subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/fail.mp3'], shell=False)
-    subprocess.call(['mocp', '-G'], shell=False)
+    subprocess.call(['mocp', '-p'], shell=False)
 
 #function for playing sounds
 def play(music_path):
