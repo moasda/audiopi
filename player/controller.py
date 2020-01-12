@@ -26,23 +26,17 @@ PIN_BUTTON_SHUTDOWN = 3
 #function for button "play/pause"
 def play_pause_callback(channel):
     logging.info("PLAY/PAUSE")
-    #cmd = "mocp -G"
-    #os.system(cmd)
     subprocess.call(['mocp', '-G'], shell=False)
 
 #function for button "next song"
 def next_callback(channel):
     logging.info("NEXT")
-    #cmd = "mocp -f"
-    #os.system(cmd)
     subprocess.call(['mocp', '-f'], shell=False)
     ## TODO implement seek
 
 #function for button "previous song"
 def prev_callback(channel):
     logging.info("PREV")
-    #cmd = "mocp -r"
-    #os.system(cmd)
     subprocess.call(['mocp', '-r'], shell=False)
     ## TODO implement jump to beginning for first x seconds (or if first track)
     ## TODO implement seek
@@ -50,21 +44,15 @@ def prev_callback(channel):
 #function for button "volume up"
 def volup_callback(channel):
     logging.info("VOLUP")
-    #cmd = "mocp -v +5"
-    #os.system(cmd)
     subprocess.call(['mocp', '-v', '+5'], shell=False)
 
 #function for button "volume down"
 def voldown_callback(channel):
     logging.info("VOLDOWN")
-    #cmd = "mocp -v -5"
-    #os.system(cmd)
     subprocess.call(['mocp', '-v', '-5'], shell=False)
 
 #function for playing sounds
 def play_fail():
-    #cmd = "mocp -l /home/pi/audiopi/sounds/fail.mp3"
-    #os.system(cmd)
     subprocess.call(['mocp', '-G'], shell=False)
     subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/fail.mp3'], shell=False)
     subprocess.call(['mocp', '-G'], shell=False)
@@ -72,16 +60,10 @@ def play_fail():
 #function for playing sounds
 def play(music_path):
     #Clear current playlsit
-    #cmd = "mocp -c"
-    #os.system(cmd)
     subprocess.call(['mocp', '-c'], shell=False)
     #Create new playlist
-    #cmd = "mocp -a " + music_path
-    #os.system(cmd)
     subprocess.call(['mocp', '-a', music_path], shell=False)
     #Start playing
-    #cmd = "mocp -p"
-    #os.system(cmd)
     subprocess.call(['mocp', '-p'], shell=False)
     logging.info("Play: " + music_path)
 
@@ -107,9 +89,7 @@ def scan_and_play_callback(channel):
         if (poll_result):
             qr_code = zbarcam.stdout.readline().rstrip()
             qr_code = qr_code.decode("utf-8") # python3
-            
             #qr_code = qr_code.replace("羹", "ü")
-
             logging.info("QR Code: " + qr_code)
             
             if qr_code.startswith("cmd://"):
@@ -161,18 +141,14 @@ def main():
     GPIO.add_event_detect(PIN_BUTTON_VOLDOWN, GPIO.FALLING, callback=voldown_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_PREVIOUS, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
-    BOUNCE_TIME_SCAN = (QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME #Timeouts addieren und in ms umrechnen
+    BOUNCE_TIME_SCAN = ((QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME + 100) #Timeouts addieren und in ms umrechnen
     GPIO.add_event_detect(PIN_BUTTON_SCAN_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
 
     logging.info("Start mocp server")
     subprocess.call(['mocp', '-S'], shell=False)
-    #cmd = "mocp -S"
-    #os.system(cmd)
 
     #Play "bootup sound" to show that the pi is ready to use
     subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/boot_1.wav'], shell=False)
-    #cmd = "mocp -l /home/pi/audiopi/sounds/boot_1.wav"
-    #os.system(cmd)
 
     try:
         while True:
