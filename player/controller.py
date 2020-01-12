@@ -73,7 +73,7 @@ def scan_and_play_callback(channel):
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
     #stop playing
-    subprocess.call(['mocp', '-s'], shell=False)
+    subprocess.call(['mocp', '-P'], shell=False)
     play_status = False
 
     #scan QR code
