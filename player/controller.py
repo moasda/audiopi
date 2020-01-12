@@ -55,7 +55,7 @@ def voldown_callback(channel):
 def play_fail():
     subprocess.call(['mocp', '-P'], shell=False)
     subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/fail.mp3'], shell=False)
-    subprocess.call(['mocp', '-p'], shell=False)
+    subprocess.call(['mocp', '-U'], shell=False)
 
 #function for playing sounds
 def play(music_path):
@@ -73,7 +73,6 @@ def scan_and_play_callback(channel):
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
     #stop playing
-    subprocess.call(['mocp', '-P'], shell=False)
     play_status = False
 
     #scan QR code
