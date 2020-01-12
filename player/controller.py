@@ -154,7 +154,8 @@ def main():
 
     #Play "bootup sound" to show that the pi is ready to use
     subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/boot_1.wav'], shell=False)
-
+    play_status = False
+    
     try:
         while True:
             logging.info('Waiting for activity')
