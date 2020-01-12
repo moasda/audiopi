@@ -27,6 +27,10 @@ PIN_BUTTON_SHUTDOWN = 3
 def play_pause_callback(channel):
     logging.info("PLAY/PAUSE")
     subprocess.call(['mocp', '-G'], shell=False)
+    if play_status == False:
+        play_status = True
+    if play_status == True:
+        play_status = False        
 
 #function for button "next song"
 def next_callback(channel):
@@ -72,7 +76,8 @@ def scan_and_play_callback(channel):
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
-    play_status = False
+    #if play_status == False:
+    #    play_status = False
 
     #scan QR code
     zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
