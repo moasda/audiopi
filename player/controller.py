@@ -27,10 +27,6 @@ PIN_BUTTON_SHUTDOWN = 3
 def play_pause_callback(channel):
     logging.info("PLAY/PAUSE")
     subprocess.call(['mocp', '-G'], shell=False)
-    if play_status == False:
-        play_status = True
-    if play_status == True:
-        play_status = False        
 
 #function for button "next song"
 def next_callback(channel):
@@ -76,8 +72,7 @@ def scan_and_play_callback(channel):
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
-    #if play_status == False:
-    #    play_status = False
+    play_status = False
 
     #scan QR code
     zbarcam = subprocess.Popen(['zbarcam', '--quiet', '--nodisplay', '--raw', '-Sdisable', '-Sqrcode.enable', '--prescale=320x240', '/dev/video0'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -122,6 +117,7 @@ def scan_and_play_callback(channel):
 #function to shutdown the pi
 def shutdown_callback(channel):
     logging.info('Shutdown the pi by the right way :)')
+    subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/shutdown.mav'], shell=False)
     subprocess.call(['sudo', 'shutdown', '-h', 'now'], shell=False)
 
 #Main function
@@ -153,9 +149,8 @@ def main():
     subprocess.call(['mocp', '-S'], shell=False)
 
     #Play "bootup sound" to show that the pi is ready to use
-    subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/boot_1.wav'], shell=False)
-    play_status = False
-    
+    subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/boot.mp3'], shell=False)
+
     try:
         while True:
             logging.info('Waiting for activity')
