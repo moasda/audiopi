@@ -72,6 +72,8 @@ def scan_and_play_callback(channel):
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
+    #stop playing
+    subprocess.call(['mocp', '-s'], shell=False)
     play_status = False
 
     #scan QR code
@@ -117,6 +119,7 @@ def scan_and_play_callback(channel):
 #function to shutdown the pi
 def shutdown_callback(channel):
     logging.info('Shutdown the pi by the right way :)')
+    subprocess.call(['mocp', '-s'], shell=False)
     subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/shutdown.wav'], shell=False)
     subprocess.call(['sudo', 'shutdown', '-h', 'now'], shell=False)
 
