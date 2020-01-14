@@ -3,7 +3,7 @@ import subprocess
 #mocp_state = str( subprocess.call(['mocp', '-i', '|', 'grep', 'State'], shell=False) )
 mocp_state = subprocess.Popen(['mocp', '-i', '|', 'grep', 'State'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-stdout,stderr = out.communicate()
+stdout,stderr = mocp_state.communicate()
 
 print( stdout.split(':')[1] )
 #print( mocp_state )
