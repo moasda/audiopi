@@ -1,6 +1,6 @@
 import subprocess
 
-mocp_state = str( subprocess.call(['mocp', '-i', '|', 'grep', 'State'], shell=False) )
+mocp_state = str( subprocess.call(['mocp', '-i', '|', 'grep', 'State'], shell=True) )
 
 print( mocp_state )
 
