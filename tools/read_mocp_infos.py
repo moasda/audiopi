@@ -1,6 +1,8 @@
 import subprocess
 
-mocp_state = subprocess.call(['mocp', '-i', '|', 'grep', 'State'], shell=False)
+mocp_state = str( subprocess.call(['mocp', '-i', '|', 'grep', 'State'], shell=False) )
+
+print( mocp_state )
 
 state_play = "PLAY" in mocp_state
 state_pause = "PAUSE" in mocp_state
@@ -9,5 +11,3 @@ state_stop = "STOP" in mocp_state
 print( "Play: " + state_play )
 print( "Pause: " + state_pause )
 print( "Stop: " + state_stop )
-
-#print( subprocess.call(['mocp', '-i', ['|'], ['grep', 'State']], shell=False) )
