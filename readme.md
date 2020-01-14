@@ -21,8 +21,11 @@ sudo apt-get install rename
 #QR-Code Software
 sudo apt-get install zbar-tools
 
-#Audioplayer
+#Audioplayer for Playlists
 sudo apt-get install moc moc-ffmpeg-plugin
+
+#Another Audioplayer for commands
+sudo apt install mpg321
 
 #GitClient
 sudo apt-get install git
