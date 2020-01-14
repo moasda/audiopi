@@ -14,6 +14,6 @@ state_play = b'PLAY' in stdout
 state_pause = b'PAUSE' in stdout
 state_stop = b'STOP' in stdout
 
-print( "Play: " + state_play )
-print( "Pause: " + state_pause )
-print( "Stop: " + state_stop )
+print( "Play: " + str(state_play) )
+print( "Pause: " + str(state_pause) )
+print( "Stop: " + str(state_stop) )
