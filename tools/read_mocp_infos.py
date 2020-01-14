@@ -10,10 +10,10 @@ stdout,stderr = mocp_state.communicate()
 
 print( stdout )
 
-#state_play = "PLAY" in stdout
-#state_pause = "PAUSE" in stdout
-#state_stop = "STOP" in stdout
+state_play = b'PLAY' in stdout
+state_pause = b'PAUSE' in stdout
+state_stop = b'STOP' in stdout
 
-#print( "Play: " + state_play )
-#print( "Pause: " + state_pause )
-#print( "Stop: " + state_stop )
+print( "Play: " + state_play )
+print( "Pause: " + state_pause )
+print( "Stop: " + state_stop )
