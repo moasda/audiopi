@@ -5,7 +5,7 @@ mocp_state = subprocess.Popen(['mocp', '-i', '|', 'grep', 'State'], stdout=subpr
 
 stdout,stderr = mocp_state.communicate()
 
-print( stdout.split(':')[1] )
+#print( stdout.split(':')[1] )
 #print( mocp_state )
 
 state_play = "PLAY" in stdout
