@@ -1,12 +1,16 @@
 import subprocess
 
-mocp_state = str( subprocess.call(['mocp', '-i', '|', 'grep', 'State'], shell=True) )
+#mocp_state = str( subprocess.call(['mocp', '-i', '|', 'grep', 'State'], shell=False) )
+mocp_state = subprocess.Popen(['mocp', '-i', '|', 'grep', 'State'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-print( mocp_state )
+stdout,stderr = out.communicate()
 
-state_play = "PLAY" in mocp_state
-state_pause = "PAUSE" in mocp_state
-state_stop = "STOP" in mocp_state
+print( stdout.split(':')[1] )
+#print( mocp_state )
+
+state_play = "PLAY" in stdout
+state_pause = "PAUSE" in stdout
+state_stop = "STOP" in stdout
 
 print( "Play: " + state_play )
 print( "Pause: " + state_pause )
