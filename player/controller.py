@@ -6,6 +6,7 @@ import logging
 import time
 import subprocess
 import select  # for polling zbarcam, see http://stackoverflow.com/a/10759061/3761783
+import threading 
 
 #Configuration
 QR_SCANNER_TIMEOUT = 4
@@ -21,6 +22,24 @@ PIN_BUTTON_VOLDOWN = 24
 PIN_BUTTON_NEXT = 22
 PIN_BUTTON_PREVIOUS = 27
 PIN_BUTTON_SHUTDOWN = 3
+
+
+class Timer:
+    def start(seconds):
+
+    def cancel():
+
+
+def gfg(): 
+    print("This is the output of the timer event!!!! :)\n") 
+
+print("Output before timer starts with 5 sek.\n")   
+timer = threading.Timer(5.0, gfg) 
+timer.start()
+print("Output after timer start.\n") 
+#timer.cancel()
+
+
 
 #function for button "play/pause"
 def play_pause_callback(channel):
@@ -96,6 +115,9 @@ def scan_and_play_callback(channel):
             if qr_code.startswith("cmd://"):
                 play(qr_code)
                 play_status = True
+            elif qr_code.startswith("timer:"):
+                timer = threading.Timer(30, play_fail) 
+                play_status = True
             elif qr_code != "":
                 #replace blanks with underscore
                 qr_code = qr_code.replace(" ", "_")
@@ -119,7 +141,9 @@ def scan_and_play_callback(channel):
 def shutdown_callback(channel):
     logging.info('Shutdown the pi by the right way :)')
     subprocess.call(['mocp', '-s'], shell=False)
+    time.sleep(0.5)
     subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/shutdown.wav'], shell=False)
+    time.sleep(0,5)
     subprocess.call(['sudo', 'shutdown', '-h', 'now'], shell=False)
 
 #Main function
