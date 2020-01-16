@@ -44,6 +44,28 @@ sudo raspi-config
 Activate "Camera"
 
 
+### Set USB Audio as Default Audio Device
+
+The USB sound device can be made the default audio device by editing a system file “alsa.conf” :
+
+### Code Block
+sudo nano /usr/share/alsa/alsa.conf
+
+Scroll and find the following two lines:
+
+### Code Block
+defaults.ctl.card 0
+defaults.pcm.card 0
+
+Change the 0 to a 1 to match the card number of the USB device :
+
+### Code Block
+defaults.ctl.card 1
+defaults.pcm.card 1
+
+To save the file and return to the command line use [CTRL-X], [Y], [ENTER].
+
+
 ### 2. Setup audio device for mocp
 
 ### Code Block
