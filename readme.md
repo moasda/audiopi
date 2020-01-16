@@ -98,11 +98,15 @@ find ~/music -type d -name '* *' -execdir bash -c 'mv "$1" "${1// /_}"' bash {} 
 
 ## Useful links
 
-Anleitungen/Beispiele:
+Examples / Tutorials:
 
 https://github.com/MiczFlor/RPi-Jukebox-RFID
 
 http://splittscheid.de/selfmade-phoniebox/#3A
+
+Raspberry GPIO Pins:
+
+https://pinout.xyz/
 
 Powerbutton:
 
