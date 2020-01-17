@@ -175,7 +175,7 @@ def main():
 
     shutdown_timer_running = False
 
-    shutdown_timer = threading.Timer(30.0, shutdown_callback) #shutdown in 5 minutes
+    shutdown_timer = threading.Timer(30.0, shutdown_callback, [0]) #shutdown in 5 minutes
 
     try:
         while True:
