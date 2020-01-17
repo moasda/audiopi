@@ -135,8 +135,7 @@ def check_mocp_playing():
 
     #check status
     state_play = b'PLAY' in stdout
-    #state_pause = b'PAUSE' in stdout
-    #state_stop = b'STOP' in stdout
+
     if state_play == True:
         return True
     else:
@@ -175,15 +174,13 @@ def main():
 
     shutdown_timer_running = False
 
-    #shutdown_timer = threading.Timer(30.0, shutdown_callback, [0]) #shutdown in 5 minutes
-
     try:
         while True:
             logging.info('Waiting for activity')
             time.sleep(10)
 
             if (check_mocp_playing() == False) and (shutdown_timer_running == False):
-                shutdown_timer = threading.Timer(30.0, shutdown_callback, [0]) #shutdown in 5 minutes
+                shutdown_timer = threading.Timer(300.0, shutdown_callback, [0]) #shutdown in 5 minutes
                 shutdown_timer.start()
                 logging.info('Shutdowntimer startet!')
                 shutdown_timer_running = True
