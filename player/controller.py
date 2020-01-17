@@ -23,24 +23,6 @@ PIN_BUTTON_NEXT = 22
 PIN_BUTTON_PREVIOUS = 27
 PIN_BUTTON_SHUTDOWN = 3
 
-
-class Timer:
-    def start(seconds):
-
-    def cancel():
-
-
-def gfg(): 
-    print("This is the output of the timer event!!!! :)\n") 
-
-print("Output before timer starts with 5 sek.\n")   
-timer = threading.Timer(5.0, gfg) 
-timer.start()
-print("Output after timer start.\n") 
-#timer.cancel()
-
-
-
 #function for button "play/pause"
 def play_pause_callback(channel):
     logging.info("PLAY/PAUSE")
@@ -146,6 +128,20 @@ def shutdown_callback(channel):
     time.sleep(0,5)
     subprocess.call(['sudo', 'shutdown', '-h', 'now'], shell=False)
 
+def check_mocp_playing():
+    #Read status
+    mocp_state = subprocess.Popen(['mocp', '-i', '|', 'grep', 'State'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    stdout,stderr = mocp_state.communicate()
+
+    #check status
+    state_play = b'PLAY' in stdout
+    #state_pause = b'PAUSE' in stdout
+    #state_stop = b'STOP' in stdout
+    if state_play == True:
+        return True
+    else
+        return False
+
 #Main function
 def main():
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
@@ -177,10 +173,23 @@ def main():
     #Play "bootup sound" to show that the pi is ready to use
     subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/boot.mp3'], shell=False)
 
+    shutdown_timer_running = False
+
+    shutdown_timer = threading.Timer(300.0, shutdown_callback) #shutdown in 5 minutes
+
     try:
         while True:
             logging.info('Waiting for activity')
             time.sleep(10)
+
+            if (check_mocp_playing() == False) and (shutdown_timer_running == False)
+                shutdown_timer.start()
+                logging.info('Shutdowntimer startet!')
+                shutdown_timer_running = True
+            elif (check_mocp_playing() == True) and (shutdown_timer_running == True)
+                shutdown_timer.cancel()
+                logging.info('Shutdowntimer canceled!')
+                shutdown_timer_running = False
 
     #Exit when Ctrl-C is pressed
     except KeyboardInterrupt:

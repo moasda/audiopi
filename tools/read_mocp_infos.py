@@ -14,11 +14,6 @@ state_play = b'PLAY' in stdout
 state_pause = b'PAUSE' in stdout
 state_stop = b'STOP' in stdout
 
-if state_play == True:
-    print( "Play: " + str(state_play) )
-
-if state_pause == True:
-    print( "Pause: " + str(state_pause) )
-
-if state_stop == True:
-    print( "Stop: " + str(state_stop) )
+print( "Play: " + str(state_play) )
+print( "Pause: " + str(state_pause) )
+print( "Stop: " + str(state_stop) )
