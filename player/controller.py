@@ -139,7 +139,7 @@ def check_mocp_playing():
     #state_stop = b'STOP' in stdout
     if state_play == True:
         return True
-    else
+    else:
         return False
 
 #Main function
@@ -182,11 +182,11 @@ def main():
             logging.info('Waiting for activity')
             time.sleep(10)
 
-            if (check_mocp_playing() == False) and (shutdown_timer_running == False)
+            if (check_mocp_playing() == False) and (shutdown_timer_running == False):
                 shutdown_timer.start()
                 logging.info('Shutdowntimer startet!')
                 shutdown_timer_running = True
-            elif (check_mocp_playing() == True) and (shutdown_timer_running == True)
+            elif (check_mocp_playing() == True) and (shutdown_timer_running == True):
                 shutdown_timer.cancel()
                 logging.info('Shutdowntimer canceled!')
                 shutdown_timer_running = False
