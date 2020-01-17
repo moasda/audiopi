@@ -125,7 +125,7 @@ def shutdown_callback(channel):
     subprocess.call(['mocp', '-s'], shell=False)
     time.sleep(0.5)
     subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/shutdown.wav'], shell=False)
-    time.sleep(0,5)
+    time.sleep(0.5)
     subprocess.call(['sudo', 'shutdown', '-h', 'now'], shell=False)
 
 def check_mocp_playing():
