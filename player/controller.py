@@ -182,7 +182,7 @@ def main():
             if (check_mocp_playing() == False) and (shutdown_timer_running == False):
                 shutdown_timer = threading.Timer(300.0, shutdown_callback, [0]) #shutdown in 5 minutes
                 shutdown_timer.start()
-                logging.info('Shutdowntimer startet!')
+                logging.info('Shutdowntimer started!')
                 shutdown_timer_running = True
             elif (check_mocp_playing() == True) and (shutdown_timer_running == True):
                 shutdown_timer.cancel()
@@ -194,7 +194,7 @@ def main():
         logging.info('Shutdown')
         
     finally:
-        logging.info('Reset GPIO configuration and close')
+        logging.info('Reset GPIO configuration and close process! AudioPi says goodbye...')
         GPIO.cleanup()
 
 #Driver Code 
