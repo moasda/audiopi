@@ -163,7 +163,7 @@ def main():
     GPIO.add_event_detect(PIN_BUTTON_VOLDOWN, GPIO.FALLING, callback=voldown_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_PREVIOUS, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
-    BOUNCE_TIME_SCAN = ((QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME + 1200) #Timeouts addieren und in ms umrechnen
+    BOUNCE_TIME_SCAN = ((QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME + 1500) #Timeouts addieren und in ms umrechnen
     GPIO.add_event_detect(PIN_BUTTON_SCAN_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
 
     logging.info("Start mocp server")
