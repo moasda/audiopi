@@ -180,7 +180,7 @@ def main():
             time.sleep(10)
 
             if (check_mocp_playing() == False) and (shutdown_timer_running == False):
-                shutdown_timer = threading.Timer(300.0, shutdown_callback, [0]) #shutdown in 5 minutes
+                shutdown_timer = threading.Timer(600.0, shutdown_callback, [0]) #shutdown in 10 minutes
                 shutdown_timer.start()
                 logging.info('Shutdowntimer started!')
                 shutdown_timer_running = True
