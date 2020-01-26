@@ -97,7 +97,7 @@ def scan_and_play_callback(channel):
             if qr_code.startswith("cmd://"):
                 play(qr_code)
                 play_status = True
-            elif qr_code.startswith("timer:"):
+            elif qr_code.startswith("timer://"):
                 timer = threading.Timer(30, play_fail) 
                 play_status = True
             elif qr_code != "":
