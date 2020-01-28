@@ -124,9 +124,17 @@ sudo systemctl start audiopi.service
 
 **_Attention:_** After AudioPi started, you have 10 Minutes to stop the service until automatical shutdown happens.
 
+# 6. QR-Code Karten erstellen
+
+https://www.the-qrcode-generator.com/
+
+https://www.texttomp3.online/
+
+https://notevibes.com/
 
 
-# 6. Information
+
+# 7. Information
 
 ## Other useful commands
 

@@ -98,6 +98,8 @@ def scan_and_play_callback(channel):
                 play(qr_code)
                 play_status = True
             elif qr_code.startswith("timer://"):
+                seconds = qr_code[8:]
+                logging.info("Seconds: -" + seconds + "-")
                 timer = threading.Timer(30, play_fail) 
                 play_status = True
             elif qr_code != "":
