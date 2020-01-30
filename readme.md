@@ -154,26 +154,26 @@ find ~/music -type d -name '* *' -execdir bash -c 'mv "$1" "${1// /_}"' bash {} 
 
 ## Useful links
 
-Examples / Tutorials:
+### Tutorials / Examples:
 
 http://www.tilman.de/projekte/musikrakete/
+
+[Template source](https://github.com/tliero/qudio/blob/master/code/qudio.py)
 
 https://github.com/tliero/musikrakete/blob/master/code/piplayer_pulse.py
 
 http://tilman.de/projekte/qudio/
 
+[Raspberry GPIO Pins](https://pinout.xyz/)
+
+[Powerbutton](https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi)
+
+[Power-LED](https://howchoo.com/g/ytzjyzy4m2e/build-a-simple-raspberry-pi-led-power-status-indicator)
+
+
+### Inspiration:
+
 https://github.com/MiczFlor/RPi-Jukebox-RFID
 
 http://splittscheid.de/selfmade-phoniebox/#3A
 
-Raspberry GPIO Pins:
-
-https://pinout.xyz/
-
-Powerbutton:
-
-https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi
-
-Power-LED:
-
-https://howchoo.com/g/ytzjyzy4m2e/build-a-simple-raspberry-pi-led-power-status-indicator

@@ -1,16 +1,18 @@
-#Soruce:
-#https://github.com/tliero/qudio/blob/master/code/qudio.py
+#!/usr/bin/python3
 
 import RPi.GPIO as GPIO
 import logging
 import time
 import subprocess
-import select  # for polling zbarcam, see http://stackoverflow.com/a/10759061/3761783
+import select  #for polling zbarcam, see http://stackoverflow.com/a/10759061/3761783
 import threading 
+import mocp #own script
+
 
 #Configuration
 QR_SCANNER_TIMEOUT = 4
 MUSIC_BASE_DIRECTORY = "/home/pi/music/"
+SYSTEM_SOUND_DIRECTORY = "/home/pi/audiopi/sounds/"
 
 BOUNCE_TIME = 800
 
@@ -23,50 +25,42 @@ PIN_BUTTON_NEXT = 22
 PIN_BUTTON_PREVIOUS = 27
 PIN_BUTTON_SHUTDOWN = 3
 
+
 #function for button "play/pause"
 def play_pause_callback(channel):
-    logging.info("PLAY/PAUSE")
-    subprocess.call(['mocp', '-G'], shell=False)
+    mocp.toggle_play_pause()
+
 
 #function for button "next song"
 def next_callback(channel):
-    logging.info("NEXT")
-    subprocess.call(['mocp', '-f'], shell=False)
-    ## TODO implement seek
+    mocp.next_song()
+
 
 #function for button "previous song"
 def prev_callback(channel):
-    logging.info("PREV")
-    subprocess.call(['mocp', '-r'], shell=False)
-    ## TODO implement jump to beginning for first x seconds (or if first track)
-    ## TODO implement seek
+    mocp.previous_song()
+
 
 #function for button "volume up"
 def volup_callback(channel):
-    logging.info("VOLUP")
-    subprocess.call(['mocp', '-v', '+5'], shell=False)
+    mocp.volume_up()
+
 
 #function for button "volume down"
 def voldown_callback(channel):
-    logging.info("VOLDOWN")
-    subprocess.call(['mocp', '-v', '-5'], shell=False)
+    mocp.volume_down()
+
 
 #function for playing sounds
 def play_fail():
-    subprocess.call(['mocp', '-P'], shell=False)
-    time.sleep(0.5)
-    subprocess.call(['mpg321', '/home/pi/audiopi/sounds/fail.mp3'], shell=False)
-    subprocess.call(['mocp', '-U'], shell=False)
+    title = SYSTEM_SOUND_DIRECTORY + 'fail.mp3'
+    mocp.play_system_sound(title)
+
 
 #function for playing sounds
 def play(music_path):
-    #Clear current playlsit
-    subprocess.call(['mocp', '-c'], shell=False)
-    #Create new playlist
-    subprocess.call(['mocp', '-a', music_path], shell=False)
-    #Start playing
-    subprocess.call(['mocp', '-p'], shell=False)
-    logging.info("Play: " + music_path)
+    mocp.play_folder(music_path)
+
 
 #function to scan and play
 def scan_and_play_callback(channel):
@@ -95,12 +89,11 @@ def scan_and_play_callback(channel):
             logging.info("QR Code: " + qr_code)
             
             if qr_code.startswith("cmd://"):
-                play(qr_code)
+                command = qr_code[6:]
                 play_status = True
             elif qr_code.startswith("timer://"):
                 seconds = qr_code[8:]
-                logging.info("Seconds: -" + seconds + "-")
-                timer = threading.Timer(30, play_fail) 
+                timer = threading.Timer(int(seconds), play_fail) 
                 play_status = True
             elif qr_code != "":
                 #replace blanks with underscore
@@ -121,27 +114,22 @@ def scan_and_play_callback(channel):
     if play_status == False:
         play_fail()
 
-#function to shutdown the pi
+
+#function to shutdown button
 def shutdown_callback(channel):
+    mocp.stop()
+    time.sleep(0.5)
+    title = SYSTEM_SOUND_DIRECTORY + 'shutdown.wav'
+    mocp.play_system_sound(title)
+    time.sleep(0.5)
+    system_shutdown()
+
+
+#function to shutdown the pi
+def system_shutdown():
     logging.info('Shutdown the pi by the right way :)')
-    subprocess.call(['mocp', '-s'], shell=False)
-    time.sleep(0.5)
-    subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/shutdown.wav'], shell=False)
-    time.sleep(0.5)
     subprocess.call(['sudo', 'shutdown', '-h', 'now'], shell=False)
 
-def check_mocp_playing():
-    #Read status
-    mocp_state = subprocess.Popen(['mocp', '-i', '|', 'grep', 'State'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    stdout,stderr = mocp_state.communicate()
-
-    #check status
-    state_play = b'PLAY' in stdout
-
-    if state_play == True:
-        return True
-    else:
-        return False
 
 #Main function
 def main():
@@ -168,11 +156,12 @@ def main():
     BOUNCE_TIME_SCAN = ((QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME + 2000) #Timeouts addieren und in ms umrechnen
     GPIO.add_event_detect(PIN_BUTTON_SCAN_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
 
-    logging.info("Start mocp server")
-    subprocess.call(['mocp', '-S'], shell=False)
+    #Start mocp server
+    mocp.start_server()
 
     #Play "bootup sound" to show that the pi is ready to use
-    subprocess.call(['mocp', '-l', '/home/pi/audiopi/sounds/boot.mp3'], shell=False)
+    title = SYSTEM_SOUND_DIRECTORY + 'boot.mp3'
+    mocp.play_system_sound(title)
 
     shutdown_timer_running = False
 
@@ -181,12 +170,12 @@ def main():
             logging.info('Waiting for activity')
             time.sleep(10)
 
-            if (check_mocp_playing() == False) and (shutdown_timer_running == False):
-                shutdown_timer = threading.Timer(600.0, shutdown_callback, [0]) #shutdown in 10 minutes
+            if (mocp.check_mocp_playing() == False) and (shutdown_timer_running == False):
+                shutdown_timer = threading.Timer(900.0, system_shutdown) #shutdown in 15 minutes
                 shutdown_timer.start()
                 logging.info('Shutdowntimer started!')
                 shutdown_timer_running = True
-            elif (check_mocp_playing() == True) and (shutdown_timer_running == True):
+            elif (mocp.check_mocp_playing() == True) and (shutdown_timer_running == True):
                 shutdown_timer.cancel()
                 logging.info('Shutdowntimer canceled!')
                 shutdown_timer_running = False
