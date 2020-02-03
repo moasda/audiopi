@@ -56,9 +56,9 @@ sudo apt install mpg321
 sudo apt-get install git
 
 #GitClient configuration
-git config --global user.name *"Christian (AudioPI)"*
-git config --global user.email *"christian@megaminus.de"*
-git config --global core.editor *nano*
+git config --global user.name "Christian (AudioPI)"
+git config --global user.email "christian@megaminus.de"
+git config --global core.editor nano
 ~~~
 
 ## Configuration respian
