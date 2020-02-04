@@ -65,7 +65,10 @@ git config --global core.editor nano
 ~~~bash
 #start raspian configuration
 sudo raspi-config
+#--> set localization (de-de) and keyboard layout
 #--> activate "camera module"
+#--> activate "auto login"
+#--> activate "ssh"
 ~~~
 
 
@@ -80,6 +83,36 @@ sudo cp ./install/config ~/.moc/config
 ~~~
 
 ## Setup USB audio as default _(for system)_
+
+Get number of sound card:
+
+~~~bash
+aplay -l
+~~~
+
+In result search for the nomber of the USB audio device (here "*Karte 1: Device..."*)
+
+~~~bash
+**** Liste der Hardware-Geräte (PLAYBACK) ****
+Karte 0: ALSA [bcm2835 ALSA], Gerät 0: bcm2835 ALSA [bcm2835 ALSA]
+  Sub-Geräte: 7/7
+  Sub-Gerät #0: subdevice #0
+  Sub-Gerät #1: subdevice #1
+  Sub-Gerät #2: subdevice #2
+  Sub-Gerät #3: subdevice #3
+  Sub-Gerät #4: subdevice #4
+  Sub-Gerät #5: subdevice #5
+  Sub-Gerät #6: subdevice #6
+Karte 0: ALSA [bcm2835 ALSA], Gerät 1: bcm2835 IEC958/HDMI [bcm2835 IEC958/HDMI]
+  Sub-Geräte: 1/1
+  Sub-Gerät #0: subdevice #0
+Karte 0: ALSA [bcm2835 ALSA], Gerät 2: bcm2835 IEC958/HDMI1 [bcm2835 IEC958/HDMI1]
+  Sub-Geräte: 1/1
+  Sub-Gerät #0: subdevice #0
+Karte 1: Device [USB Audio Device], Gerät 0: USB Audio [USB Audio]
+  Sub-Geräte: 1/1
+  Sub-Gerät #0: subdevice #0
+~~~
 
 The USB sound device can be made the default audio device by editing a system file "alsa.conf":
 
@@ -102,6 +135,14 @@ defaults.pcm.card 1
 
 To save the file and return to the command line use [CTRL-X], [Y], [ENTER].
 
+### Test sound card (after reboot!)
+
+~~~bash
+speaker-test -c2
+# or download a sample file and play
+wget https://www.kozco.com/tech/piano2.wav
+aplay piano2.wav
+~~~
 
 # 4. Setup AudioPi
 
@@ -129,8 +170,6 @@ sudo systemctl start audiopi.service
 https://www.the-qrcode-generator.com/
 
 https://www.texttomp3.online/
-
-https://notevibes.com/
 
 
 

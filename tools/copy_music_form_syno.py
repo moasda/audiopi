@@ -1,5 +1,6 @@
 
 import os
+import subprocess
 
 #Function to mount sync directory
 def mount():
@@ -36,7 +37,9 @@ def sync():
 #Main function to sync music directory with synology
 def main():
     mount()
+    subprocess.call(['mpg321', '/home/pi/audiopi/sounds/abgleich_daten_startet.mp3'], shell=False)
     sync()
+    subprocess.call(['mpg321', '/home/pi/audiopi/sounds/abgleich_daten_fertig.mp3'], shell=False)
     unmount()
 
 # Driver Code 
