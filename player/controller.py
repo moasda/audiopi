@@ -119,7 +119,7 @@ def scan_and_play_callback(channel):
 def shutdown_callback(channel):
     mocp.stop()
     time.sleep(0.5)
-    title = SYSTEM_SOUND_DIRECTORY + 'shutdown.wav'
+    title = SYSTEM_SOUND_DIRECTORY + 'shutdown.mp3'
     mocp.play_system_sound(title)
     time.sleep(0.5)
     system_shutdown()
