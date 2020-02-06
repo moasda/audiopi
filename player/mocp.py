@@ -3,6 +3,10 @@
 import logging
 import subprocess
 import time
+import glob
+
+first_track = ""
+last_track = ""
 
 #function for starting mocp server
 def start_server():
@@ -26,16 +30,14 @@ def stop():
 def next_song():
     logging.info("NEXT Song")
     subprocess.call(['mocp', '-f'], shell=False)
-    ## TODO implement seek
+    ## TODO jump to first track
 
 
 #function for button "previous song"
 def previous_song():
     logging.info("PREVIOUS Song")
     subprocess.call(['mocp', '-r'], shell=False)
-    ## TODO implement jump to beginning for first x seconds (or if first track)
-    ## TODO implement seek
-
+    ## TODO jump ot last track
 
 #function for button "volume up"
 def volume_up():
@@ -52,6 +54,17 @@ def volume_down():
 #function for playing sounds
 def play_folder(music_path):
     logging.info("Play: " + music_path)
+
+    #get first and last track    
+    search_for = music_path + "/*.mp3"
+    play_list = glob.glob(search_for)
+    if len(play_list) > 0:
+        first_track = play_list[0]
+        last_track = play_list[len(play_list)-1]
+    
+    logging.info( "First: " + first_track[len(music_path)+1:] )
+    logging.info( "Last: " + last_track[len(music_path)+1:] )
+
     #Clear current playlsit
     subprocess.call(['mocp', '-c'], shell=False)
     #Create new playlist
