@@ -2,34 +2,37 @@
 import os
 import subprocess
 
+#config
+PATH_SOURCE = "192.168.178.29:/volume2/music/audiobox_laura"
+PATH_TARGET = "/home/pi/music/"
+PATH_MOUNT = "/mnt/syno_music"
+
 #Function to mount sync directory
 def mount():
     #crate mount point
-    cmd = "sudo mkdir /mnt/syno_music"
+    cmd = "sudo mkdir " + PATH_MOUNT
     os.system(cmd)
-    cmd = "sudo chmod 755 /mnt/syno_music"
+    cmd = "sudo chmod 755 " + PATH_MOUNT
     os.system(cmd)
     #mount folder from synology to mout point (read only)
-    cmd = "sudo mount -r 192.168.178.29:/volume2/music/audiobox_laura /mnt/syno_music"
+    cmd = "sudo mount -r " + PATH_SOURCE + " " + PATH_MOUNT
     os.system(cmd)
 
 #Function to unmount sync directory
 def unmount():
     #unmount synology folder
-    cmd = "sudo umount /mnt/syno_music"
+    cmd = "sudo umount " + PATH_MOUNT
     os.system(cmd)
     #remove mount point
-    cmd = "sudo rmdir /mnt/syno_music"
+    cmd = "sudo rmdir " + PATH_MOUNT
     os.system(cmd)
 
 #Function to sync directory
 def sync():
-    src_path = "/mnt/syno_music/"
-    dst_path = "/home/pi/music/"
-    for filename in os.listdir(src_path): 
+    for filename in os.listdir(PATH_MOUNT): 
         #todo
-        source_folder =  src_path + filename
-        destination_folder = dst_path + filename.replace(" ", "_")
+        source_folder =  PATH_MOUNT + filename
+        destination_folder = PATH_TARGET + filename.replace(" ", "_")
         print(source_folder + " --> " + destination_folder)
         cmd = "sudo rsync -rv --delete --exclude '@*' --exclude '#recycle' --exclude '*.ini' '" + source_folder + "/' '" + destination_folder + "/'"
         os.system(cmd)

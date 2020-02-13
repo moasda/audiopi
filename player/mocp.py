@@ -57,7 +57,7 @@ def play_folder(music_path):
 
     #get first and last track    
     search_for = music_path + "/*.mp3"
-    play_list = glob.glob(search_for)
+    play_list = glob.glob(search_for).sort()
     if len(play_list) > 0:
         first_song = play_list[0]
         last_song = play_list[len(play_list)-1]

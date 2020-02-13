@@ -75,13 +75,6 @@ sudo raspi-config
 
 # 3. Setup audio device for mocp
 
-## Setup USB audio as default audio device _(for mocp only)_
-
-~~~bash
-#Place mocp configuration for USB soundcard
-sudo cp ./install/config ~/.moc/config
-~~~
-
 ## Setup USB audio as default _(for system)_
 
 Get number of sound card:
@@ -144,6 +137,14 @@ wget https://www.kozco.com/tech/piano2.wav
 aplay piano2.wav
 ~~~
 
+## Setup USB audio as default audio device _(for mocp only)_
+
+~~~bash
+#Config USB soundcard for mocp (only necessary if cardnumber not equals 1)
+nano ~/.moc/config
+~~~
+
+
 # 4. Setup AudioPi
 
 ~~~bash
@@ -179,7 +180,7 @@ https://www.texttomp3.online/
 
 ~~~bash
 #check camera module
-raspistill <??????>
+raspistill -d <??????>
 
 #shudown the system
 sudo shutdown -h now
@@ -195,24 +196,19 @@ find ~/music -type d -name '* *' -execdir bash -c 'mv "$1" "${1// /_}"' bash {} 
 
 ### Tutorials / Examples:
 
-http://www.tilman.de/projekte/musikrakete/
+Example projects: ["Musikrakete"](http://www.tilman.de/projekte/musikrakete/) and ["Quido"](http://tilman.de/projekte/qudio/)
 
-[Template source](https://github.com/tliero/qudio/blob/master/code/qudio.py)
-
-https://github.com/tliero/musikrakete/blob/master/code/piplayer_pulse.py
-
-http://tilman.de/projekte/qudio/
+Used code templates: ["Musikrakete"](https://github.com/tliero/musikrakete/blob/master/code/piplayer_pulse.py) and ["Quido"](https://github.com/tliero/qudio/blob/master/code/qudio.py)
 
 [Raspberry GPIO Pins](https://pinout.xyz/)
 
-[Powerbutton](https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi)
+[HowTo: Powerbutton](https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi)
 
-[Power-LED](https://howchoo.com/g/ytzjyzy4m2e/build-a-simple-raspberry-pi-led-power-status-indicator)
-
+[HowTo: Power-LED](https://howchoo.com/g/ytzjyzy4m2e/build-a-simple-raspberry-pi-led-power-status-indicator)
 
 ### Inspiration:
 
-https://github.com/MiczFlor/RPi-Jukebox-RFID
+[RPi-Jukebox-RFID](https://github.com/MiczFlor/RPi-Jukebox-RFID)
 
-http://splittscheid.de/selfmade-phoniebox/#3A
+[Selfmade-Phoniebox](http://splittscheid.de/selfmade-phoniebox/#3A)
 
