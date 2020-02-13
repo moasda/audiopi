@@ -31,6 +31,7 @@ def next_song():
     logging.info("NEXT Song")
     subprocess.call(['mocp', '-f'], shell=False)
     ## TODO jump to first track
+    check_is_current_title(last_song)
 
 
 #function for button "previous song"
@@ -123,3 +124,15 @@ def check_mocp_stop():
         return True
     else:
         return False
+
+
+def check_is_current_title(title):
+    #Read current file
+    mocp_file = subprocess.Popen(['mocp', '-i', '|', 'grep', 'File'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    stdout,stderr = mocp_file.communicate()
+
+    #check status
+    mocp_current_file = stdout.decode('ascii')
+
+    print(mocp_current_file)
+
