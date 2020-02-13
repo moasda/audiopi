@@ -5,8 +5,8 @@ import subprocess
 import time
 import glob
 
-first_song = ""
-last_song = ""
+FIRST_SONG = ""
+LAST_SONG = ""
 
 #function for starting mocp server
 def start_server():
@@ -61,11 +61,11 @@ def play_folder(music_path):
     play_list = glob.glob(search_for)
     play_list.sort()
     if len(play_list) > 0:
-        first_song = play_list[0]
-        last_song = play_list[len(play_list)-1]
+        FIRST_SONG = play_list[0]
+        LAST_SONG = play_list[len(play_list)-1]
     
-    logging.info( "First: " + first_song[len(music_path)+1:] )
-    logging.info( "Last: " + last_song[len(music_path)+1:] )
+    logging.info( "First: " + FIRST_SONG[len(music_path)+1:] )
+    logging.info( "Last: " + LAST_SONG[len(music_path)+1:] )
 
     #Clear current playlsit
     subprocess.call(['mocp', '-c'], shell=False)
