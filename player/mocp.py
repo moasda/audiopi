@@ -130,9 +130,10 @@ def check_is_current_title(title):
     #Read current file
     mocp_file = subprocess.Popen(['mocp', '-i', '|', 'grep', 'File'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     stdout,stderr = mocp_file.communicate()
+    #Decode from binary string without prefix "File: "(6) and suffix "\n"
+    current_track = stdout[6:-1].decode('ascii')
 
-    #check status
-    mocp_current_file = stdout.decode('ascii')
+    print( "Aktuell: " + current_track )
+    print( "Vergleich: " + title )
 
-    print(mocp_current_file)
-
+    return True
