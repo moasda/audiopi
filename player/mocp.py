@@ -140,3 +140,4 @@ def check_is_current_title(title):
     logging.info( "Vergleich: " + title )
 
     return True
+
