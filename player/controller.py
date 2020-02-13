@@ -151,8 +151,8 @@ def main():
     GPIO.add_event_detect(PIN_BUTTON_TOGGLE_PLAY, GPIO.FALLING, callback=play_pause_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_VOLUP, GPIO.FALLING, callback=volup_callback, bouncetime=BOUNCE_TIME)
     GPIO.add_event_detect(PIN_BUTTON_VOLDOWN, GPIO.FALLING, callback=voldown_callback, bouncetime=BOUNCE_TIME)
-    GPIO.add_event_detect(PIN_BUTTON_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME)
-    GPIO.add_event_detect(PIN_BUTTON_PREVIOUS, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME)
+    GPIO.add_event_detect(PIN_BUTTON_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME+500)
+    GPIO.add_event_detect(PIN_BUTTON_PREVIOUS, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME+500)
     BOUNCE_TIME_SCAN = ((QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME + 2000) #Timeouts addieren und in ms umrechnen
     GPIO.add_event_detect(PIN_BUTTON_SCAN_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
 
