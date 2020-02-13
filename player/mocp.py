@@ -130,10 +130,13 @@ def check_is_current_title(title):
     #Read current file
     mocp_info = subprocess.Popen(['mocp', '-i'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
+    search_for_info = 'File:'
+
     for line in mocp_info.stdout:
         line = line.decode('utf-8')
-        if line.startswith('File') == True:
-            current_track = line[6:]
+        if line.startswith(search_for_info) == True:
+            #Get prefix "File: "(6) and suffix "\n"
+            current_track = line[len(search_for_info)+1:-1]
             break
 
     logging.info( "Aktuell: " + current_track )
