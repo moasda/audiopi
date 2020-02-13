@@ -1,5 +1,25 @@
 import subprocess
 
+def get_mocp_info(option):
+    mocp_info = subprocess.Popen(['mocp', '-i'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    search_for_info = option + ':'
+    for line in mocp_info.stdout:
+        line = line.decode('utf-8')
+        if line.startswith(search_for_info) == True:
+            #Prefix equals to option - for example "File: "(6) and suffix "\n"
+            info = line[len(search_for_info)+1:-1]
+            break
+    print( "Info: " + info )
+    return info
+
+    
+current_track = get_mocp_info('File')
+print( current_track )
+state = get_mocp_info('State')
+print( state )
+
+exit(-1)
+
 #Read current file
 mocp_info = subprocess.Popen(['mocp', '-i'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1)
 
