@@ -6,7 +6,7 @@ mocp_state = subprocess.Popen(['pwd'], stdin=subprocess.PIPE, stdout=subprocess.
 
 stdout,stderr = mocp_state.communicate()
 
-test = stdout[6:-1].decode('ascii')
+test = stdout[6:-1].decode('utf-8')
 
 print( "Ausgabe: " + test )
 
