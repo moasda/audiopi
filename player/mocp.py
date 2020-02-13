@@ -39,8 +39,9 @@ def next_song():
 #function for button "previous song"
 def previous_song():
     logging.info("PREVIOUS Song")
-    subprocess.call(['mocp', '-r'], shell=False)
-    ## TODO jump ot last track
+    if check_is_current_title(FIRST_SONG) == False:
+      subprocess.call(['mocp', '-r'], shell=False)
+
 
 #function for button "volume up"
 def volume_up():
@@ -89,68 +90,34 @@ def play_system_sound(title):
 
 
 def check_mocp_playing():
-    #Read status
-    mocp_state = subprocess.Popen(['mocp', '-i', '|', 'grep', 'State'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    stdout,stderr = mocp_state.communicate()
-
-    #check status
-    state_play = b'PLAY' in stdout
-
-    if state_play == True:
+    state = get_mocp_info('State')
+    if state == 'PLAY':
         return True
     else:
         return False
 
 
 def check_mocp_plause():
-    #Read status
-    mocp_state = subprocess.Popen(['mocp', '-i', '|', 'grep', 'State'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    stdout,stderr = mocp_state.communicate()
-
-    #check status
-    state_play = b'PAUSE' in stdout
-
-    if state_play == True:
+    state = get_mocp_info('State')
+    if state == 'PAUSE':
         return True
     else:
         return False
 
 
 def check_mocp_stop():
-    #Read status
-    mocp_state = subprocess.Popen(['mocp', '-i', '|', 'grep', 'State'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    stdout,stderr = mocp_state.communicate()
-
-    #check status
-    state_play = b'STOP' in stdout
-
-    if state_play == True:
+    state = get_mocp_info('State')
+    if state == 'STOP':
         return True
     else:
         return False
 
 
 def check_is_current_title(title):
-    # #Read current file
-    # mocp_info = subprocess.Popen(['mocp', '-i'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-    # search_for_info = 'File:'
-
-    # for line in mocp_info.stdout:
-    #     line = line.decode('utf-8')
-    #     if line.startswith(search_for_info) == True:
-    #         #Get prefix "File: "(6) and suffix "\n"
-    #         current_track = line[len(search_for_info)+1:-1]
-    #         break
     current_track = get_mocp_info('File')
-    logging.info( "Aktuell: " + current_track )
-    logging.info( "Vergleich: " + title )
-
     if current_track == title:
-        logging.info( "Vergleich: ok")
         return True
     else:
-        logging.info( "Vergleich: falsch")
         return False
 
 
@@ -163,5 +130,4 @@ def get_mocp_info(option):
             #Prefix equals to option - for example "File: "(6) and suffix "\n"
             info = line[len(search_for_info)+1:-1]
             break
-    logging.info( "Info: " + info )
     return info
