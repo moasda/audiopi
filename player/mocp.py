@@ -128,10 +128,13 @@ def check_mocp_stop():
 
 def check_is_current_title(title):
     #Read current file
-    mocp_file = subprocess.Popen(['mocp', '-i', '|', 'grep', 'File'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1)
-    stdout,stderr = mocp_file.communicate()
-    #Decode from binary string without prefix "File: "(6) and suffix "\n"
-    current_track = stdout[6:-1].decode('utf-8')
+    mocp_info = subprocess.Popen(['mocp', '-i'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+    for line in mocp_info.stdout:
+        line = line.decode('utf-8')
+        if line.startswith('File') == True:
+            current_track = line[6:]
+            break
 
     logging.info( "Aktuell: " + current_track )
     logging.info( "Vergleich: " + title )
