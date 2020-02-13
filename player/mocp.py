@@ -29,8 +29,9 @@ def stop():
 #function for button "next song"
 def next_song():
     logging.info("NEXT Song")
-    if check_is_current_title(LAST_SONG):
+    if check_is_current_title(LAST_SONG) == True:
         #last track is currently playing -> jump to first track
+        subprocess.call(['mocp', '-p'], shell=False)
     else:
         subprocess.call(['mocp', '-f'], shell=False)
 
@@ -146,7 +147,9 @@ def check_is_current_title(title):
     logging.info( "Vergleich: " + title )
 
     if current_track == title:
+        logging.info( "Vergleich: ok")
         return True
     else:
+        logging.info( "Vergleich: falsch")
         return False
 
