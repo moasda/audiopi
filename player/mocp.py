@@ -31,7 +31,7 @@ def next_song():
     logging.info("NEXT Song")
     subprocess.call(['mocp', '-f'], shell=False)
     ## TODO jump to first track
-    check_is_current_title(last_song)
+    check_is_current_title(LAST_SONG)
 
 
 #function for button "previous song"
