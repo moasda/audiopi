@@ -131,18 +131,18 @@ def check_mocp_stop():
 
 
 def check_is_current_title(title):
-    #Read current file
-    mocp_info = subprocess.Popen(['mocp', '-i'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    # #Read current file
+    # mocp_info = subprocess.Popen(['mocp', '-i'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-    search_for_info = 'File:'
+    # search_for_info = 'File:'
 
-    for line in mocp_info.stdout:
-        line = line.decode('utf-8')
-        if line.startswith(search_for_info) == True:
-            #Get prefix "File: "(6) and suffix "\n"
-            current_track = line[len(search_for_info)+1:-1]
-            break
-
+    # for line in mocp_info.stdout:
+    #     line = line.decode('utf-8')
+    #     if line.startswith(search_for_info) == True:
+    #         #Get prefix "File: "(6) and suffix "\n"
+    #         current_track = line[len(search_for_info)+1:-1]
+    #         break
+    current_track = get_mocp_info('File')
     logging.info( "Aktuell: " + current_track )
     logging.info( "Vergleich: " + title )
 
@@ -153,3 +153,15 @@ def check_is_current_title(title):
         logging.info( "Vergleich: falsch")
         return False
 
+
+def get_mocp_info(option):
+    mocp_info = subprocess.Popen(['mocp', '-i'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    search_for_info = option + ':'
+    for line in mocp_info.stdout:
+        line = line.decode('utf-8')
+        if line.startswith(search_for_info) == True:
+            #Prefix equals to option - for example "File: "(6) and suffix "\n"
+            info = line[len(search_for_info)+1:-1]
+            break
+    logging.info( "Info: " + info )
+    return info
