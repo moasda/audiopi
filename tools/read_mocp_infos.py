@@ -1,14 +1,14 @@
 import subprocess
 
-mocp_state = subprocess.Popen(['pwd'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, bufsize=1)
+#Read current file
+mocp_file = subprocess.Popen(['mocp', '-i', '|', 'grep', 'File'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1)
+stdout,stderr = mocp_file.communicate()
+#Decode from binary string without prefix "File: "(6) and suffix "\n"
+current_track = stdout[6:-1].decode('utf-8')
 
-#print( mocp_state.stdout.readline().decode('ascii') )
+print( "Aktuell: " + current_track )
+print( "Vergleich: " + title )
 
-stdout,stderr = mocp_state.communicate()
-
-test = stdout[6:-1].decode('utf-8')
-
-print( "Ausgabe: " + test )
 
 exit(-1)
 
