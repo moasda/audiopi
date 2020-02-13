@@ -55,6 +55,8 @@ def volume_down():
 
 #function for playing sounds
 def play_folder(music_path):
+    global FIRST_SONG
+    global LAST_SONG
     logging.info("Play: " + music_path)
 
     #get first and last track    
