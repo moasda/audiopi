@@ -133,7 +133,7 @@ def check_is_current_title(title):
     #Decode from binary string without prefix "File: "(6) and suffix "\n"
     current_track = stdout[6:-1].decode('utf-8')
 
-    print( "Aktuell: " + current_track )
-    print( "Vergleich: " + title )
+    logging.info( "Aktuell: " + current_track )
+    logging.info( "Vergleich: " + title )
 
     return True
