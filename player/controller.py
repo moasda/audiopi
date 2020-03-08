@@ -13,6 +13,7 @@ import mocp #own script
 QR_SCANNER_TIMEOUT = 4
 MUSIC_BASE_DIRECTORY = "/home/pi/music/"
 SYSTEM_SOUND_DIRECTORY = "/home/pi/audiopi/sounds/"
+LOG_FILE = "/tmp/audiopi.log"
 
 BOUNCE_TIME = 800
 
@@ -134,6 +135,8 @@ def system_shutdown():
 #Main function
 def main():
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
+    log_handler = RotatingFileHandler(LOG_FILE, maxBytes=5000000, backupCount=5) #5 MB
+    logger.addHandler(log_handler)
     logging.info('Initializing')
 
     GPIO.setmode(GPIO.BCM)
