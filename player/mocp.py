@@ -69,8 +69,8 @@ def play_folder(music_path):
         FIRST_SONG = play_list[0]
         LAST_SONG = play_list[len(play_list)-1]
     
-    logging.info( "First: " + FIRST_SONG[len(music_path)+1:] )
-    logging.info( "Last: " + LAST_SONG[len(music_path)+1:] )
+    logging.info("First: " + FIRST_SONG[len(music_path)+1:])
+    logging.info("Last: " + LAST_SONG[len(music_path)+1:])
 
     #Clear current playlsit
     subprocess.call(['mocp', '-c'], shell=False)
@@ -80,10 +80,19 @@ def play_folder(music_path):
     subprocess.call(['mocp', '-p'], shell=False)
 
 
+#function for playing a URL (for example a radio stream)
+def play_url(url):
+    del FIRST_SONG
+    del LAST_SONG
+    logging.info("Streaming URL: " + url)
+    subprocess.call(['mocp', '-c'], shell=False)
+    subprocess.call(['mocp', '-a', url], shell=False)
+
+
 #function for playing a system sound
 def play_system_sound(title):
     subprocess.call(['mocp', '-P'], shell=False)
-    time.sleep(0.5)
+    time.sleep(0.3)
     subprocess.call(['mpg321', title], shell=False)
     time.sleep(0.1)
     subprocess.call(['mocp', '-U'], shell=False)

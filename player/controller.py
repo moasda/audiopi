@@ -63,6 +63,11 @@ def play(music_path):
     mocp.play_folder(music_path)
 
 
+#function for playing sounds from an URL
+def play_stream(url):
+    mocp.play_url(url)
+
+
 #function to scan and play
 def scan_and_play_callback(channel):
     #turn LED on for photo
@@ -91,6 +96,9 @@ def scan_and_play_callback(channel):
             
             if qr_code.startswith("cmd://"):
                 command = qr_code[6:]
+                play_status = True
+            elif qr_code.startswith("stream://"):
+                play_stream(qr_code[9:])
                 play_status = True
             elif qr_code.startswith("timer://"):
                 seconds = qr_code[8:]
