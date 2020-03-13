@@ -145,7 +145,7 @@ def system_shutdown():
 def main():
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
     log_handler = RotatingFileHandler(LOG_FILE, maxBytes=5000000, backupCount=5) #5 MB
-    logger.addHandler(log_handler)
+    logging.addHandler(log_handler)
     logging.info('Initializing')
 
     GPIO.setmode(GPIO.BCM)
