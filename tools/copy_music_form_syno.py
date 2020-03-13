@@ -5,7 +5,7 @@ import subprocess
 #config
 PATH_SOURCE = "192.168.178.29:/volume2/music/audiobox_laura"
 PATH_TARGET = "/home/pi/music/"
-PATH_MOUNT = "/mnt/syno_music"
+PATH_MOUNT = "/mnt/syno_music/"
 
 #Function to mount sync directory
 def mount():
