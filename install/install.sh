@@ -16,4 +16,5 @@ sudo systemctl start audiopi.service
 sudo systemctl enable audiopi.service
 
 #Place mocp configuration for USB soundcard
+sudo mkr ~/.moc
 sudo cp ./config ~/.moc/config

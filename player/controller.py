@@ -2,6 +2,7 @@
 
 import RPi.GPIO as GPIO
 import logging
+from logging.handlers import RotatingFileHandler
 import time
 import subprocess
 import select  #for polling zbarcam, see http://stackoverflow.com/a/10759061/3761783
