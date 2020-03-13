@@ -3,7 +3,7 @@ Description=AutioPI
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c 'exec python3 /home/pi/audiopi/player/controller.py
+ExecStart=/bin/bash -c 'exec python3 /home/pi/audiopi/player/controller.py'
 User=pi
 Restart=always
 
