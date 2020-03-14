@@ -149,6 +149,7 @@ def main():
     logging.getLogger('').addHandler(log_handler)
     logging.info('Initializing')
 
+    GPIO.setwarnings(False) 
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.LOW)
     GPIO.setup(PIN_BUTTON_SHUTDOWN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
