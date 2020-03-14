@@ -93,7 +93,8 @@ def play_url(url):
 def play_system_sound(title):
     subprocess.call(['mocp', '-P'], shell=False)
     time.sleep(0.3)
-    subprocess.call(['mpg321', title], shell=False)
+    #play sound with 30% loudness
+    subprocess.call(['mpg321', title, '-g', '30'], shell=False)
     time.sleep(0.1)
     subprocess.call(['mocp', '-U'], shell=False)
 
