@@ -143,9 +143,10 @@ def system_shutdown():
 
 #Main function
 def main():
+    #config root logger and add the rotation handler to the root logger
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
     log_handler = RotatingFileHandler(LOG_FILE, maxBytes=5000000, backupCount=5) #5 MB
-    #logging.addHandler(log_handler)
+    logging.getLogger('').addHandler(log_handler)
     logging.info('Initializing')
 
     GPIO.setmode(GPIO.BCM)

@@ -52,6 +52,9 @@ sudo apt-get install moc moc-ffmpeg-plugin
 #Another Audioplayer for commands
 sudo apt install mpg321
 
+#Install Python Raspberry GPIO
+sudo apt-get install python3-rpi.gpio
+
 #GitClient
 sudo apt-get install git
 
@@ -180,7 +183,7 @@ https://www.texttomp3.online/
 
 ~~~bash
 #check camera module
-raspistill -d <??????>
+raspistill -d -w 320 -h 240 -r
 
 #shudown the system
 sudo shutdown -h now
