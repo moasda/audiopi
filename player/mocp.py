@@ -87,6 +87,8 @@ def play_url(url):
     logging.info("Streaming URL: " + url)
     subprocess.call(['mocp', '-c'], shell=False)
     subprocess.call(['mocp', '-a', url], shell=False)
+    #Start playing
+    subprocess.call(['mocp', '-p'], shell=False)
 
 
 #function for playing a system sound
