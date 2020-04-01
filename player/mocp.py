@@ -29,18 +29,20 @@ def stop():
 #function for button "next song"
 def next_song():
     logging.info("NEXT Song")
-    if check_is_current_title(LAST_SONG) == True:
-        #last track is currently playing -> jump to first track
-        subprocess.call(['mocp', '-p'], shell=False)
-    else:
-        subprocess.call(['mocp', '-f'], shell=False)
+    if check_is_streaming == False:
+        if check_is_current_title(LAST_SONG) == True:
+            #last track is currently playing -> jump to first track
+            subprocess.call(['mocp', '-p'], shell=False)
+        else:
+            subprocess.call(['mocp', '-f'], shell=False)
 
 
 #function for button "previous song"
 def previous_song():
     logging.info("PREVIOUS Song")
-    if check_is_current_title(FIRST_SONG) == False:
-      subprocess.call(['mocp', '-r'], shell=False)
+    if check_is_streaming == False:
+        if check_is_current_title(FIRST_SONG) == False:
+        subprocess.call(['mocp', '-r'], shell=False)
 
 
 #function for button "volume up"
@@ -82,8 +84,8 @@ def play_folder(music_path):
 
 #function for playing a URL (for example a radio stream)
 def play_url(url):
-    del FIRST_SONG
-    del LAST_SONG
+    FIRST_SONG = ""
+    LAST_SONG = ""
     logging.info("Streaming URL: " + url)
     subprocess.call(['mocp', '-c'], shell=False)
     subprocess.call(['mocp', '-a', url], shell=False)
@@ -95,8 +97,9 @@ def play_url(url):
 def play_system_sound(title):
     subprocess.call(['mocp', '-P'], shell=False)
     time.sleep(0.3)
-    #play sound with 30% loudness
-    subprocess.call(['mpg321', title, '-g', '30'], shell=False)
+    #play sound with 30% loudness (g) and no output (q)
+    logging.info('mpg321 -q'+ title +' -g 30')
+    subprocess.call(['mpg321', '-q', title, '-g', '30'], shell=False)
     time.sleep(0.1)
     subprocess.call(['mocp', '-U'], shell=False)
 
@@ -128,6 +131,14 @@ def check_mocp_stop():
 def check_is_current_title(title):
     current_track = get_mocp_info('File')
     if current_track == title:
+        return True
+    else:
+        return False
+
+
+def check_is_streaming():
+    current_track = get_mocp_info('File')
+    if current_track.startswith("http"):
         return True
     else:
         return False
