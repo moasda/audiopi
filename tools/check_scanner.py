@@ -26,6 +26,9 @@ def main():
     #setup and turn LED on for photo
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.HIGH)
 
+    logging.info("Start mocp server")
+    subprocess.call(['mocp', '-S'], shell=False)
+
     logging.info('Start scanning')
     try:
         while True:
@@ -49,6 +52,9 @@ def main():
                         logging.info("--> do system activity")
                     elif qr_code.startswith("stream://"):
                         logging.info("--> Stream music")
+                        url = qr_code[9:]
+                        subprocess.call(['mocp', '-a', url], shell=False)
+                        subprocess.call(['mocp', '-p'], shell=False)
                     elif qr_code.startswith("timer://"):
                         logging.info("--> Set timer")
                     elif qr_code != "":
