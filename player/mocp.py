@@ -42,7 +42,7 @@ def previous_song():
     logging.info("PREVIOUS Song")
     if check_is_streaming == False:
         if check_is_current_title(FIRST_SONG) == False:
-        subprocess.call(['mocp', '-r'], shell=False)
+            subprocess.call(['mocp', '-r'], shell=False)
 
 
 #function for button "volume up"
