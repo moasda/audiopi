@@ -50,15 +50,20 @@ def main():
                     
                     if qr_code.startswith("cmd://"):
                         logging.info("--> do system activity")
+                        exit(0)
                     elif qr_code.startswith("stream://"):
                         logging.info("--> Stream music")
                         url = qr_code[9:]
+                        subprocess.call(['mocp', '-c', url], shell=False)
                         subprocess.call(['mocp', '-a', url], shell=False)
                         subprocess.call(['mocp', '-p'], shell=False)
+                        exit(0)
                     elif qr_code.startswith("timer://"):
                         logging.info("--> Set timer")
+                        exit(0)
                     elif qr_code != "":
                         logging.info("--> Play music")
+                        exit(0)
                 else:
                     logging.warning('Timeout on zbarcam')
 
