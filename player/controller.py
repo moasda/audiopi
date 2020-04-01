@@ -94,17 +94,16 @@ def scan_and_play_callback(channel):
             qr_code = qr_code.decode("utf-8") # python3
             #qr_code = qr_code.replace("羹", "ü")
             logging.info("QR Code: " + qr_code)
+            play_status = True
             
             if qr_code.startswith("cmd://"):
                 command = qr_code[6:]
-                play_status = True
+                #todo: execute command
             elif qr_code.startswith("stream://"):
                 play_stream(qr_code[9:])
-                play_status = True
             elif qr_code.startswith("timer://"):
                 seconds = qr_code[8:]
                 timer = threading.Timer(int(seconds), play_fail) 
-                play_status = True
             elif qr_code != "":
                 #replace blanks with underscore
                 qr_code = qr_code.replace(" ", "_")
@@ -113,7 +112,8 @@ def scan_and_play_callback(channel):
                 logging.info("full_music_path: " + full_path)
                 #play
                 play(full_path)
-                play_status = True
+            else:
+                play_status = False
         else:
             logging.warning('Timeout on zbarcam')
 
