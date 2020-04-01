@@ -18,7 +18,6 @@ PIN_LED_PHOTO = 23
 #Main function
 def main():
     #config root logger and add the rotation handler to the root logger
-    log_handler = RotatingFileHandler(LOG_FILE, mode='a', maxBytes=5000000, backupCount=5) #5 MB
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s', handlers=[log_handler])
     logging.info('Initializing')
 
@@ -27,6 +26,7 @@ def main():
     #setup and turn LED on for photo
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.HIGH)
 
+    logging.info('Start scanning')
     try:
         while True:
             #scan QR code
