@@ -18,7 +18,7 @@ PIN_LED_PHOTO = 23
 #Main function
 def main():
     #config root logger and add the rotation handler to the root logger
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s', handlers=[log_handler])
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
     logging.info('Initializing')
 
     GPIO.setwarnings(False) 
