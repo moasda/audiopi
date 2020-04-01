@@ -56,9 +56,8 @@ def main():
                 else:
                     logging.warning('Timeout on zbarcam')
 
+            time.sleep(0.5)
             zbarcam.terminate()
-            #turn LED off for photo
-            GPIO.output(PIN_LED_PHOTO, GPIO.LOW)
 
     #Exit when Ctrl-C is pressed
     except KeyboardInterrupt:
