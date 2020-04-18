@@ -33,26 +33,34 @@ Features:
 
 # 2. Shopping list
 
+Shopping list for the AudioBox:
+
 |Object|Price|Link|Comment|
 |-|-|-|-|
 |RASPBERRY PI 2 MODEL B 1 GB RAM|35,49 €|[Conrad](https://www.conrad.de/de/p/raspberry-pi-2-b-1-gb-4-x-0-9-ghz-raspberry-pi-1316978.html)|-|
 |RASPBERRY PI CAMERA V2 8MP IR|29,99 €|[Conrad](https://www.conrad.de/de/p/raspberry-pi-camera-module-v2-8mp-cmos-farb-kameramodul-passend-fuer-raspberry-pi-1438999.html)|I think another camera module for ~5-10 € is also enough! **Important:** It must be a model where you can adjust the focus!|
 |Raspberry PI Netztei (original!):|6,90 €|-|-|
 |Kabel:|8,99 €|[Amazon](https://www.amazon.de/gp/product/B07KC43D2C/ref=ppx_yo_dt_b_asin_title_o06_s00?ie=UTF8&psc=1)|-|
-|Abbiegevorrichtung:|2,98 €|[Amazon](https://www.amazon.de/gp/product/B000YIWM18/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
 |Kiste:|9,95 €|[Amazon](https://www.amazon.de/gp/product/B016UYWX0E/ref=ppx_yo_dt_b_asin_title_o09_s00?ie=UTF8&psc=1)|-|
-|Lötkolben:|15,99 €|[Amazon](https://www.amazon.de/gp/product/B07ZWTCR3G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
 |Platinen:|6,49 €|[Amazon](https://www.amazon.de/gp/product/B078HV79XX/ref=ppx_yo_dt_b_asin_title_o05_s00?ie=UTF8&psc=1)|-|
 |Netzwerk Buchse:|6,99 €|[Amazon](https://www.amazon.de/gp/product/B07TXHRNJD/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&psc=1)|-|
 |Lautsprecher:|9,99 €|[Amazon](https://www.amazon.de/gp/product/B01HDR5EIK/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&psc=1)|-|
 |Netzwerkkabel:|3,85 €|[Amazon](https://www.amazon.de/gp/product/B01AWK81VM/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|-|
 |Raspberry PI Gehäuse:|5,99 €|[Amazon](https://www.amazon.de/gp/product/B00UCSO6SW/ref=ppx_yo_dt_b_asin_title_o09_s00?ie=UTF8&psc=1)|-|
 |USB-Soundkarte:|7,99 €|[Amazon](https://www.amazon.de/gp/product/B01N905VOY/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)|-|
-|HDMI-Adapter:|7,59 €|[Amazon](https://www.amazon.de/gp/product/B075GZ8DX7/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
 |SD-Karte (32 GB):|9,00 €|[Amazon](https://www.amazon.de/gp/product/B06XWMQ81P/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|-|
-|Steckbrett + Zubehör:|12,99 €|[Amazon](https://www.amazon.de/gp/product/B01J79YG8G/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
 |Knöpfe:|9,99 €|[Amazon](https://www.amazon.de/gp/product/B071WP4ZW4/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|-|
-|Total |~200 €|-|-|
+|Total |~150 €|-|-|
+
+For building and testing the control unit i needed some basic equipment:
+
+|Object|Price|Link|Comment|
+|-|-|-|-|
+|Abbiegevorrichtung:|2,98 €|[Amazon](https://www.amazon.de/gp/product/B000YIWM18/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
+|Lötkolben:|15,99 €|[Amazon](https://www.amazon.de/gp/product/B07ZWTCR3G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
+|HDMI-Adapter:|7,59 €|[Amazon](https://www.amazon.de/gp/product/B075GZ8DX7/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
+|Steckbrett + Zubehör:|12,99 €|[Amazon](https://www.amazon.de/gp/product/B01J79YG8G/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
+|Total |~40 €|-|-|
 
 
 

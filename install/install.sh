@@ -7,6 +7,7 @@
 #Place autostart script for running at RasbperryPI startup
 #sudo cp ./audiopi_autostart.sh /etc/init.d/audiopi.sh
 sudo cp ./audiopi.service /lib/systemd/system/audiopi.service
+sudo cp ./audiopi_logrotate /etc/logrotate.d/audiopi
 
 #run service
 sudo systemctl daemon-reload
