@@ -1,22 +1,42 @@
-# Requirements
+# AudioBox for Kids
 
-*Content*
-
+1. The project
 1. Shopping list
-2. Setup raspian environment (install basic software)
-3. Setup audio device for mocp (music over console)
-4. Setup AudioPI
-5. Start/Stop AudioPi service
-6. Information
+1. Setup raspian environment (install basic software)
+    * a) System configuration
+    * b) Setup audio device for mocp (music over console)
+    * c) Install and setup AudioPI Software
+    * d) Start/Stop AudioPi service
+1. Control unit for the buttons and LEDs
+1. AudioBox case
+    * a) Prepare the case
+    * b) Install components
+1. Create qr code cards
+1. Information
 
-**todo on Synology: https://gogs.io/**
 
-# 1. Shopping list
+
+# 1. The project
+
+For my daugther I was looking for a simple device that she can play her audio stories or her music. She is almost 4 years old, so the interface have to be very simple and stable :).
+
+Features:
+ - scan qr code to play you files
+ - creative design of the case
+ - sleeptimeer
+ - (optional) streaming web radio or something else
+ - (optional) no radiation through bluetooth or wlan
+
+![AudioBox - Lion](images/overview_1.jpg)
+
+
+
+# 2. Shopping list
 
 |Object|Price|Link|Comment|
 |-|-|-|-|
 |RASPBERRY PI 2 MODEL B 1 GB RAM|35,49 €|[Conrad](https://www.conrad.de/de/p/raspberry-pi-2-b-1-gb-4-x-0-9-ghz-raspberry-pi-1316978.html)|-|
-|RASPBERRY PI CAMERA V2 8MP IR|29,99 €|[Conrad](https://www.conrad.de/de/p/raspberry-pi-camera-module-v2-8mp-cmos-farb-kameramodul-passend-fuer-raspberry-pi-1438999.html)|I think another camera module for ~5-10 € is also enough!|
+|RASPBERRY PI CAMERA V2 8MP IR|29,99 €|[Conrad](https://www.conrad.de/de/p/raspberry-pi-camera-module-v2-8mp-cmos-farb-kameramodul-passend-fuer-raspberry-pi-1438999.html)|I think another camera module for ~5-10 € is also enough! **Important:** It must be a model where you can adjust the focus!|
 |Raspberry PI Netztei (original!):|6,90 €|-|-|
 |Kabel:|8,99 €|[Amazon](https://www.amazon.de/gp/product/B07KC43D2C/ref=ppx_yo_dt_b_asin_title_o06_s00?ie=UTF8&psc=1)|-|
 |Abbiegevorrichtung:|2,98 €|[Amazon](https://www.amazon.de/gp/product/B000YIWM18/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
@@ -32,11 +52,28 @@
 |SD-Karte (32 GB):|9,00 €|[Amazon](https://www.amazon.de/gp/product/B06XWMQ81P/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|-|
 |Steckbrett + Zubehör:|12,99 €|[Amazon](https://www.amazon.de/gp/product/B01J79YG8G/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
 |Knöpfe:|9,99 €|[Amazon](https://www.amazon.de/gp/product/B071WP4ZW4/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|-|
-|Summe |~200 €|-|-|
+|Total |~200 €|-|-|
 
 
 
-# 2. Setup raspian environment
+# 3. Setup raspian environment
+
+Prepare the raspberry pi.
+Download and install "Raspbian Buster Lite" (without desktop) on your SD card.
+After booting your raspberry, do the following steps to configure it:
+
+## a) System configuration
+~~~bash
+#start raspian configuration and do the following steps
+sudo raspi-config
+# --> set localization (de-de) and keyboard layout
+# --> activate "camera module"
+# --> activate "auto login"
+# --> activate "ssh"
+# --> update your system
+~~~
+
+After that, install all necessary software components.
 
 ~~~bash
 #Systemupdate
@@ -49,7 +86,7 @@ sudo apt-get install zbar-tools
 #Audioplayer for Playlists
 sudo apt-get install moc moc-ffmpeg-plugin
 
-#Another Audioplayer for commands
+#Audioplayer for commands
 sudo apt install mpg321
 
 #Install Python Raspberry GPIO
@@ -59,26 +96,16 @@ sudo apt-get install python3-rpi.gpio
 sudo apt-get install git
 
 #GitClient configuration
-git config --global user.name "Christian (AudioPI)"
-git config --global user.email "christian@megaminus.de"
+git config --global user.name "Bruce Wayne"
+git config --global user.email "Bruce.Wayne@wayne-enterprises.com"
 git config --global core.editor nano
 ~~~
 
-## Configuration respian
-~~~bash
-#start raspian configuration
-sudo raspi-config
-#--> set localization (de-de) and keyboard layout
-#--> activate "camera module"
-#--> activate "auto login"
-#--> activate "ssh"
-~~~
 
 
+## b) Setup audio device for mocp
 
-# 3. Setup audio device for mocp
-
-## Setup USB audio as default _(for system)_
+### Setup USB audio as default _(for system)_
 
 Get number of sound card:
 
@@ -140,25 +167,40 @@ wget https://www.kozco.com/tech/piano2.wav
 aplay piano2.wav
 ~~~
 
-## Setup USB audio as default audio device _(for mocp only)_
+### Setup USB audio as default audio device _(for mocp only)_
+Do this step after c) "Install and setup AudioPi".
 
+This step is only necessary if our cardnumber not equals 1.
 ~~~bash
-#Config USB soundcard for mocp (only necessary if cardnumber not equals 1)
+#Config USB soundcard for mocp and set your card number
 nano ~/.moc/config
 ~~~
 
 
-# 4. Setup AudioPi
+## c) Install and setup AudioPi
+
+~~~bash
+#Create the relevant directories
+> mkdir ~/music     #folder where all the music is stored
+> mkdir ~/audiopi   #folder for the audiopi software
+
+#Switch to "audiopi" and checkout sources from github
+> cd ~/audiopi
+/home/pi/audiopi> git clone ##todo##
+~~~
 
 ~~~bash
 #Run install script
-chmod 755 ./install/install.sh
-./install.sh
+/home/pi/audiopi> chmod 755 ./install/install.sh
+/home/pi/audiopi> cd install
+/home/pi/audiopi/install> ./install.sh
 ~~~
 
+##Todo: https://www.thomaschristlieb.de/ein-python-script-mit-systemd-als-daemon-systemd-tut-garnicht-weh/
 
 
-# 5. Start/Stop AudioPi service
+
+## d) Start/Stop AudioPi service
 ~~~bash
 #Stop AudioPi service
 sudo systemctl stop audiopi.service
@@ -167,13 +209,40 @@ sudo systemctl stop audiopi.service
 sudo systemctl start audiopi.service
 ~~~
 
-**_Attention:_** After AudioPi started, you have 10 Minutes to stop the service until automatical shutdown happens.
+**_Attention:_** After AudioPi started, you have 15 Minutes to stop the service until automatical shutdown happens!
 
-# 6. QR-Code Karten erstellen
+
+
+# 4. Control unit for buttons and LEDs
+Create and test the setup for buttons and LEDs ([see details](https://tutorials-raspberrypi.de/raspberry-pi-gpio-erklaerung-beginner-programmierung-lernen/)):
+![AudioBox - Lion](images/control_unit_1.jpg)
+Build the platine:
+![AudioBox - Lion](images/control_unit_2.jpg)
+![AudioBox - Lion](images/control_unit_3.jpg)
+
+
+# 5. AudioBox case
+Empty box with holes for the buttons, speakers and qr code card.
+I used a metal mosquito screen to protect the speakers.
+![AudioBox - Lion](images/case_build_1.jpg)
+Building the photobox for the qr code cards.
+![AudioBox - Lion](images/case_build_1_1.jpg)
+![AudioBox - Lion](images/case_build_2.jpg)
+![AudioBox - Lion](images/case_build_3.jpg)
+![AudioBox - Lion](images/case_build_4.jpg)
+![AudioBox - Lion](images/case_build_5.jpg)
+![AudioBox - Lion](images/case_build_6.jpg)
+![AudioBox - Lion](images/case_build_7.jpg)
+![AudioBox - Lion](images/case_build_8.jpg)
+
+![AudioBox - Lion](images/case_back.jpg)
+
+
+
+# 6. Create qr code cards
 
 https://www.the-qrcode-generator.com/
 
-https://www.texttomp3.online/
 
 
 
@@ -182,11 +251,12 @@ https://www.texttomp3.online/
 ## Other useful commands
 
 ~~~bash
-#check camera module
+#check camera module (for adjusting focus)
 raspistill -d -w 320 -h 240 -r
 
 #shudown the system
 sudo shutdown -h now
+sudo halt
 
 #reboot the system
 sudo reboot
@@ -201,17 +271,25 @@ find ~/music -type d -name '* *' -execdir bash -c 'mv "$1" "${1// /_}"' bash {} 
 
 Example projects: ["Musikrakete"](http://www.tilman.de/projekte/musikrakete/) and ["Quido"](http://tilman.de/projekte/qudio/)
 
-Used code templates: ["Musikrakete"](https://github.com/tliero/musikrakete/blob/master/code/piplayer_pulse.py) and ["Quido"](https://github.com/tliero/qudio/blob/master/code/qudio.py)
+Used code snippets: ["Musikrakete"](https://github.com/tliero/musikrakete/blob/master/code/piplayer_pulse.py) and ["Quido"](https://github.com/tliero/qudio/blob/master/code/qudio.py)
 
 [Raspberry GPIO Pins](https://pinout.xyz/)
+
+Setup LEDs, Buttons and [develope the python code](https://tutorials-raspberrypi.de/raspberry-pi-gpio-erklaerung-beginner-programmierung-lernen/)
 
 [HowTo: Powerbutton](https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi)
 
 [HowTo: Power-LED](https://howchoo.com/g/ytzjyzy4m2e/build-a-simple-raspberry-pi-led-power-status-indicator)
+
+[Python script as systemd daemon](https://www.thomaschristlieb.de/ein-python-script-mit-systemd-als-daemon-systemd-tut-garnicht-weh/)
 
 ### Inspiration:
 
 [RPi-Jukebox-RFID](https://github.com/MiczFlor/RPi-Jukebox-RFID)
 
 [Selfmade-Phoniebox](http://splittscheid.de/selfmade-phoniebox/#3A)
+
+### Misc:
+
+[Convert text to MP3](https://www.texttomp3.online) for info about start/stop of some scripts, started by qr code card
 
