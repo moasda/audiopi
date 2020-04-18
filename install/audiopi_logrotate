@@ -1,10 +1,10 @@
 /var/log/audiopi.log {
-    daily
     rotate 5
-    compress
-    delaycompress
+    daily
     missingok
+    delaycompress
+    compress
     postrotate
-        systemctl restart rsyslog > /dev/null
+        /usr/lib/rsyslog/rsyslog-rotate
     endscript
 }
