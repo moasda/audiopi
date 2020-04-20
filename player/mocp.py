@@ -98,7 +98,7 @@ def play_system_sound(title):
     subprocess.call(['mocp', '-P'], shell=False)
     time.sleep(0.3)
     #play sound with 30% loudness (g) and no output (q)
-    logging.info('mpg321 -q'+ title +' -g 30')
+    logging.info('mpg321 -q '+ title +' -g 30')
     subprocess.call(['mpg321', '-q', title, '-g', '30'], shell=False)
     time.sleep(0.1)
     subprocess.call(['mocp', '-U'], shell=False)
