@@ -16,3 +16,6 @@ ALSAStutterDefeat = no
 ALSAdevice = hw:1
 ALSAMixer1 = Speaker
 ALSAMixer2 = Speaker
+
+#take ALSA driver
+SoundDriver = ALSA
