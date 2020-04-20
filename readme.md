@@ -21,11 +21,11 @@
 For my daugther I was looking for a simple device that she can play her audio stories or her music. She is almost 4 years old, so the interface have to be very simple and stable :).
 
 Features:
- - scan qr code to play you files
- - creative design of the case
+ - scan qr code to play your music files or audio stories
+ - creative (own) design of the case
  - sleeptimeer
  - (optional) streaming web radio or something else
- - (optional) no radiation through bluetooth or wlan
+ - (optional) no radiation through bluetooth or wlan (with RaspberryPi 2)
 
 ![AudioBox - Lion](images/overview_1.jpg)
 
@@ -121,7 +121,7 @@ Get number of sound card:
 aplay -l
 ~~~
 
-In result search for the nomber of the USB audio device (here "*Karte 1: Device..."*)
+In result search for the number of the USB audio device (here "*Karte 1: Device..."*)
 
 ~~~bash
 **** Liste der Hardware-Geräte (PLAYBACK) ****
@@ -200,11 +200,8 @@ nano ~/.moc/config
 ~~~bash
 #Run install script
 /home/pi/audiopi> chmod 755 ./install/install.sh
-/home/pi/audiopi> cd install
-/home/pi/audiopi/install> ./install.sh
+/home/pi/audiopi> ./install/install.sh
 ~~~
-
-##Todo: https://www.thomaschristlieb.de/ein-python-script-mit-systemd-als-daemon-systemd-tut-garnicht-weh/
 
 
 
@@ -223,25 +220,31 @@ sudo systemctl start audiopi.service
 
 # 4. Control unit for buttons and LEDs
 Create and test the setup for buttons and LEDs ([see details](https://tutorials-raspberrypi.de/raspberry-pi-gpio-erklaerung-beginner-programmierung-lernen/)):
-![AudioBox - Lion](images/control_unit_1.jpg)
+<img src="images/control_unit_1.jpg" width="50%">
+
 Build the platine:
-![AudioBox - Lion](images/control_unit_2.jpg)
-![AudioBox - Lion](images/control_unit_3.jpg)
+
+<img src="images/control_unit_2.jpg" width="50%">
+<img src="images/control_unit_3.jpg" width="50%">
+
 
 
 # 5. AudioBox case
 Empty box with holes for the buttons, speakers and qr code card.
 I used a metal mosquito screen to protect the speakers.
-![AudioBox - Lion](images/case_build_1.jpg)
+
+<img src="images/case_build_1.jpg" width="50%">
+
 Building the photobox for the qr code cards.
-![AudioBox - Lion](images/case_build_1_1.jpg)
-![AudioBox - Lion](images/case_build_2.jpg)
-![AudioBox - Lion](images/case_build_3.jpg)
-![AudioBox - Lion](images/case_build_4.jpg)
-![AudioBox - Lion](images/case_build_5.jpg)
-![AudioBox - Lion](images/case_build_6.jpg)
-![AudioBox - Lion](images/case_build_7.jpg)
-![AudioBox - Lion](images/case_build_8.jpg)
+
+<img src="images/case_build_1_1.jpg" width="50%">
+<img src="images/case_build_2.jpg" width="50%">
+<img src="images/case_build_3.jpg" width="50%">
+<img src="images/case_build_4.jpg" width="50%">
+<img src="images/case_build_5.jpg" width="50%">
+<img src="images/case_build_6.jpg" width="50%">
+<img src="images/case_build_7.jpg" width="50%">
+<img src="images/case_build_8.jpg" width="50%">
 
 ![AudioBox - Lion](images/case_back.jpg)
 

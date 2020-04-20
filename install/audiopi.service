@@ -1,11 +1,10 @@
 [Unit]
-Description=AutioPI
+Description=AudioPi
 
 [Service]
 Type=simple
 ExecStart=/bin/bash -c 'exec python3 /home/pi/audiopi/player/controller.py'
 SyslogIdentifier=audiopi
-User=pi
 Restart=always
 
 [Install]

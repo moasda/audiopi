@@ -143,9 +143,6 @@ def system_shutdown():
 
 #Main function
 def main():
-    #config root logger and add the rotation handler to the root logger
-    #log_handler = RotatingFileHandler(LOG_FILE, mode='a', maxBytes=5000000, backupCount=5) #5 MB
-    #logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s', handlers=[log_handler])
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
     logging.info('Initializing')
 

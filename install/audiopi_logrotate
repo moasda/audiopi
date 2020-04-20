@@ -1,5 +1,5 @@
 /var/log/audiopi.log {
-    rotate 5
+    rotate 10
     daily
     missingok
     delaycompress
