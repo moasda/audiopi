@@ -147,6 +147,7 @@ def check_is_streaming():
 def get_mocp_info(option):
     mocp_info = subprocess.Popen(['mocp', '-i'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     search_for_info = option + ':'
+    info = False
     for line in mocp_info.stdout:
         line = line.decode('utf-8')
         if line.startswith(search_for_info) == True:
