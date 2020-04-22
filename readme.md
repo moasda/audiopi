@@ -220,13 +220,18 @@ sudo systemctl start audiopi.service
 
 # 4. Control unit for buttons and LEDs
 Create and test the setup for buttons and LEDs ([see details](https://tutorials-raspberrypi.de/raspberry-pi-gpio-erklaerung-beginner-programmierung-lernen/)):
-<img src="images/control_unit_1.jpg" width="50%">
 
-Build the platine:
+|||
+|-|-|
+|The plan:|Test the plan:|
+|<img src="images/control_unit_0.jpg" width="100%">|<img src="images/control_unit_1.jpg" width="100%">|
 
-<img src="images/control_unit_2.jpg" width="50%">
-<img src="images/control_unit_3.jpg" width="50%">
+|||
+|-|-|
+|The finale platine:||
+|<img src="images/control_unit_2.jpg" width="100%">|<img src="images/control_unit_3.jpg" width="100%">|
 
+#todo: table: Pins & GPIOs on the PI
 
 
 # 5. AudioBox case
@@ -245,8 +250,7 @@ Building the photobox for the qr code cards.
 <img src="images/case_build_6.jpg" width="50%">
 <img src="images/case_build_7.jpg" width="50%">
 <img src="images/case_build_8.jpg" width="50%">
-
-![AudioBox - Lion](images/case_back.jpg)
+<img src="images/case_back.jpg" width="50%">
 
 
 
