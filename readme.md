@@ -73,7 +73,7 @@ After booting your raspberry, do the following steps to configure it:
 ## a) System configuration
 ~~~bash
 #start raspian configuration and do the following steps
-sudo raspi-config
+> sudo raspi-config
 # --> set localization (de-de) and keyboard layout
 # --> activate "camera module"
 # --> activate "auto login"
@@ -85,28 +85,23 @@ After that, install all necessary software components.
 
 ~~~bash
 #Systemupdate
-sudo apt update
-sudo apt upgrade
+> sudo apt update
+> sudo apt upgrade
 
 #QR-Code Software
-sudo apt-get install zbar-tools
+> sudo apt-get install zbar-tools
 
 #Audioplayer for Playlists
-sudo apt-get install moc moc-ffmpeg-plugin
+> sudo apt-get install moc moc-ffmpeg-plugin
 
 #Audioplayer for commands
-sudo apt install mpg321
+> sudo apt install mpg321
 
 #Install Python Raspberry GPIO
-sudo apt-get install python3-rpi.gpio
+> sudo apt-get install python3-rpi.gpio
 
 #GitClient
-sudo apt-get install git
-
-#GitClient configuration
-git config --global user.name "Bruce Wayne"
-git config --global user.email "Bruce.Wayne@wayne-enterprises.com"
-git config --global core.editor nano
+> sudo apt-get install git
 ~~~
 
 
@@ -118,7 +113,7 @@ git config --global core.editor nano
 Get number of sound card:
 
 ~~~bash
-aplay -l
+> aplay -l
 ~~~
 
 In result search for the number of the USB audio device (here "*Karte 1: Device..."*)
@@ -148,7 +143,7 @@ Karte 1: Device [USB Audio Device], Gerät 0: USB Audio [USB Audio]
 The USB sound device can be made the default audio device by editing a system file "alsa.conf":
 
 ~~~bash
-sudo nano /usr/share/alsa/alsa.conf
+> sudo nano /usr/share/alsa/alsa.conf
 ~~~
 Scroll and find the following two lines:
 
@@ -169,10 +164,10 @@ To save the file and return to the command line use [CTRL-X], [Y], [ENTER].
 ### Test sound card (after reboot!)
 
 ~~~bash
-speaker-test -c2
+> speaker-test -c2
 # or download a sample file and play
-wget https://www.kozco.com/tech/piano2.wav
-aplay piano2.wav
+> wget https://www.kozco.com/tech/piano2.wav
+> aplay piano2.wav
 ~~~
 
 ### Setup USB audio as default audio device _(for mocp only)_
@@ -181,26 +176,20 @@ Do this step after c) "Install and setup AudioPi".
 This step is only necessary if our cardnumber not equals 1.
 ~~~bash
 #Config USB soundcard for mocp and set your card number
-nano ~/.moc/config
+> nano ~/.moc/config
 ~~~
 
 
 ## c) Install and setup AudioPi
 
 ~~~bash
-#Create the relevant directories
-> mkdir ~/music     #folder where all the music is stored
-> mkdir ~/audiopi   #folder for the audiopi software
+#Switch to "home" (~) and checkout sources from github
+> cd ~
+/home/pi> git clone https://github.com/moasda/audiopi.git
 
-#Switch to "audiopi" and checkout sources from github
-> cd ~/audiopi
-/home/pi/audiopi> git clone ##todo##
-~~~
-
-~~~bash
 #Run install script
-/home/pi/audiopi> chmod 755 ./install/install.sh
-/home/pi/audiopi> ./install/install.sh
+/home/pi> chmod 755 ./audiopi/install/install.sh
+/home/pi> ./audiopi/install/install.sh
 ~~~
 
 
@@ -208,10 +197,13 @@ nano ~/.moc/config
 ## d) Start/Stop AudioPi service
 ~~~bash
 #Stop AudioPi service
-sudo systemctl stop audiopi.service
+> sudo systemctl stop audiopi.service
 
 #Stop AudioPi service
-sudo systemctl start audiopi.service
+> sudo systemctl start audiopi.service
+
+#Check AudioPi service status
+> sudo systemctl status audiopi.service
 ~~~
 
 **_Attention:_** After AudioPi started, you have 15 Minutes to stop the service until automatical shutdown happens!
@@ -267,17 +259,17 @@ https://www.the-qrcode-generator.com/
 
 ~~~bash
 #check camera module (for adjusting focus)
-raspistill -d -w 320 -h 240 -r
+> raspistill -d -w 320 -h 240 -r
 
 #shudown the system
-sudo shutdown -h now
-sudo halt
+> sudo shutdown -h now
+> sudo halt
 
 #reboot the system
-sudo reboot
+> sudo reboot
 
 #Rename folders and replace space with underscore
-find ~/music -type d -name '* *' -execdir bash -c 'mv "$1" "${1// /_}"' bash {} \;
+> find ~/music -type d -name '* *' -execdir bash -c 'mv "$1" "${1// /_}"' bash {} \;
 ~~~
 
 ## Useful links
@@ -308,3 +300,4 @@ Setup LEDs, Buttons and [develope the python code](https://tutorials-raspberrypi
 
 [Convert text to MP3](https://www.texttomp3.online) for info about start/stop of some scripts, started by qr code card
 
+[Static IP for the PI](https://www.giga.de/zubehoer/raspberry-pi/tipps/raspberry-pi-statische-ip-adresse-vergeben/)

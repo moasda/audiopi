@@ -4,6 +4,9 @@
 # Description: Steps to intall AudioPI on RaspberryPI
 ##################################################################################
 
+#create folder for audio sources
+sudo mkdir ~/music
+
 #Place autostart script for running at RasbperryPI startup
 sudo cp ~/audiopi/install/audiopi.service /lib/systemd/system/audiopi.service
 
