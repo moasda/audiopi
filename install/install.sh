@@ -5,7 +5,7 @@
 ##################################################################################
 
 #create folder for audio sources
-sudo mkdir ~/music
+mkdir ~/music
 
 #Place autostart script for running at RasbperryPI startup
 sudo cp ~/audiopi/install/audiopi.service /lib/systemd/system/audiopi.service
@@ -29,5 +29,5 @@ sudo systemctl start audiopi.service
 sudo systemctl enable audiopi.service
 
 #Place mocp configuration for USB soundcard
-sudo mkdir ~/.moc
-sudo cp ~/audiopi/install/mocp_config ~/.moc/config
+mkdir ~/.moc
+cp ~/audiopi/install/mocp_config ~/.moc/config
