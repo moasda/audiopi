@@ -29,7 +29,7 @@ def stop():
 #function for button "next song"
 def next_song():
     logging.info("NEXT Song")
-    if check_is_streaming == False:
+    if check_is_streaming() == False:
         if check_is_current_title(LAST_SONG) == True:
             #last track is currently playing -> jump to first track
             subprocess.call(['mocp', '-p'], shell=False)
@@ -40,7 +40,7 @@ def next_song():
 #function for button "previous song"
 def previous_song():
     logging.info("PREVIOUS Song")
-    if check_is_streaming == False:
+    if check_is_streaming() == False:
         if check_is_current_title(FIRST_SONG) == False:
             subprocess.call(['mocp', '-r'], shell=False)
 
