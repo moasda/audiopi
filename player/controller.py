@@ -179,7 +179,7 @@ def main():
     try:
         while True:
             logging.info('Waiting for activity')
-            time.sleep(10)
+            time.sleep(30)
 
             if (mocp.check_mocp_playing() == False) and (shutdown_timer_running == False):
                 shutdown_timer = threading.Timer(900.0, system_shutdown) #shutdown in 15 minutes
