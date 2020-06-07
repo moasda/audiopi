@@ -34,7 +34,7 @@ def sync():
         source_folder =  PATH_MOUNT + filename
         destination_folder = PATH_TARGET + filename.replace(" ", "_")
         print(source_folder + " --> " + destination_folder)
-        cmd = "sudo rsync -rv --delete --exclude '@*' --exclude '#recycle' --exclude '*.ini' '" + source_folder + "/' '" + destination_folder + "/'"
+        cmd = "sudo rsync -rvu --delete --exclude '@*' --exclude '#recycle' --exclude '*.ini' '" + source_folder + "/' '" + destination_folder + "/'"
         os.system(cmd)
 
 #Main function to sync music directory with synology
