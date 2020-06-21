@@ -1,11 +1,15 @@
-
+#!/usr/bin/python3
+import configparser
 import os
 import subprocess
 
-#config
-PATH_SOURCE = "192.168.178.29:/volume2/music/audiobox_laura"
-PATH_TARGET = "/home/pi/music/"
-PATH_MOUNT = "/mnt/syno_music/"
+#load config
+config.read_file(open('~/audiopi.cfg'))
+PATH_SOURCE = config['tools.copy']['PathSource']
+PATH_TARGET = config['tools.copy']['PathTarget']
+PATH_MOUNT = config['tools.copy']['PathMount']
+SOUND_START = config['tools.copy']['AudioStart']
+SOUND_STOP = config['tools.copy']['AudioStop']
 
 #Function to mount sync directory
 def mount():
@@ -39,11 +43,13 @@ def sync():
 
 #Main function to sync music directory with synology
 def main():
+    sudo systemctl stop audiopi.service #stop service, because of shutdown timer
     mount()
-    subprocess.call(['mpg321', '/home/pi/audiopi/sounds/abgleich_daten_startet.mp3'], shell=False)
+    subprocess.call(['mpg321', SOUND_START], shell=False)
     sync()
-    subprocess.call(['mpg321', '/home/pi/audiopi/sounds/abgleich_daten_fertig.mp3'], shell=False)
+    subprocess.call(['mpg321', SOUND_STOP], shell=False)
     unmount()
+    sudo systemctl start audiopi.service
 
 # Driver Code 
 if __name__ == '__main__': 

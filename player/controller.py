@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-
 import RPi.GPIO as GPIO
+import configparser
 import logging
 from logging.handlers import RotatingFileHandler
 import time
@@ -9,23 +9,32 @@ import select  #for polling zbarcam, see http://stackoverflow.com/a/10759061/376
 import threading 
 import mocp #own script
 
-
 #Configuration
-QR_SCANNER_TIMEOUT = 4
-MUSIC_BASE_DIRECTORY = "/home/pi/music/"
-SYSTEM_SOUND_DIRECTORY = "/home/pi/audiopi/sounds/"
-LOG_FILE = "/tmp/audiopi.log"
+config.read_file(open('~/audiopi.cfg'))
 
-BOUNCE_TIME = 800
+MUSIC_BASE_DIRECTORY = config['audiopi']['MusicBaseDirectory']
+SYSTEM_SOUND_DIRECTORY = config['audiopi']['SystemSoundDirectory']
 
-PIN_LED_PHOTO = 23
-PIN_BUTTON_SCAN_PLAY = 18
-PIN_BUTTON_TOGGLE_PLAY = 17
-PIN_BUTTON_VOLUP = 25
-PIN_BUTTON_VOLDOWN = 24
-PIN_BUTTON_NEXT = 22
-PIN_BUTTON_PREVIOUS = 27
-PIN_BUTTON_SHUTDOWN = 3
+SHUTDOWN_TIME = float(config['audiopi']['ShutdownTimer'])
+QR_SCANNER_TIMEOUT = int(config['audiopi']['qrScannerTimeout'])
+ACTIVE_TIMER = int(config['audiopi']['ActivityTimer'])
+
+BOUNCE_TIME_SHUTDOWN = int(config['audiopi']['ButtonBounceTimeShutdown'])
+BOUNCE_TIME_SCAN = int(config['audiopi']['ButtonBounceTimeScan'])
+BOUNCE_TIME_TOGGLE_PLAY = int(config['audiopi']['ButtonBounceTimeTogglePlay'])
+BOUNCE_TIME_NEXT = int(config['audiopi']['ButtonBounceTimeNext'])
+BOUNCE_TIME_PREVIOUS = int(config['audiopi']['ButtonBounceTimePrevious'])
+BOUNCE_TIME_VOLUME_UP = int(config['audiopi']['ButtonBounceTimeVolumeUp'])
+BOUNCE_TIME_VOLUME_DOWN = int(config['audiopi']['ButtonBounceTimeVolumeDown'])
+
+PIN_LED_PHOTO = int(config['audiopi']['PinLedPhoto'])
+PIN_BUTTON_SCAN_PLAY = int(config['audiopi']['PinButtonScan'])
+PIN_BUTTON_TOGGLE_PLAY = int(config['audiopi']['PinButtonTogglePlay'])
+PIN_BUTTON_VOLUP = int(config['audiopi']['PinButtonVolUp'])
+PIN_BUTTON_VOLDOWN = int(config['audiopi']['PinButtonVolDown'])
+PIN_BUTTON_NEXT = int(config['audiopi']['PinButtonNext'])
+PIN_BUTTON_PREVIOUS = int(config['audiopi']['PinButtonPrevious'])
+PIN_BUTTON_SHUTDOWN = int(config['audiopi']['PinButtonShutdown'])
 
 
 #function for button "play/pause"
@@ -158,14 +167,14 @@ def main():
     GPIO.setup(PIN_BUTTON_SCAN_PLAY, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     logging.info("Register events for buttons")
-    GPIO.add_event_detect(PIN_BUTTON_SHUTDOWN, GPIO.FALLING, callback=shutdown_callback, bouncetime=BOUNCE_TIME)
-    GPIO.add_event_detect(PIN_BUTTON_TOGGLE_PLAY, GPIO.FALLING, callback=play_pause_callback, bouncetime=BOUNCE_TIME)
-    GPIO.add_event_detect(PIN_BUTTON_VOLUP, GPIO.FALLING, callback=volup_callback, bouncetime=BOUNCE_TIME)
-    GPIO.add_event_detect(PIN_BUTTON_VOLDOWN, GPIO.FALLING, callback=voldown_callback, bouncetime=BOUNCE_TIME)
-    GPIO.add_event_detect(PIN_BUTTON_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME+1200)
-    GPIO.add_event_detect(PIN_BUTTON_PREVIOUS, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME+1200)
-    BOUNCE_TIME_SCAN = ((QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME + 2000) #Timeouts addieren und in ms umrechnen
-    GPIO.add_event_detect(PIN_BUTTON_SCAN_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=BOUNCE_TIME_SCAN)
+    GPIO.add_event_detect(PIN_BUTTON_SHUTDOWN, GPIO.FALLING, callback=shutdown_callback, bouncetime=BOUNCE_TIME_SHUTDOWN)
+    GPIO.add_event_detect(PIN_BUTTON_TOGGLE_PLAY, GPIO.FALLING, callback=play_pause_callback, bouncetime=BOUNCE_TIME_TOGGLE_PLAY)
+    GPIO.add_event_detect(PIN_BUTTON_VOLUP, GPIO.FALLING, callback=volup_callback, bouncetime=BOUNCE_TIME_VOLUME_UP)
+    GPIO.add_event_detect(PIN_BUTTON_VOLDOWN, GPIO.FALLING, callback=voldown_callback, bouncetime=BOUNCE_TIME_VOLUME_DOWN)
+    GPIO.add_event_detect(PIN_BUTTON_NEXT, GPIO.FALLING, callback=next_callback, bouncetime=BOUNCE_TIME_NEXT)
+    GPIO.add_event_detect(PIN_BUTTON_PREVIOUS, GPIO.FALLING, callback=prev_callback, bouncetime=BOUNCE_TIME_PREVIOUS)
+    bounce_time_for_scan = ((QR_SCANNER_TIMEOUT * 1000) + BOUNCE_TIME_SCAN) #Timeouts addieren und in ms umrechnen
+    GPIO.add_event_detect(PIN_BUTTON_SCAN_PLAY, GPIO.RISING, callback=scan_and_play_callback, bouncetime=bounce_time_for_scan)
 
     #Start mocp server
     mocp.start_server()
@@ -179,10 +188,10 @@ def main():
     try:
         while True:
             logging.info('Waiting for activity')
-            time.sleep(30)
+            time.sleep(ACTIVE_TIMER)
 
             if (mocp.check_mocp_playing() == False) and (shutdown_timer_running == False):
-                shutdown_timer = threading.Timer(900.0, system_shutdown) #shutdown in 15 minutes
+                shutdown_timer = threading.Timer(SHUTDOWN_TIME, system_shutdown)
                 shutdown_timer.start()
                 logging.info('Shutdowntimer started!')
                 shutdown_timer_running = True
