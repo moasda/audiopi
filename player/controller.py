@@ -10,6 +10,7 @@ import threading
 import mocp #own script
 
 #Configuration
+config = configparser.ConfigParser()
 config.read_file(open('~/audiopi.cfg'))
 
 MUSIC_BASE_DIRECTORY = config['audiopi']['MusicBaseDirectory']
