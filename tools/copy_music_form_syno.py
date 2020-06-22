@@ -5,7 +5,7 @@ import subprocess
 
 #load config
 config = configparser.ConfigParser()
-config.read_file(open('~/audiopi.cfg'))
+config.read_file(open('/home/pi/audiopi.cfg'))
 PATH_SOURCE = config['tools.copy']['PathSource']
 PATH_TARGET = config['tools.copy']['PathTarget']
 PATH_MOUNT = config['tools.copy']['PathMount']

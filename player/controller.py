@@ -11,7 +11,7 @@ import mocp #own script
 
 #Configuration
 config = configparser.ConfigParser()
-config.read_file(open('~/audiopi.cfg'))
+config.read_file(open('/home/pi/audiopi.cfg'))
 
 MUSIC_BASE_DIRECTORY = config['audiopi']['MusicBaseDirectory']
 SYSTEM_SOUND_DIRECTORY = config['audiopi']['SystemSoundDirectory']
