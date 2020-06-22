@@ -44,13 +44,13 @@ def sync():
 
 #Main function to sync music directory with synology
 def main():
-    sudo systemctl stop audiopi.service #stop service, because of shutdown timer
+    os.system("sudo systemctl stop audiopi.service") #stop service, because of shutdown timer
     mount()
     subprocess.call(['mpg321', SOUND_START], shell=False)
     sync()
     subprocess.call(['mpg321', SOUND_STOP], shell=False)
     unmount()
-    sudo systemctl start audiopi.service
+    os.system("sudo systemctl start audiopi.service")
 
 # Driver Code 
 if __name__ == '__main__': 
