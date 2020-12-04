@@ -8,7 +8,9 @@
 mkdir ~/music
 
 #Place audiopi config to user home
-cp ~/audiopi/install/audiopi_config.cfg ~/audiopi.cfg
+if ! test -f ~/audiopi.cfg; then
+    cp ~/audiopi/install/audiopi_config.cfg ~/audiopi.cfg
+fi
 
 #Place autostart script for running at RasbperryPI startup
 sudo cp ~/audiopi/install/audiopi.service /lib/systemd/system/audiopi.service
