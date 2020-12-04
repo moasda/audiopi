@@ -298,6 +298,6 @@ Setup LEDs, Buttons and [develope the python code](https://tutorials-raspberrypi
 
 ### Misc:
 
-[Convert text to MP3](https://www.texttomp3.online) for info about start/stop of some scripts, started by qr code card
+[Convert text to MP3](http://www.fromtexttospeech.com/) for info about start/stop of some scripts, started by qr code card
 
 [Static IP for the PI](https://www.giga.de/zubehoer/raspberry-pi/tipps/raspberry-pi-statische-ip-adresse-vergeben/)
