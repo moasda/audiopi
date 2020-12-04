@@ -46,11 +46,13 @@ def sync():
 def main():
     os.system("sudo systemctl stop audiopi.service") #stop service, because of shutdown timer
     mount()
-    subprocess.call(['mpg321', SOUND_START], shell=False)
+    #play sound with 50% loudness (g) and no output (q)
+    subprocess.call(['mpg321', '-q', SOUND_START, '-g', '50'], shell=False)
     sync()
-    subprocess.call(['mpg321', SOUND_STOP], shell=False)
+    subprocess.call(['mpg321', '-q', SOUND_STOP, '-g', '50'], shell=False)
     unmount()
     os.system("sudo systemctl start audiopi.service")
+
 
 # Driver Code 
 if __name__ == '__main__': 
