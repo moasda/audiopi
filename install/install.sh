@@ -33,6 +33,7 @@ sudo systemctl start audiopi.service
 #autostart service while booting
 sudo systemctl enable audiopi.service
 
-#Place mocp configuration for USB soundcard
+#Place mocp configuration for USB soundcard and headphone
 mkdir ~/.moc
 cp ~/audiopi/install/mocp_config ~/.moc/config
+cp ~/audiopi/install/mocp_config_headphone ~/.moc/config_headphone
