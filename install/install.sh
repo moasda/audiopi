@@ -7,7 +7,7 @@
 #create folder for audio sources
 mkdir ~/music
 
-#Place audiopi config to user home
+#Place audiopi config to user home (only when file not exists)
 if ! test -f ~/audiopi.cfg; then
     cp ~/audiopi/install/audiopi_config.cfg ~/audiopi.cfg
 fi
@@ -35,5 +35,13 @@ sudo systemctl enable audiopi.service
 
 #Place mocp configuration for USB soundcard and headphone
 mkdir ~/.moc
+if ! test -f ~/.moc/config; then
+    #create backup
+    cp ~/.moc/config ~/.moc/config_backup
+fi
+if ! test -f ~/.moc/config_headphone; then
+    #create backup
+    cp ~/.moc/config_headphone ~/.moc/config_headphone_backup
+fi
 cp ~/audiopi/install/mocp_config ~/.moc/config
 cp ~/audiopi/install/mocp_config_headphone ~/.moc/config_headphone
