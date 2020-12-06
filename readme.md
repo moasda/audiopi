@@ -35,8 +35,8 @@ Features:
 
 Shopping list for the AudioBox:
 
-|Object|Price|Link|Comment|
-|-|-|-|-|
+| Object | Price | Link | Comment |
+| --- | --- | --- | --- |
 |RASPBERRY PI 2 MODEL B 1 GB RAM|35,49 €|[Conrad](https://www.conrad.de/de/p/raspberry-pi-2-b-1-gb-4-x-0-9-ghz-raspberry-pi-1316978.html)|-|
 |RASPBERRY PI CAMERA V2 8MP IR|29,99 €|[Conrad](https://www.conrad.de/de/p/raspberry-pi-camera-module-v2-8mp-cmos-farb-kameramodul-passend-fuer-raspberry-pi-1438999.html)|I think another camera module for ~5-10 € is also enough! **Important:** It must be a model where you can adjust the focus!|
 |Raspberry PI Netztei (original!):|6,90 €|-|-|
