@@ -27,7 +27,7 @@ Features:
  - (optional) streaming web radio or something else
  - (optional) no radiation through bluetooth or wlan (with RaspberryPi 2)
 
-![AudioBox - Lion](images/overview_1.jpg)
+<img src="images/overview_1.jpg" width="30%">
 
 
 
@@ -35,8 +35,8 @@ Features:
 
 Shopping list for the AudioBox:
 
-|Object|Price|Link|Comment|
-|-|-|-|-|
+| Object | Price | Link | Comment |
+| --- | --- | --- | --- |
 |RASPBERRY PI 2 MODEL B 1 GB RAM|35,49 €|[Conrad](https://www.conrad.de/de/p/raspberry-pi-2-b-1-gb-4-x-0-9-ghz-raspberry-pi-1316978.html)|-|
 |RASPBERRY PI CAMERA V2 8MP IR|29,99 €|[Conrad](https://www.conrad.de/de/p/raspberry-pi-camera-module-v2-8mp-cmos-farb-kameramodul-passend-fuer-raspberry-pi-1438999.html)|I think another camera module for ~5-10 € is also enough! **Important:** It must be a model where you can adjust the focus!|
 |Raspberry PI Netztei (original!):|6,90 €|-|-|
@@ -54,8 +54,8 @@ Shopping list for the AudioBox:
 
 For building and testing the control unit i needed some basic equipment:
 
-|Object|Price|Link|Comment|
-|-|-|-|-|
+| Object | Price | Link | Comment |
+| --- | --- | --- | --- |
 |Abbiegevorrichtung:|2,98 €|[Amazon](https://www.amazon.de/gp/product/B000YIWM18/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
 |Lötkolben:|15,99 €|[Amazon](https://www.amazon.de/gp/product/B07ZWTCR3G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
 |HDMI-Adapter:|7,59 €|[Amazon](https://www.amazon.de/gp/product/B075GZ8DX7/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
@@ -213,14 +213,12 @@ This step is only necessary if our cardnumber not equals 1.
 # 4. Control unit for buttons and LEDs
 Create and test the setup for buttons and LEDs ([see details](https://tutorials-raspberrypi.de/raspberry-pi-gpio-erklaerung-beginner-programmierung-lernen/)):
 
-|||
-|-|-|
-|The plan:|Test the plan:|
+| The plan: | Test the plan: |
+| --- | --- |
 |<img src="images/control_unit_0.jpg" width="100%">|<img src="images/control_unit_1.jpg" width="100%">|
 
-|||
-|-|-|
-|The finale platine:||
+| The finale platine: | |
+| --- | --- |
 |<img src="images/control_unit_2.jpg" width="100%">|<img src="images/control_unit_3.jpg" width="100%">|
 
 #todo: table: Pins & GPIOs on the PI
@@ -230,26 +228,52 @@ Create and test the setup for buttons and LEDs ([see details](https://tutorials-
 Empty box with holes for the buttons, speakers and qr code card.
 I used a metal mosquito screen to protect the speakers.
 
-<img src="images/case_build_1.jpg" width="50%">
+<img src="images/case_build_1.jpg" width="30%">
 
 Building the photobox for the qr code cards.
 
-<img src="images/case_build_1_1.jpg" width="50%">
-<img src="images/case_build_2.jpg" width="50%">
-<img src="images/case_build_3.jpg" width="50%">
-<img src="images/case_build_4.jpg" width="50%">
-<img src="images/case_build_5.jpg" width="50%">
-<img src="images/case_build_6.jpg" width="50%">
-<img src="images/case_build_7.jpg" width="50%">
-<img src="images/case_build_8.jpg" width="50%">
-<img src="images/case_back.jpg" width="50%">
+<img src="images/case_build_1_1.jpg" width="30%">
+
+<img src="images/case_build_2.jpg" width="30%">
+
+<img src="images/case_build_3.jpg" width="30%">
+
+<img src="images/case_build_4.jpg" width="30%">
+
+<img src="images/case_build_5.jpg" width="30%">
+
+<img src="images/case_build_6.jpg" width="30%">
+
+<img src="images/case_build_7.jpg" width="30%">
+
+<img src="images/case_build_8.jpg" width="30%">
+
+<img src="images/case_back.jpg" width="30%">
 
 
 
 # 6. Create qr code cards
 
-https://www.the-qrcode-generator.com/
+Create the qr codes for example with the online tool "([the qrcode generator](https://www.the-qrcode-generator.com))".
 
+
+## Audio cards
+
+@todo
+
+## Special cars
+
+- update system
+  @todo
+
+- sync audio files
+  @todo
+
+- timer
+  @todo
+
+- commands
+  @todo
 
 
 
