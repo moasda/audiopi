@@ -6,11 +6,14 @@ import subprocess
 #load config
 config = configparser.ConfigParser()
 config.read_file(open('/home/pi/audiopi.cfg'))
+WIN_USER = config['tools.copy']['WinUser']
+WIN_PASS = config['tools.copy']['WinPassword']
 PATH_SOURCE = config['tools.copy']['PathSource']
 PATH_TARGET = config['tools.copy']['PathTarget']
 PATH_MOUNT = config['tools.copy']['PathMount']
 SOUND_START = config['tools.copy']['AudioStart']
 SOUND_STOP = config['tools.copy']['AudioStop']
+
 
 #Function to mount sync directory
 def mount():
@@ -20,8 +23,12 @@ def mount():
     cmd = "sudo chmod 755 " + PATH_MOUNT
     os.system(cmd)
     #mount folder from synology to mout point (read only)
-    cmd = "sudo mount -r " + PATH_SOURCE + " " + PATH_MOUNT
+    if WIN_USER != "" and WIN_PASS != "":
+        cmd = "sudo mount -t cifs"+ PATH_SOURCE +" "+ PATH_MOUNT +" -o username=<user>,password=<password>"
+    else:
+        cmd = "sudo mount -r " + PATH_SOURCE + " " + PATH_MOUNT
     os.system(cmd)
+
 
 #Function to unmount sync directory
 def unmount():
@@ -32,6 +39,7 @@ def unmount():
     cmd = "sudo rmdir " + PATH_MOUNT
     os.system(cmd)
 
+
 #Function to sync directory
 def sync():
     for filename in os.listdir(PATH_MOUNT): 
@@ -41,6 +49,7 @@ def sync():
         print(source_folder + " --> " + destination_folder)
         cmd = "sudo rsync -rvu --delete --exclude '@*' --exclude '#recycle' --exclude '*.ini' '" + source_folder + "/' '" + destination_folder + "/'"
         os.system(cmd)
+
 
 #Main function to sync music directory with synology
 def main():
