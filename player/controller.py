@@ -107,12 +107,18 @@ def scan_and_play_callback(channel):
             play_status = True
             
             if qr_code.startswith("cmd://"):
-                command = qr_code[6:]
-                #todo: execute command
+                commands = qr_code[6:]
+                # commands = 'ls -l /home/pi; touch /home/pi/test.txt; ls -l /home/pi; rm /home/pi/test.txt'
+                logging.info("Command: "+ str(commands))
+                for command in commands.split(';'):
+                    subprocess.call(command.strip().split(), shell=False)
+            elif qr_code.startswith("toggleOutput"):
+                mocp.start_server(True)
             elif qr_code.startswith("stream://"):
                 play_stream(qr_code[9:])
             elif qr_code.startswith("timer://"):
                 seconds = qr_code[8:]
+                logging.info("Set timer to "+ seconds +" seconds")
                 timer = threading.Timer(int(seconds), play_fail) 
             elif qr_code != "":
                 #replace blanks with underscore

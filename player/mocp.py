@@ -7,11 +7,33 @@ import glob
 
 FIRST_SONG = ""
 LAST_SONG = ""
+OUTPUT = "~/.moc/config"
+SERVER_RUNNING = False
 
 #function for starting mocp server
-def start_server():
+def start_server(toggleOutput=False):
+    global OUTPUT
+    global SERVER_RUNNING
+    speaker = '~/.moc/config'
+    headphones = '~/.moc/config_headphone'
+    if toggleOutput == True:
+        if OUTPUT == headphones:
+            OUTPUT = speaker
+        else:
+            OUTPUT = headphones
+    if SERVER_RUNNING == True:
+        stop_server()
     logging.info("Start mocp server")
-    subprocess.call(['mocp', '-S'], shell=False)
+    subprocess.call(['mocp', '-S', '-C', OUTPUT], shell=False)
+    SERVER_RUNNING = True
+
+
+#function for stopping mocp server
+def stop_server():
+    global SERVER_RUNNING
+    SERVER_RUNNING = False
+    logging.info("Stop mocp server")
+    subprocess.call(['mocp', '-x'], shell=False)
 
 
 #function for button "play/pause"
