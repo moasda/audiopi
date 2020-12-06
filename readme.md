@@ -54,8 +54,8 @@ Shopping list for the AudioBox:
 
 For building and testing the control unit i needed some basic equipment:
 
-|Object|Price|Link|Comment|
-|-|-|-|-|
+| Object | Price | Link | Comment |
+| --- | --- | --- | --- |
 |Abbiegevorrichtung:|2,98 €|[Amazon](https://www.amazon.de/gp/product/B000YIWM18/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
 |Lötkolben:|15,99 €|[Amazon](https://www.amazon.de/gp/product/B07ZWTCR3G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
 |HDMI-Adapter:|7,59 €|[Amazon](https://www.amazon.de/gp/product/B075GZ8DX7/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&psc=1)|Only needed temporarily. Not needed for product.|
@@ -213,13 +213,13 @@ This step is only necessary if our cardnumber not equals 1.
 # 4. Control unit for buttons and LEDs
 Create and test the setup for buttons and LEDs ([see details](https://tutorials-raspberrypi.de/raspberry-pi-gpio-erklaerung-beginner-programmierung-lernen/)):
 
-|||
-|-|-|
+| | |
+| --- | --- |
 |The plan:|Test the plan:|
 |<img src="images/control_unit_0.jpg" width="100%">|<img src="images/control_unit_1.jpg" width="100%">|
 
-|||
-|-|-|
+| | |
+| --- | --- |
 |The finale platine:||
 |<img src="images/control_unit_2.jpg" width="100%">|<img src="images/control_unit_3.jpg" width="100%">|
 
