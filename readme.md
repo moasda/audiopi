@@ -213,14 +213,12 @@ This step is only necessary if our cardnumber not equals 1.
 # 4. Control unit for buttons and LEDs
 Create and test the setup for buttons and LEDs ([see details](https://tutorials-raspberrypi.de/raspberry-pi-gpio-erklaerung-beginner-programmierung-lernen/)):
 
-| | |
+| The plan: | Test the plan: |
 | --- | --- |
-|The plan:|Test the plan:|
 |<img src="images/control_unit_0.jpg" width="100%">|<img src="images/control_unit_1.jpg" width="100%">|
 
-| | |
+| The finale platine: | |
 | --- | --- |
-|The finale platine:||
 |<img src="images/control_unit_2.jpg" width="100%">|<img src="images/control_unit_3.jpg" width="100%">|
 
 #todo: table: Pins & GPIOs on the PI
@@ -235,21 +233,47 @@ I used a metal mosquito screen to protect the speakers.
 Building the photobox for the qr code cards.
 
 <img src="images/case_build_1_1.jpg" width="50%">
+
 <img src="images/case_build_2.jpg" width="50%">
+
 <img src="images/case_build_3.jpg" width="50%">
+
 <img src="images/case_build_4.jpg" width="50%">
+
 <img src="images/case_build_5.jpg" width="50%">
+
 <img src="images/case_build_6.jpg" width="50%">
+
 <img src="images/case_build_7.jpg" width="50%">
+
 <img src="images/case_build_8.jpg" width="50%">
+
 <img src="images/case_back.jpg" width="50%">
 
 
 
 # 6. Create qr code cards
 
-https://www.the-qrcode-generator.com/
+Create the qr codes for example with the online tool "([the qrcode generator](https://www.the-qrcode-generator.com))".
 
+
+## Audio cards
+
+@todo
+
+## Special cars
+
+- update system
+  @todo
+
+- sync audio files
+  @todo
+
+- timer
+  @todo
+
+- commands
+  @todo
 
 
 
