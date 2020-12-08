@@ -18,7 +18,7 @@ ALSAMixer1 = Speaker
 ALSAMixer2 = Speaker
 
 # Configuration for Headset
-#ALSAdevice = hw:1
+#ALSAdevice = hw:0
 #ALSAMixer1 = Headphone
 #ALSAMixer2 = Headphone
 

@@ -7,15 +7,15 @@ import glob
 
 FIRST_SONG = ""
 LAST_SONG = ""
-OUTPUT = "~/.moc/config"
+OUTPUT = "/home/pi/.moc/config"
 SERVER_RUNNING = False
 
 #function for starting mocp server
 def start_server(toggleOutput=False):
     global OUTPUT
     global SERVER_RUNNING
-    speaker = '~/.moc/config'
-    headphones = '~/.moc/config_headphone'
+    speaker = '/home/pi/.moc/config'
+    headphones = '/home/pi/.moc/config_headphone'
     if toggleOutput == True:
         if OUTPUT == headphones:
             OUTPUT = speaker
