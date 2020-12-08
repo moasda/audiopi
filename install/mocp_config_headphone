@@ -12,6 +12,10 @@
 #
 ALSAStutterDefeat = no
 
+# Getting hw number by one two options:
+# cat /proc/asound/cards
+# aplay -l
+
 # Configuration for USB Soundcard
 #ALSAdevice = hw:1
 #ALSAMixer1 = Speaker
@@ -19,8 +23,10 @@ ALSAStutterDefeat = no
 
 # Configuration for Headset
 ALSAdevice = hw:0
-ALSAMixer1 = Headphone
-ALSAMixer2 = Headphone
+ALSAMixer1 = PCM
+ALSAMixer2 = PCM
+#ALSAMixer1 = Headphone
+#ALSAMixer2 = Headphone
 
 #take ALSA driver
 SoundDriver = ALSA
