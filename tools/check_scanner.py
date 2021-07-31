@@ -7,13 +7,9 @@ import subprocess
 import select  #for polling zbarcam, see http://stackoverflow.com/a/10759061/3761783
 import threading 
 
-
 #Configuration
 QR_SCANNER_TIMEOUT = 4
-BOUNCE_TIME = 800
-
 PIN_LED_PHOTO = 23
-
 
 #Main function
 def main():
@@ -25,9 +21,6 @@ def main():
     GPIO.setmode(GPIO.BCM)
     #setup and turn LED on for photo
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.HIGH)
-
-    logging.info("Start mocp server")
-    subprocess.call(['mocp', '-S'], shell=False)
 
     logging.info('Start scanning')
     try:
@@ -50,20 +43,17 @@ def main():
                     
                     if qr_code.startswith("cmd://"):
                         logging.info("--> do system activity")
-                        exit(0)
+                        break
                     elif qr_code.startswith("stream://"):
                         logging.info("--> Stream music")
                         url = qr_code[9:]
-                        subprocess.call(['mocp', '-c', url], shell=False)
-                        subprocess.call(['mocp', '-a', url], shell=False)
-                        subprocess.call(['mocp', '-p'], shell=False)
-                        exit(0)
+                        break
                     elif qr_code.startswith("timer://"):
                         logging.info("--> Set timer")
-                        exit(0)
+                        break
                     elif qr_code != "":
                         logging.info("--> Play music")
-                        exit(0)
+                        break
                 else:
                     logging.warning('Timeout on zbarcam')
 

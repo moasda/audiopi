@@ -1,1 +1,6 @@
+# videos
 *.mp4
+
+# not relevant images
+images/2020*.jpg
+images/20200112_151712.jpg

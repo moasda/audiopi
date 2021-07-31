@@ -6,6 +6,7 @@ PIN_LED_PHOTO = 23
 
 #Main function
 def main():
+    GPIO.setwarnings(False) 
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIN_LED_PHOTO, GPIO.OUT, initial=GPIO.LOW)
 

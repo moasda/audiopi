@@ -261,7 +261,7 @@ Create the qr codes for example with the online tool "([the qrcode generator](ht
 
 @todo
 
-## Special cars
+## Special cards
 
 - update system
   @todo
