@@ -1,6 +1,7 @@
 # videos
 *.mp4
 
-# not relevant images
+# not relevant files
 images/2020*.jpg
 images/20200112_151712.jpg
+desktop.ini

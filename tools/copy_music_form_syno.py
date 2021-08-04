@@ -22,9 +22,9 @@ def mount():
     os.system(cmd)
     cmd = "sudo chmod 755 " + PATH_MOUNT
     os.system(cmd)
-    #mount folder from synology to mout point (read only)
-    if WIN_USER != "" and WIN_PASS != "":
-        cmd = "sudo mount -t cifs"+ PATH_SOURCE +" "+ PATH_MOUNT +" -o username=<user>,password=<password>"
+    #mount folder from unix (NAS) or Windows share to mout point (read only)
+    if WIN_USER != "":
+        cmd = "sudo mount.cifs "+ PATH_SOURCE +" "+ PATH_MOUNT +" -o user="+ WIN_USER +",pass="+ WIN_PASS +",ro"
     else:
         cmd = "sudo mount -r " + PATH_SOURCE + " " + PATH_MOUNT
     os.system(cmd)
