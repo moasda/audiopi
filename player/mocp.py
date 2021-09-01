@@ -36,6 +36,15 @@ def stop_server():
     subprocess.call(['mocp', '-x'], shell=False)
 
 
+#function for toggling "repeat" (title)
+def repeat(activate):
+    logging.info("TOGGLE Play/Pause")
+    if activate == True:
+        subprocess.call(['mocp', '-o', 'repeat'], shell=False)
+    else:
+        subprocess.call(['mocp', '-u', 'repeat'], shell=False)
+
+
 #function for button "play/pause"
 def toggle_play_pause():
     logging.info("TOGGLE Play/Pause")
@@ -54,7 +63,7 @@ def next_song():
     if check_is_streaming() == False:
         if check_is_current_title(LAST_SONG) == True:
             #last track is currently playing -> jump to first track
-            subprocess.call(['mocp', '-p'], shell=False)
+            restart_playlist()
         else:
             subprocess.call(['mocp', '-f'], shell=False)
 
@@ -77,6 +86,12 @@ def volume_up():
 def volume_down():
     logging.info("VOLUME DOWN")
     subprocess.call(['mocp', '-v', '-5'], shell=False)
+
+
+#function for restarting playlist (from beginning)
+def restart_playlist():
+    logging.info("Restart playlist")
+    subprocess.call(['mocp', '-p'], shell=False)
 
 
 #function for playing sounds

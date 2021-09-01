@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 import RPi.GPIO as GPIO
 import configparser
 import logging
@@ -37,9 +38,15 @@ PIN_BUTTON_NEXT = int(config['audiopi']['PinButtonNext'])
 PIN_BUTTON_PREVIOUS = int(config['audiopi']['PinButtonPrevious'])
 PIN_BUTTON_SHUTDOWN = int(config['audiopi']['PinButtonShutdown'])
 
+#global variables
+loop_folder_counter = 0
 
 #function for button "play/pause"
 def play_pause_callback(channel):
+    #reset functions: loop counter, title repeat
+    global loop_folder_counter
+    loop_folder_counter = 0
+    mocp.repeat(False)
     mocp.toggle_play_pause()
 
 
@@ -81,6 +88,8 @@ def play_stream(url):
 
 #function to scan and play
 def scan_and_play_callback(channel):
+    global loop_folder_counter
+
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
 
@@ -107,26 +116,39 @@ def scan_and_play_callback(channel):
             play_status = True
             
             if qr_code.startswith("cmd://"):
+                #cards for music update or system update
                 commands = qr_code[6:]
-                # commands = 'ls -l /home/pi; touch /home/pi/test.txt; ls -l /home/pi; rm /home/pi/test.txt'
+                #example: commands = 'ls -l /home/pi; touch /home/pi/test.txt; ls -l /home/pi; rm /home/pi/test.txt'
                 logging.info("Command: "+ str(commands))
                 for command in commands.split(';'):
                     subprocess.call(command.strip().split(), shell=False)
             elif qr_code.startswith("toggleOutput"):
                 mocp.start_server(True)
             elif qr_code.startswith("stream://"):
+                #card for streaming (radio)
                 play_stream(qr_code[9:])
+            elif qr_code.startswith("loop_folder://"):
+                #card for loop whole folder
+                loop_couter_string = qr_code[14:]
+                if loop_couter_string.isnumeric():
+                    loop_folder_counter = loop_couter_string
+                else:
+                    loop_folder_counter = 1
+                logging.info("Loop folder for "+ loop_folder_counter +" times")
+            elif qr_code.startswith("loop_title"):
+                logging.info("Loop title")
+                mocp.repeat(True)
             elif qr_code.startswith("timer://"):
+                #card for setting timeout to shutdown system (sleep timer)
                 seconds = qr_code[8:]
                 logging.info("Set timer to "+ seconds +" seconds")
                 timer = threading.Timer(int(seconds), play_fail) 
             elif qr_code != "":
+                #try to play the given string
                 #replace blanks with underscore
                 qr_code = qr_code.replace(" ", "_")
-                #create full path
                 full_path = MUSIC_BASE_DIRECTORY + qr_code
                 logging.info("full_music_path: " + full_path)
-                #play
                 play(full_path)
             else:
                 play_status = False
@@ -159,6 +181,8 @@ def system_shutdown():
 
 #Main function
 def main():
+    global loop_title_counter
+
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
     logging.info('Initializing')
 
@@ -198,10 +222,16 @@ def main():
             time.sleep(ACTIVE_TIMER)
 
             if (mocp.check_mocp_playing() == False) and (shutdown_timer_running == False):
-                shutdown_timer = threading.Timer(SHUTDOWN_TIME, system_shutdown)
-                shutdown_timer.start()
-                logging.info('Shutdowntimer started!')
-                shutdown_timer_running = True
+                #check loop folder
+                if loop_folder_counter > 0:
+                    #start playing from beginning
+                    mocp.restart_playlist()
+                    loop_folder_counter = loop_folder_counter - 1
+                else:
+                    shutdown_timer = threading.Timer(SHUTDOWN_TIME, system_shutdown)
+                    shutdown_timer.start()
+                    logging.info('Shutdowntimer started!')
+                    shutdown_timer_running = True
             elif (mocp.check_mocp_playing() == True) and (shutdown_timer_running == True):
                 shutdown_timer.cancel()
                 logging.info('Shutdowntimer canceled!')
@@ -209,7 +239,7 @@ def main():
 
     #Exit when Ctrl-C is pressed
     except KeyboardInterrupt:
-        logging.info('Shutdown')
+        logging.info('Shutdown by Ctrl-C')
         
     finally:
         logging.info('Reset GPIO configuration and close process! AudioPi says goodbye...')
