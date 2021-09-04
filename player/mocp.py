@@ -38,11 +38,15 @@ def stop_server():
 
 #function for toggling "repeat" (title)
 def repeat(activate):
-    logging.info("TOGGLE Play/Pause")
+    logging.info("Repeat set to: "+ activate)
+    #Parameter: -u=off, -o=on
+    #Options: n=autonext, r=repeat, s=shuffle
     if activate == True:
-        subprocess.call(['mocp', '-o', 'repeat'], shell=False)
+        #autonext=off, repeat=on : mocp -u n -o r 
+        subprocess.call(['mocp', '-u', 'n', '-o', 'r'], shell=False)
     else:
-        subprocess.call(['mocp', '-u', 'repeat'], shell=False)
+        #autonext=on, repeat=off : mocp -u n -o r 
+        subprocess.call(['mocp', '-u', 'r', '-o', 'n'], shell=False)
 
 
 #function for button "play/pause"
