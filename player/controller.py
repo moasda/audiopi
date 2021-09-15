@@ -55,24 +55,21 @@ def play_pause_callback(channel):
 #function for button "next song"
 def next_callback(channel):
     mocp.next_song()
-    logging.info("TEST channel next: "+ str(channel))
+
 
 #function for button "previous song"
 def prev_callback(channel):
     mocp.previous_song()
-    logging.info("TEST channel prev: "+ str(channel))
 
 
 #function for button "volume up"
 def volup_callback(channel):
     mocp.volume_up()
-    logging.info("TEST channel volup: "+ str(channel))
 
 
 #function for button "volume down"
 def voldown_callback(channel):
     mocp.volume_down()
-    logging.info("TEST channel voldown: "+ str(channel))
 
 
 #function for playing sounds
