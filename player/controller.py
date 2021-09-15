@@ -55,7 +55,7 @@ def play_pause_callback(channel):
 #function for button "next song"
 def next_callback(channel):
     mocp.next_song()
-
+    logging.info("TEST: "+ str(channel))
 
 #function for button "previous song"
 def prev_callback(channel):

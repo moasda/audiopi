@@ -26,6 +26,8 @@ def start_server(toggleOutput=False):
     logging.info("Start mocp server")
     subprocess.call(['mocp', '-S', '-C', OUTPUT], shell=False)
     SERVER_RUNNING = True
+    #init volume
+    subprocess.call(['mocp', '-v', '60'], shell=False)
 
 
 #function for stopping mocp server
