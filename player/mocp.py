@@ -38,7 +38,7 @@ def stop_server():
 
 #function for toggling "repeat" (title)
 def repeat(activate):
-    logging.info("Repeat set to: "+ activate)
+    logging.info("Repeat activate: "+ activate)
     #Parameter: -u=off, -o=on
     #Options: n=autonext, r=repeat, s=shuffle
     if activate == True:

@@ -39,15 +39,17 @@ PIN_BUTTON_PREVIOUS = int(config['audiopi']['PinButtonPrevious'])
 PIN_BUTTON_SHUTDOWN = int(config['audiopi']['PinButtonShutdown'])
 
 #global variables
-loop_folder_counter = 0
+LOOP_FOLDER_COUNTER = 0
 
 #function for button "play/pause"
 def play_pause_callback(channel):
-    #reset functions: loop counter, title repeat
-    global loop_folder_counter
-    loop_folder_counter = 0
-    mocp.repeat(False)
+    #reset function: loop counter
+    global LOOP_FOLDER_COUNTER
+    LOOP_FOLDER_COUNTER = 0
+    #do main function
     mocp.toggle_play_pause()
+    #reset function: title repeat
+    mocp.repeat(False)
 
 
 #function for button "next song"
@@ -88,7 +90,7 @@ def play_stream(url):
 
 #function to scan and play
 def scan_and_play_callback(channel):
-    global loop_folder_counter
+    global LOOP_FOLDER_COUNTER
 
     #turn LED on for photo
     GPIO.output(PIN_LED_PHOTO, GPIO.HIGH)
@@ -131,10 +133,10 @@ def scan_and_play_callback(channel):
                 #card for loop whole folder
                 loop_couter_string = qr_code[14:]
                 if loop_couter_string.isnumeric():
-                    loop_folder_counter = loop_couter_string
+                    LOOP_FOLDER_COUNTER = loop_couter_string
                 else:
-                    loop_folder_counter = 1
-                logging.info("Loop folder for "+ loop_folder_counter +" times")
+                    LOOP_FOLDER_COUNTER = 1
+                logging.info("Loop folder for "+ LOOP_FOLDER_COUNTER +" times")
             elif qr_code.startswith("loop_title"):
                 logging.info("Loop title")
                 mocp.repeat(True)
@@ -181,7 +183,7 @@ def system_shutdown():
 
 #Main function
 def main():
-    global loop_title_counter
+    global LOOP_FOLDER_COUNTER
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
     logging.info('Initializing')
@@ -223,10 +225,10 @@ def main():
 
             if (mocp.check_mocp_playing() == False) and (shutdown_timer_running == False):
                 #check loop folder
-                if loop_folder_counter > 0:
+                if LOOP_FOLDER_COUNTER > 0:
+                    LOOP_FOLDER_COUNTER = LOOP_FOLDER_COUNTER - 1
                     #start playing from beginning
                     mocp.restart_playlist()
-                    loop_folder_counter = loop_folder_counter - 1
                 else:
                     shutdown_timer = threading.Timer(SHUTDOWN_TIME, system_shutdown)
                     shutdown_timer.start()
